@@ -5,7 +5,6 @@ $homeTitle = (string)($homePage['meta_title'] ?? 'Victoria Dury — Où ça bloq
 $homeDescription = (string)($homePage['meta_description'] ?? 'Quiz de diagnostic gratuit : identifiez votre blocage probable, puis réservez directement votre Diagnostic Express à 290 €.');
 ?>
 <!DOCTYPE html>
-
 <html lang="fr">
 <head>
 <meta charset="utf-8"/>
