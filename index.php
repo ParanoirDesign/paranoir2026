@@ -1,16 +1,23 @@
+<?php
+require_once __DIR__ . '/includes/cms-data.php';
+$homePage = cms_page('home') ?? [];
+$homeTitle = (string)($homePage['meta_title'] ?? 'Victoria Dury — Où ça bloque vraiment ?');
+$homeDescription = (string)($homePage['meta_description'] ?? 'Quiz de diagnostic gratuit : identifiez votre blocage probable, puis réservez directement votre Diagnostic Express à 290 €.');
+?>
 <!DOCTYPE html>
 
 <html lang="fr">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Victoria Dury — Où ça bloque vraiment ?</title>
-<meta content="Quiz de diagnostic gratuit : identifiez votre blocage probable, puis réservez directement votre Diagnostic Express à 290 €." name="description"/>
+<title><?php echo cms_e($homeTitle); ?></title>
+<meta content="<?php echo cms_e($homeDescription); ?>" name="description"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Sora:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="/assets/css/site.css"></head>
-<body>
+<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="stylesheet" href="/assets/css/components.css"></head>
+<body class="site-home">
 <div aria-hidden="true" class="three-bg">
 <canvas id="clarityCanvas"></canvas>
 </div>
