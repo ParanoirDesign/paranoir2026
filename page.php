@@ -31,6 +31,9 @@ if (!$page || ($page['status'] ?? 'draft') !== 'published') {
 
 $pageTitle = (string)($page['meta_title'] ?? $page['title'] ?? 'Paranoir Studio');
 $pageDescription = (string)($page['meta_description'] ?? '');
+$pageContent = (string)($page['content'] ?? '');
+$pageContent = html_entity_decode($pageContent, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+
 include __DIR__ . '/includes/site-head.php';
 include __DIR__ . '/includes/site-nav.php';
 ?>
@@ -41,7 +44,7 @@ include __DIR__ . '/includes/site-nav.php';
     <p class="intro page-intro"><?= cms_e((string)$page['intro']) ?></p>
   <?php endif; ?>
   <section class="card card-glass wysiwyg">
-    <?= (string)($page['content'] ?? '') ?>
+    <?= $pageContent ?>
   </section>
 </main>
 <?php include __DIR__ . '/includes/site-footer.php'; ?>
