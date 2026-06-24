@@ -1,3 +1,5 @@
+<?php echo "INDEX PHP OK"; exit; ?>
+
 <!DOCTYPE html>
 
 <html lang="fr">
