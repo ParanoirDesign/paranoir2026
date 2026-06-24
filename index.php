@@ -349,7 +349,7 @@
 <?php include __DIR__ . '/includes/site-footer.php'; ?>
 </div>
 <script type="module" src="/assets/js/home-three.js"></script>
-<script src="/assets/js/home.js"></script>
+<script src="/assets/js/site.js"></script>
 <button class="admin-toggle" data-edit="page_modifier" id="adminToggle" type="button">Modifier</button>
 <aside aria-label="Panneau d’édition" class="admin-panel collapsed" id="adminPanel">
 <div class="admin-head">
