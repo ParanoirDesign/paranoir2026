@@ -24,6 +24,8 @@ function sanitize_content(array $data): array {
         'booleans' => [],
         'boolean_labels' => [],
         'field_labels' => [],
+        'settings' => [],
+        'pages' => [],
     ];
 
     foreach (($data['texts'] ?? []) as $key => $value) {
@@ -64,6 +66,59 @@ function sanitize_content(array $data): array {
         $safe['field_labels'][$key] = is_string($value) ? trim($value) : '';
     }
 
+
+    // Paramètres globaux : navigation et footer éditables.
+    $settings = $data['settings'] ?? [];
+    if (is_array($settings)) {
+        $safe['settings']['site_name'] = trim((string)($settings['site_name'] ?? 'Paranoir Studio')) ?: 'Paranoir Studio';
+        $safe['settings']['footer_baseline'] = trim((string)($settings['footer_baseline'] ?? 'Paranoir Studio — Clarifier avant de construire.')) ?: 'Paranoir Studio — Clarifier avant de construire.';
+
+        $safe['settings']['nav'] = [];
+        foreach (($settings['nav'] ?? []) as $item) {
+            if (!is_array($item)) continue;
+            $label = trim((string)($item['label'] ?? ''));
+            $url = trim((string)($item['url'] ?? '#'));
+            $type = (string)($item['type'] ?? 'link');
+            if ($label === '') continue;
+            $safe['settings']['nav'][] = [
+                'label' => $label,
+                'url' => $url !== '' ? $url : '#',
+                'type' => $type === 'cta' ? 'cta' : 'link',
+            ];
+        }
+
+        $safe['settings']['footer_links'] = [];
+        foreach (($settings['footer_links'] ?? []) as $item) {
+            if (!is_array($item)) continue;
+            $label = trim((string)($item['label'] ?? ''));
+            $url = trim((string)($item['url'] ?? '#'));
+            if ($label === '') continue;
+            $safe['settings']['footer_links'][] = [
+                'label' => $label,
+                'url' => $url !== '' ? $url : '#',
+            ];
+        }
+    }
+
+    // Pages CMS : volontairement extensible pour permettre + Nouvelle page.
+    foreach (($data['pages'] ?? []) as $key => $page) {
+        if (!is_array($page)) continue;
+        $slug = strtolower(trim((string)($page['slug'] ?? $key)));
+        $slug = preg_replace('/[^a-z0-9\-]/', '-', $slug);
+        $slug = trim((string)preg_replace('/-+/', '-', (string)$slug), '-');
+        if ($slug === '') continue;
+        $safe['pages'][$slug] = [
+            'slug' => $slug,
+            'title' => trim((string)($page['title'] ?? 'Nouvelle page')) ?: 'Nouvelle page',
+            'meta_title' => trim((string)($page['meta_title'] ?? '')),
+            'meta_description' => trim((string)($page['meta_description'] ?? '')),
+            'kicker' => trim((string)($page['kicker'] ?? '')),
+            'intro' => trim((string)($page['intro'] ?? '')),
+            'content' => is_string($page['content'] ?? '') ? (string)$page['content'] : '',
+            'status' => (($page['status'] ?? 'draft') === 'published') ? 'published' : 'draft',
+        ];
+    }
+
     return $safe;
 }
 
@@ -85,12 +140,18 @@ function merge_safe(array $base, array $stored): array {
         'booleans' => array_merge($base['booleans'], $stored['booleans']),
         'boolean_labels' => array_merge($base['boolean_labels'], $stored['boolean_labels']),
         'field_labels' => array_merge($base['field_labels'], $stored['field_labels']),
+        'settings' => array_replace_recursive($base['settings'] ?? [], $stored['settings'] ?? []),
+        'pages' => array_replace_recursive($base['pages'] ?? [], $stored['pages'] ?? []),
     ];
 }
 
 function sanitize_for_current_site(array $input): array {
     $base = sanitize_content(get_default_content());
-    return keep_known_keys(sanitize_content($input), $base);
+    $clean = sanitize_content($input);
+    $known = keep_known_keys($clean, $base);
+    $known['settings'] = $clean['settings'] ?? ($base['settings'] ?? []);
+    $known['pages'] = $clean['pages'] ?? ($base['pages'] ?? []);
+    return $known;
 }
 
 $action = $_GET['action'] ?? $_POST['action'] ?? '';
