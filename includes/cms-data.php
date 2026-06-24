@@ -5,6 +5,18 @@ require_once __DIR__ . '/../config.php';
 
 function cms_default_pages(): array {
     return [
+        'home' => [
+            'slug' => 'home',
+            'title' => 'Accueil',
+            'meta_title' => 'Victoria Dury — Où ça bloque vraiment ?',
+            'meta_description' => 'Quiz de diagnostic gratuit : identifiez votre blocage probable, puis réservez directement votre Diagnostic Express à 290 €.',
+            'kicker' => 'Diagnostic & clarté',
+            'intro' => 'Page d’accueil principale du site. Cette page utilise encore le template index.php pendant la migration vers le CMS complet.',
+            'content' => '<p>La home est enregistrée comme page CMS système. Son contenu visuel complet reste piloté par index.php pendant la migration progressive du design system.</p>',
+            'template' => 'home',
+            'system' => true,
+            'status' => 'published'
+        ],
         'mentions-legales' => [
             'slug' => 'mentions-legales',
             'title' => 'Mentions légales',
