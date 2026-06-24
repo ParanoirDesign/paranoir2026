@@ -1,4 +1,4 @@
-name: Patch index CMS
+name: Patch admin pages first
 
 on:
   workflow_dispatch:
@@ -11,25 +11,35 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Update index
+      - name: Update admin
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          p = Path('index.php')
+          import re
+          p = Path('admin.php')
           s = p.read_text(encoding='utf-8')
-          if "cms_page('home')" not in s:
-              s = "<?php\nrequire_once __DIR__ . '/includes/cms-data.php';\n$homePage = cms_page('home') ?? [];\n$homeTitle = (string)($homePage['meta_title'] ?? 'Victoria Dury — Où ça bloque vraiment ?');\n$homeDescription = (string)($homePage['meta_description'] ?? 'Quiz de diagnostic gratuit : identifiez votre blocage probable, puis réservez directement votre Diagnostic Express à 290 €.');\n?>\n" + s
-          s = s.replace('<title>Victoria Dury — Où ça bloque vraiment ?</title>', '<title><?php echo cms_e($homeTitle); ?></title>', 1)
-          s = s.replace('<meta content="Quiz de diagnostic gratuit : identifiez votre blocage probable, puis réservez directement votre Diagnostic Express à 290 €." name="description"/>', '<meta content="<?php echo cms_e($homeDescription); ?>" name="description"/>', 1)
-          if '/assets/css/components.css' not in s:
-              s = s.replace('<link rel="stylesheet" href="/assets/css/site.css"></head>', '<link rel="stylesheet" href="/assets/css/site.css">\n<link rel="stylesheet" href="/assets/css/components.css"></head>', 1)
-          s = s.replace('<body>', '<body class="site-home">', 1)
+          tabs = '''<div class="tabs">
+      <button class="tab active" data-tab="pages">Pages du site</button>
+      <button class="tab" data-tab="settings">Nav + footer</button>
+      <button class="tab" data-tab="preview">Previsualisation</button>
+      <button class="tab" data-tab="texts">Accueil - textes avances</button>
+      <button class="tab" data-tab="ctas">Accueil - boutons + liens</button>
+      <button class="tab" data-tab="images">Accueil - images</button>
+      <button class="tab" data-tab="booleans">Accueil - tableau</button>
+      <button class="tab" data-tab="json">JSON</button>
+    </div>
+
+    <div class="card">'''
+          s = re.sub(r'<div class="tabs">.*?</div>\s*\n\s*<div class="card">', tabs, s, count=1, flags=re.S)
+          s = s.replace('<div class="section active" data-section="texts">', '<div class="section" data-section="texts">', 1)
+          s = s.replace('<div class="section" data-section="pages">', '<div class="section active" data-section="pages">', 1)
+          s = s.replace('let selectedPageSlug = null;', 'let selectedPageSlug = "home";', 1)
           p.write_text(s, encoding='utf-8')
           PY
       - name: Commit
         run: |
           git config user.name actions
           git config user.email actions@github.com
-          git add index.php
-          git commit -m "Brancher index sur home CMS" || exit 0
+          git add admin.php
+          git commit -m "Mettre Pages en premier dans l admin" || exit 0
           git push
