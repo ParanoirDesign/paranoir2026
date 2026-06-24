@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 session_start();
-require __DIR__ . '/config.php';
+require_once __DIR__ . '/includes/cms-data.php';
 
 function is_logged_in(): bool { return !empty($_SESSION['cms_admin']); }
 
@@ -12,8 +12,7 @@ function require_admin(): void {
 }
 
 function get_default_content(): array {
-    $file = __DIR__ . '/default-content.json';
-    return file_exists($file) ? (json_decode(file_get_contents($file), true) ?: []) : [];
+    return cms_default_content();
 }
 
 function sanitize_content(array $data): array {
@@ -31,8 +30,6 @@ function sanitize_content(array $data): array {
     foreach (($data['texts'] ?? []) as $key => $value) {
         if (!is_string($key)) continue;
 
-        // CORRECTIF CRITIQUE :
-        // On ne laisse jamais le CMS modifier des conteneurs structurels.
         if (preg_match('/^(div|section|article|main|nav|header|footer|canvas|script|style)_/i', $key)) {
             continue;
         }
@@ -66,8 +63,6 @@ function sanitize_content(array $data): array {
         $safe['field_labels'][$key] = is_string($value) ? trim($value) : '';
     }
 
-
-    // Paramètres globaux : navigation et footer éditables.
     $settings = $data['settings'] ?? [];
     if (is_array($settings)) {
         $safe['settings']['site_name'] = trim((string)($settings['site_name'] ?? 'Paranoir Studio')) ?: 'Paranoir Studio';
@@ -100,7 +95,6 @@ function sanitize_content(array $data): array {
         }
     }
 
-    // Pages CMS : volontairement extensible pour permettre + Nouvelle page.
     foreach (($data['pages'] ?? []) as $key => $page) {
         if (!is_array($page)) continue;
         $slug = strtolower(trim((string)($page['slug'] ?? $key)));
@@ -115,6 +109,8 @@ function sanitize_content(array $data): array {
             'kicker' => trim((string)($page['kicker'] ?? '')),
             'intro' => trim((string)($page['intro'] ?? '')),
             'content' => is_string($page['content'] ?? '') ? (string)$page['content'] : '',
+            'template' => trim((string)($page['template'] ?? 'default')) ?: 'default',
+            'system' => !empty($page['system']),
             'status' => (($page['status'] ?? 'draft') === 'published') ? 'published' : 'draft',
         ];
     }
@@ -150,7 +146,7 @@ function sanitize_for_current_site(array $input): array {
     $clean = sanitize_content($input);
     $known = keep_known_keys($clean, $base);
     $known['settings'] = $clean['settings'] ?? ($base['settings'] ?? []);
-    $known['pages'] = $clean['pages'] ?? ($base['pages'] ?? []);
+    $known['pages'] = array_replace_recursive($base['pages'] ?? [], $clean['pages'] ?? []);
     return $known;
 }
 
@@ -217,32 +213,6 @@ try {
             'message' => 'Modifications publiées avec succès',
             'saved_at' => date('H:i:s'),
             'data' => $input
-        ]);
-    }
-
-    if ($action === 'cleanup') {
-        require_admin();
-
-        $stmt = db()->prepare("SELECT content_value FROM cms_content WHERE content_key = 'site_content' LIMIT 1");
-        $stmt->execute();
-        $row = $stmt->fetch();
-
-        $stored = $row ? (json_decode((string)$row['content_value'], true) ?: []) : [];
-        $clean = sanitize_for_current_site($stored);
-
-        $content = json_encode($clean, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
-
-        $save = db()->prepare("
-            INSERT INTO cms_content (content_key, content_value)
-            VALUES ('site_content', :content)
-            ON DUPLICATE KEY UPDATE content_value = VALUES(content_value)
-        ");
-        $save->execute(['content' => $content]);
-
-        json_response([
-            'ok' => true,
-            'message' => 'BDD nettoyée : clés structurelles supprimées',
-            'data' => $clean
         ]);
     }
 
