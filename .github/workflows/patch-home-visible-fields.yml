@@ -1,0 +1,61 @@
+name: Patch home visible fields
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Connect home visible fields
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          p = Path('index.php')
+          s = p.read_text(encoding='utf-8')
+
+          if "$homeHeroTitle" not in s:
+              s = s.replace(
+                  "$homeDescription = (string)($homePage['meta_description'] ?? 'Quiz de diagnostic gratuit : identifiez votre blocage probable, puis réservez directement votre Diagnostic Express à 290 €.');\n",
+                  "$homeDescription = (string)($homePage['meta_description'] ?? 'Quiz de diagnostic gratuit : identifiez votre blocage probable, puis réservez directement votre Diagnostic Express à 290 €.');\n$homeHeroTitle = (string)($homePage['title'] ?? 'Avant d\'investir encore, vérifiez d\'abord où ça bloque.');\n$homeKicker = (string)($homePage['kicker'] ?? 'Victoria Dury — Directrice Conseil');\n$homeIntro = (string)($homePage['intro'] ?? 'Moins de demandes, message confus, site qui ne convertit pas : avant de refaire une énième action visible, commencez par identifier la couche qui bloque vraiment — offre, message, positionnement ou parcours.');\n",
+                  1,
+              )
+
+          s = s.replace(
+              '<div class="eyebrow" data-edit="hero_victoria_dury_directrice_conseil"><span class="dot"></span>Victoria Dury — Directrice Conseil</div>',
+              '<div class="eyebrow" data-edit="hero_victoria_dury_directrice_conseil"><span class="dot"></span><?php echo cms_e($homeKicker); ?></div>',
+              1,
+          )
+
+          s = s.replace(
+              '<h1 data-edit="heroTitle">Avant d\'investir encore, vérifiez d\'abord <span class="highlight">où ça bloque.</span></h1>',
+              '<h1 data-edit="heroTitle"><?php echo cms_e($homeHeroTitle); ?></h1>',
+              1,
+          )
+
+          old_intro = '''<p class="sub" data-edit="heroSub">
+          Moins de demandes, message confus, site qui ne convertit pas :
+          avant de refaire une énième action visible, commencez par identifier
+          <span class="marker">la couche qui bloque vraiment</span>
+          — offre, message, positionnement ou parcours.
+        </p>'''
+          s = s.replace(
+              old_intro,
+              '<p class="sub" data-edit="heroSub"><?php echo nl2br(cms_e($homeIntro)); ?></p>',
+              1,
+          )
+
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit
+        run: |
+          git config user.name actions
+          git config user.email actions@github.com
+          git add index.php
+          git commit -m "Brancher champs visibles home CMS" || exit 0
+          git push
