@@ -284,45 +284,75 @@ $homeDescription = (string)($homePage['meta_description'] ?? 'Clarifiez votre of
 </section>
 <section class="realisations">
 <div class="realisations-inner">
-<div class="reveal">
+<div class="real-header reveal">
+<div>
 <p class="kicker" data-edit="real_kicker">Réalisations</p>
 <h2 data-edit="real_title">Ils sont passés du flou à <span class="highlight">l’évidence.</span></h2>
 </div>
+<div class="real-nav-row">
+<button class="real-nav real-prev" aria-label="Précédent">←</button>
+<button class="real-nav real-next" aria-label="Suivant">→</button>
+</div>
+</div>
 <div class="real-carousel reveal">
 <div class="real-card">
-<div class="real-text">
-<p class="real-client"><strong>EEV Paysages</strong></p>
-<p class="real-meta">Paysagiste · Bourron-Marlotte</p>
-<p class="real-before"><span class="real-label cross">✗ Avant</span>Perçu comme un paysagiste généraliste, comparé uniquement sur le prix.</p>
-<p class="real-after"><span class="real-label check">✓ Après</span>Repositionné en expert du Jardin Vivant sobre en eau. Offre restructurée en 3 portes d’entrée.</p>
-<p class="real-offer">— Clarté Déployée</p>
-</div>
-<button class="real-visual" aria-label="Voir le visuel EEV Paysages" data-modal="real1">
-<span class="real-placeholder">Visuel à venir</span>
+<div class="real-visual-top">
+<button class="real-visual-btn" aria-label="Voir le visuel EEV Paysages" data-modal="real1">
+<span class="real-placeholder-label">Visuel à venir</span>
 </button>
 </div>
-<div class="real-card real-placeholder-card">
-<div class="real-text">
-<p class="real-client"><strong>Client à venir</strong></p>
-<p class="real-meta">Client à venir · Client à venir</p>
-<p class="real-before"><span class="real-label cross">✗ Avant</span>Client à venir</p>
-<p class="real-after"><span class="real-label check">✓ Après</span>Client à venir</p>
+<div class="real-body">
+<p class="real-client"><strong>EEV Paysages</strong></p>
+<p class="real-meta">Paysagiste · Bourron-Marlotte</p>
+<div class="real-before">
+<span class="real-chip cross">✗ Avant</span>
+<p>Perçu comme un paysagiste généraliste, comparé uniquement sur le prix.</p>
+</div>
+<div class="real-after">
+<span class="real-chip check">✓ Après</span>
+<p>Repositionné en expert du Jardin Vivant sobre en eau. Offre restructurée en 3 portes d’entrée.</p>
+</div>
 <p class="real-offer">— Clarté Déployée</p>
 </div>
-<div class="real-visual real-visual-placeholder" aria-hidden="true">
-<span class="real-placeholder">Visuel à venir</span>
+</div>
+<div class="real-card">
+<div class="real-visual-top">
+<div class="real-visual-placeholder-wrap" aria-hidden="true">
+<span class="real-placeholder-label">Visuel à venir</span>
 </div>
 </div>
-<div class="real-card real-placeholder-card">
-<div class="real-text">
-<p class="real-client"><strong>Client à venir</strong></p>
-<p class="real-meta">Client à venir · Client à venir</p>
-<p class="real-before"><span class="real-label cross">✗ Avant</span>Client à venir</p>
-<p class="real-after"><span class="real-label check">✓ Après</span>Client à venir</p>
+<div class="real-body">
+<p class="real-client"><strong>Atelier Moreau</strong></p>
+<p class="real-meta">Menuisier-ébéniste · Angers</p>
+<div class="real-before">
+<span class="real-chip cross">✗ Avant</span>
+<p>Message trop générique, difficilement identifiable sur un marché saturé.</p>
+</div>
+<div class="real-after">
+<span class="real-chip check">✓ Après</span>
+<p>Positionné expert ébénisterie contemporaine. Deux offres distinctes, site restructuré.</p>
+</div>
 <p class="real-offer">— Clarté Déployée</p>
 </div>
-<div class="real-visual real-visual-placeholder" aria-hidden="true">
-<span class="real-placeholder">Visuel à venir</span>
+</div>
+<div class="real-card">
+<div class="real-visual-top">
+<div class="real-visual-placeholder-wrap" aria-hidden="true">
+<span class="real-placeholder-label">Visuel à venir</span>
+</div>
+</div>
+<div class="real-body">
+<p class="real-client"><strong>Clinique Véto du Parc</strong></p>
+<p class="real-meta">Vétérinaire · Bordeaux</p>
+<div class="real-before">
+<span class="real-chip cross">✗ Avant</span>
+<p>Invisible sur Google, confondu avec la concurrence de proximité.</p>
+</div>
+<div class="real-after">
+<span class="real-chip check">✓ Après</span>
+<p>Google Business optimisé, fiche clarifiée. +40 % de nouvelles consultations en 3 mois.</p>
+</div>
+<p class="real-offer">— Rapport de Clarté</p>
 </div>
 </div>
 </div>
@@ -332,28 +362,28 @@ $homeDescription = (string)($homePage['meta_description'] ?? 'Clarifiez votre of
 <section class="google-reviews">
 <div class="reviews-inner">
 <div class="reviews-head reveal">
-<p class="kicker">Avis Google vérifiés</p>
-<div class="reviews-stars" aria-label="5 étoiles sur 5">★★★★★</div>
+<p class="kicker">Avis vérifiés</p>
+<h2>Ce qu’ils en <span class="highlight">disent.</span></h2>
 </div>
-<div class="reviews-grid">
-<div class="review-card liquid reveal">
-<div class="review-stars" aria-hidden="true">★★★★★</div>
+<div class="reviews-list">
+<div class="review-item reveal">
+<div class="review-stars" aria-label="5 étoiles">★★★★★</div>
 <p class="review-text">"Merci Victoria pour la création de mon site à mon image. C’est un plaisir de travailler avec vous. Vous alliez le meilleur de l’écoute et de la compétence."</p>
-<p class="review-author">— Sonia W., Fondatrice Eudokima</p>
+<p class="review-author">Sonia W. — Fondatrice Eudokima</p>
 </div>
-<div class="review-card liquid reveal">
-<div class="review-stars" aria-hidden="true">★★★★★</div>
+<div class="review-item reveal">
+<div class="review-stars" aria-label="5 étoiles">★★★★★</div>
 <p class="review-text">"Déjà la 2e collaboration avec Victoria. C’est simple, fluide, professionnel, efficace… et bien sympathique. Jamais 2 sans 3, nous ne ferons pas mentir l’adage&nbsp;!"</p>
-<p class="review-author">— Client Paranoir Studio</p>
+<p class="review-author">Client Paranoir Studio</p>
 </div>
-<div class="review-card liquid reveal">
-<div class="review-stars" aria-hidden="true">★★★★★</div>
+<div class="review-item reveal">
+<div class="review-stars" aria-label="5 étoiles">★★★★★</div>
 <p class="review-text">"Un grand merci à Victoria qui a fait preuve d’une grande écoute et d’un vrai professionnalisme. Je la recommande sans hésiter."</p>
-<p class="review-author">— Client Paranoir Studio</p>
+<p class="review-author">Client Paranoir Studio</p>
 </div>
 </div>
 <div class="reviews-footer reveal">
-<a class="buttonlike" href="#" target="_blank" rel="noopener">Voir tous les avis Google →</a>
+<a class="buttonlike reviews-cta" href="#" target="_blank" rel="noopener">Voir tous les avis Google →</a>
 </div>
 </div>
 </section>

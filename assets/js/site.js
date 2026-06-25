@@ -9,6 +9,29 @@ const reveals = document.querySelectorAll(".reveal");
     }, { threshold: .13 });
     reveals.forEach(el => io.observe(el));
 
+    // Réalisations carousel
+    (function(){
+      const track = document.querySelector('.real-carousel');
+      const prevBtn = document.querySelector('.real-prev');
+      const nextBtn = document.querySelector('.real-next');
+      if(!track || !prevBtn || !nextBtn) return;
+      function slideWidth(){
+        const card = track.querySelector('.real-card');
+        if(!card) return 300;
+        const gap = parseFloat(getComputedStyle(track).gap) || 20;
+        return card.offsetWidth + gap;
+      }
+      prevBtn.addEventListener('click', () => track.scrollBy({left: -slideWidth(), behavior:'smooth'}));
+      nextBtn.addEventListener('click', () => track.scrollBy({left: slideWidth(), behavior:'smooth'}));
+      function updateNav(){
+        prevBtn.disabled = track.scrollLeft < 8;
+        nextBtn.disabled = track.scrollLeft + track.offsetWidth >= track.scrollWidth - 8;
+      }
+      track.addEventListener('scroll', updateNav, {passive:true});
+      window.addEventListener('resize', updateNav);
+      updateNav();
+    })();
+
 
     const quiz = document.getElementById("growthQuiz");
     const steps = quiz ? Array.from(quiz.querySelectorAll(".quiz-step")) : [];
