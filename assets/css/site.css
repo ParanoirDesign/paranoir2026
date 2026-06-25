@@ -1,5 +1,6 @@
 /* CSS global du site. Remplace progressivement home.css. */
 :root{
+      /* Couleurs de base */
       --paper:#f7f1e8;
       --paper2:#eadccd;
       --cream:#fffaf2;
@@ -12,11 +13,44 @@
       --carmine2:#df2d55;
       --rose:#f7c0cc;
       --glass:rgba(255,255,255,.52);
+
+      /* Alpha — carmine */
+      --carmine-8:rgba(177,18,53,.08);
+      --carmine-13:rgba(177,18,53,.13);
+      --carmine-18:rgba(177,18,53,.18);
+      --carmine-22:rgba(177,18,53,.22);
+
+      /* Alpha — ink */
+      --ink-6:rgba(25,18,16,.06);
+      --ink-8:rgba(25,18,16,.08);
+      --ink-10:rgba(25,18,16,.10);
+      --ink-12:rgba(25,18,16,.12);
+      --ink-48:rgba(25,18,16,.48);
+
+      /* Alpha — blanc */
+      --white-50:rgba(255,255,255,.50);
+      --white-65:rgba(255,255,255,.65);
+      --white-80:rgba(255,255,255,.80);
+
+      /* Espacement — règle de 8 */
+      --sp-1:8px;
+      --sp-2:16px;
+      --sp-3:24px;
+      --sp-4:32px;
+      --sp-5:40px;
+      --sp-6:48px;
+      --sp-8:64px;
+      --sp-10:80px;
+      --sp-12:96px;
+
+      /* Layout */
       --max:1220px;
       --gutter:clamp(20px,4vw,56px);
+
+      /* Typographie */
       --title:"Sora",system-ui,sans-serif;
       --body:"Poppins",system-ui,sans-serif;
-      --highlight:"Gemola",Georgia,"Times New Roman",serif;
+      --highlight:"Italiana",Georgia,"Times New Roman",serif;
     }
 
     *{box-sizing:border-box}
