@@ -7,19 +7,19 @@
     "heroOfferText": "Un test rapide pour vérifier si vous êtes en train de corriger le bon problème.",
     "heroOfferPrice": "0 €",
     "quizTitle": "Répondez à 5 questions. Voyez si vous regardez le bon problème.",
-    "offerTitle": "Diagnostic Express",
-    "offerPrice": "290 €",
-    "offerLine": "60 minutes.<br/>Une hypothèse solide.<br/>Trois priorités.",
+    "offerTitle": "Rapport de Clarté",
+    "offerPrice": "Gratuit",
+    "offerLine": "Une visio. Une hypothèse claire.<br/>Vos prochaines décisions.",
     "finalTitle": "Avant de refaire votre site, vérifiez que c'est bien <span class=\"highlight\">le problème.</span>",
     "finalText": "Commencez par le test de clarté. En quelques questions, vous vérifiez si votre blocage vient plutôt de l’offre, du message, du positionnement ou du parcours.",
     "brand": "Victoria Dury",
     "heroCta": "Faire le test de clarté <span>→</span>",
-    "offerCta": "Réserver mon Diagnostic Express <span>→</span>",
-    "finalCta": "Réserver mon Diagnostic Express <span>→</span>",
+    "offerCta": "Obtenir mon Rapport de Clarté <span>→</span>",
+    "finalCta": "Obtenir mon Rapport de Clarté <span>→</span>",
     "nav_methode": "Méthode",
     "nav_test_de_clarte": "Test de clarté",
     "hero_victoria_dury_directrice_conseil": "<span class=\"dot\"></span>Victoria Dury — Directrice Conseil",
-    "hero_3_minutes_gratuit_resultat_personnalise_puis_": "3 minutes · Gratuit · Résultat personnalisé · puis paiement direct 290 €",
+    "hero_3_minutes_gratuit_resultat_personnalise_puis_": "3 minutes · Gratuit · Rapport de Clarté remis en visio",
     "hero_dossier_ouvert_enquete_strategique": "<span>Dossier ouvert</span>\n<span>Enquête stratégique</span>",
     "hero_moins_de_prospects_symptome_visible": "<strong>Moins de prospects</strong><span>symptôme visible</span>",
     "hero_le_site_hypothese_eliminee": "<strong>Le site ?</strong><span>hypothèse éliminée</span>",
@@ -37,7 +37,7 @@
     "proof_une_methode_pour_eviter_de_poser_du_design_du": "Une méthode pour éviter de poser du design, du contenu ou du budget sur une offre encore floue.",
     "statement_votre_probleme_visible_n_est_peut_etre_qu_un_": "Votre problème visible n’est peut-être qu’un <span class=\"highlight\">symptôme</span>.<br/>Le test de clarté sert à vérifier.",
     "quiz_test_de_clarte_gratuit": "Test de clarté gratuit",
-    "quiz_ce_n_est_pas_un_formulaire_de_contact_c_est_u": "Ce n’est pas un formulaire de contact. C’est un filtre stratégique.\n          Vous avancez question par question, on élimine les fausses pistes,\n          puis vous accédez à un paiement du Diagnostic Express à 290 € si le sujet mérite d’être creusé.",
+    "quiz_ce_n_est_pas_un_formulaire_de_contact_c_est_u": "Ce n’est pas un formulaire de contact. C’est un filtre stratégique.\n          Vous avancez question par question, on élimine les fausses pistes,\n          et vous repartez avec votre Rapport de Clarté — remis en visio, gratuitement.",
     "quiz_site_message_offre_parcours": "<span class=\"orbit-center\">?</span>\n<span class=\"orbit-pill p1\">site</span>\n<span class=\"orbit-pill p2\">message</span>\n<span class=\"orbit-pill p3\">offre</span>\n<span class=\"orbit-pill p4\">parcours</span>",
     "quiz_question_1_5": "Question <strong id=\"quizCurrent\">1</strong>/5",
     "quiz_hypothese_en_cours_on_commence_par_le_symptom": "<span>Hypothèse en cours</span>\n<strong id=\"diagnosticHint\">On commence par le symptôme visible.</strong>",
@@ -47,8 +47,8 @@
     "quiz_a_quel_point_etes_vous_sur_du_vrai_probleme": "À quel point êtes-vous sûr du vrai problème ?",
     "quiz_ou_voulez_vous_recevoir_la_suite": "Où voulez-vous recevoir la suite ?",
     "quiz_facultatif": "facultatif",
-    "quiz_apres_validation_votre_resultat_s_affiche_dir": "Après validation, votre résultat s’affiche directement. Le Diagnostic Express devient la suite si vous voulez confirmer l’hypothèse.",
-    "quiz_suite_logique_diagnostic_express_290_60_minut": "<small>Suite logique</small>\n<strong>Diagnostic Express — 290 €</strong>\n<span>60 minutes + restitution claire pour confirmer la cause probable et prioriser les prochaines actions.</span>",
+    "quiz_apres_validation_votre_resultat_s_affiche_dir": "Après validation, votre résultat s’affiche directement. Votre Rapport de Clarté vous est ensuite remis en visio — gratuitement.",
+    "quiz_suite_logique_diagnostic_express_290_60_minut": "<small>Prochaine étape</small>\n<strong>Rapport de Clarté — Gratuit</strong>\n<span>Une visio pour confirmer la cause probable et repartir avec vos priorités claires.</span>",
     "quiz_retour": "← Retour",
     "quiz_continuer": "Continuer →",
     "quiz_voir_mon_resultat": "Voir mon résultat →",
@@ -69,7 +69,7 @@
     "method_on_echange_60_minutes_structurees_sur_les_sym": "<strong>On échange</strong><span>60 minutes structurées sur les symptômes, contraintes et tests déjà faits.</span>",
     "method_vous_recevez_une_restitution_loom_ou_pdf_avec": "<strong>Vous recevez</strong><span>Une restitution Loom ou PDF avec la cause probable et vos 3 priorités.</span>",
     "offer_suite_possible": "Suite possible",
-    "offer_reserver_mon_diagnostic_express": "Réserver mon Diagnostic Express <span>→</span>",
+    "offer_reserver_mon_diagnostic_express": "Obtenir mon Rapport de Clarté <span>→</span>",
     "offer_paiement_unique_pas_d_abonnement_restitution_": "Paiement unique · Pas d’abonnement · Restitution claire",
     "offer_la_cause_la_plus_probable_formulee_clairement": "<strong>La cause la plus probable</strong><span>Formulée clairement, à partir des indices et des preuves disponibles.</span>",
     "offer_les_points_de_friction_identifies_sur_votre_o": "<strong>Les points de friction identifiés</strong><span>Sur votre offre, votre message, votre positionnement ou votre parcours.</span>",
@@ -85,22 +85,22 @@
     "faq_pourquoi_commencer_par_un_test_de_clarte_grat": "Pourquoi commencer par un test de clarté gratuit ?",
     "faq_parce_qu_avant_de_parler_d_offre_de_site_ou_d": "Parce qu’avant de parler d’offre, de site ou de budget, il faut vérifier que le problème mérite bien un diagnostic. Le test de clarté sert à qualifier votre situation et à éviter de partir sur la mauvaise piste.",
     "faq_que_se_passe_t_il_apres_le_quiz": "Que se passe-t-il après le quiz ?",
-    "faq_vous_voyez_un_resultat_personnalise_si_vous_v": "Vous voyez un résultat personnalisé. Si vous voulez confirmer la cause probable et repartir avec vos priorités, vous pouvez réserver directement le Diagnostic Express à 290 €.",
+    "faq_vous_voyez_un_resultat_personnalise_si_vous_v": "Vous voyez un résultat personnalisé. Votre Rapport de Clarté vous est ensuite remis en visio — gratuit — pour confirmer la cause probable et repartir avec vos priorités.",
     "faq_faut_il_deja_avoir_un_site": "Faut-il déjà avoir un site ?",
     "faq_non_le_point_de_depart_peut_etre_une_offre_un": "Non. Le point de départ peut être une offre, un discours commercial, une page LinkedIn, une baisse de demandes ou une impression générale de flou.",
     "faq_et_si_mon_probleme_est_plus_strategique_que_p": "Et si mon problème est plus stratégique que prévu ?",
     "faq_je_vous_le_dirai_clairement_le_but_n_est_pas_": "Je vous le dirai clairement. Le but n’est pas d’empiler des prestations, mais de comprendre quelle décision doit venir ensuite.",
-    "final_3_minutes_gratuit_resultat_personnalise_puis_": "3 minutes · Gratuit · Résultat personnalisé · puis paiement direct 290 €",
+    "final_3_minutes_gratuit_resultat_personnalise_puis_": "3 minutes · Gratuit · Rapport de Clarté remis en visio",
     "comparison_les_trois_offres": "Les trois offres",
     "comparison_trois_niveaux_d_intervention_une_seule_logiqu": "Trois niveaux d’intervention. Une seule logique : clarifier avant d’agir.",
-    "comparison_le_quiz_reste_un_outil_d_entree_gratuit_les_o": "Le quiz reste un outil d’entrée gratuit. Les offres payantes montent en profondeur :\n            diagnostic rapide, diagnostic complet, puis formation de l’équipe. Simple. Presque suspect,\n            tant c’est rare.",
-    "comparison_offre_d_appel_diagnostic_express_290": "<small>Offre d’appel</small>\n<strong>Diagnostic Express</strong>\n<span>290 €</span>",
-    "comparison_offre_complete_diagnostic_de_croissance_990": "<small>Offre complète</small>\n<strong>Diagnostic de Croissance</strong>\n<span>990 €</span>",
-    "comparison_offre_premium_formation_clarte_4_990": "<small>Offre premium</small>\n<strong>Formation Clarté</strong>\n<span>4 990 €</span>",
-    "comparison_le_bon_point_d_entree_reste_le_diagnostic_exp": "<strong>Le bon point d’entrée reste le Diagnostic Express.</strong> Il confirme la cause probable avant de partir sur une offre plus large ou une formation.",
-    "comparison_reserver_mon_diagnostic_express": "Réserver mon Diagnostic Express <span>→</span>",
+    "comparison_le_quiz_reste_un_outil_d_entree_gratuit_les_o": "Le point d’entrée, c’est le Rapport de Clarté. Gratuit. Remis en visio. Ensuite, si le sujet mérite d’aller plus loin, deux offres prolongent le travail.",
+    "comparison_offre_rapport_de_clarte_gratuit": "<small>Point d’entrée</small>\n<strong>Rapport de Clarté</strong>\n<span>Gratuit</span>",
+    "comparison_offre_clarte_deployee_990": "<small>Offre intermédiaire</small>\n<strong>Clarté Déployée</strong>\n<span>990 € HT</span>",
+    "comparison_offre_formation_clarte_2990": "<small>Offre formation</small>\n<strong>Formation Clarté</strong>\n<span>2 990 € HT</span>",
+    "comparison_le_bon_point_d_entree_reste_le_rapport_de_clarte": "<strong>Le bon point d’entrée, c’est le Rapport de Clarté.</strong> Gratuit, remis en visio — il confirme la cause probable avant de décider si une suite est utile.",
+    "comparison_obtenir_mon_rapport_de_clarte": "Obtenir mon Rapport de Clarté <span>→</span>",
     "footer_victoria_dury_quiz_diagnostic_clarte": "Victoria Dury — Quiz diagnostic & Clarté",
-    "footer_quiz_gratuit_diagnostic_express_formation_cla": "Quiz gratuit · Diagnostic Express · Formation Clarté",
+    "footer_quiz_gratuit_diagnostic_express_formation_cla": "Quiz gratuit · Rapport de Clarté · Formation Clarté",
     "page_modifier": "Modifier",
     "page_mode_edition_modifiez_les_textes_liens_images": "<strong>Mode édition</strong>\n<span>Modifiez les textes, liens, images et cases du tableau. Les changements publics passent par api.php et sont chargés depuis la BDD.</span>",
     "page_textes": "Textes",
@@ -144,12 +144,12 @@
       "url": "#prediagnostic"
     },
     "offerCta": {
-      "label": "Réserver mon Diagnostic Express <span>→</span>",
-      "url": "#"
+      "label": "Obtenir mon Rapport de Clarté <span>→</span>",
+      "url": "#prediagnostic"
     },
     "finalCta": {
-      "label": "Réserver mon Diagnostic Express <span>→</span>",
-      "url": "#"
+      "label": "Obtenir mon Rapport de Clarté <span>→</span>",
+      "url": "#prediagnostic"
     },
     "heroCtaLink": {
       "label": "",
@@ -168,12 +168,12 @@
       "url": "#prediagnostic"
     },
     "offer_reserver_mon_diagnostic_express": {
-      "label": "Réserver mon Diagnostic Express <span>→</span>",
-      "url": "#"
+      "label": "Obtenir mon Rapport de Clarté <span>→</span>",
+      "url": "#prediagnostic"
     },
-    "comparison_reserver_mon_diagnostic_express": {
-      "label": "Réserver mon Diagnostic Express <span>→</span>",
-      "url": "#"
+    "comparison_obtenir_mon_rapport_de_clarte": {
+      "label": "Obtenir mon Rapport de Clarté <span>→</span>",
+      "url": "#prediagnostic"
     }
   },
   "images": {

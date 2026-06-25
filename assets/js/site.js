@@ -90,7 +90,7 @@ const reveals = document.querySelectorAll(".reveal");
       }
 
       if (quizResult) {
-        quizResult.innerHTML = `<strong>${label}</strong><br>${message}<br><br><span class="marker">Prochaine étape : vérifier cette hypothèse en paiement du Diagnostic Express à 290 €.</span>`;
+        quizResult.innerHTML = `<strong>${label}</strong><br>${message}<br><br><span class="marker">Prochaine étape : confirmer cette hypothèse avec votre Rapport de Clarté — gratuit, remis en visio.</span>`;
         quizResult.classList.add("active");
       }
       if (resultCta) resultCta.classList.add("active");
