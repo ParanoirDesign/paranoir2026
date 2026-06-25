@@ -27,7 +27,7 @@ $currentUsername = htmlspecialchars($currentUser['username'] ?? '', ENT_QUOTES, 
   <div id="login" class="login card<?= $isLoggedIn ? ' hidden' : '' ?>">
     <h1>Connexion</h1>
     <label>Identifiant</label><input id="user" autocomplete="username">
-    <label>Mot de passe</label><input id="pass" type="password" autocomplete="current-password">
+    <label>Mot de passe</label><div class="pass-wrap"><input id="pass" type="password" autocomplete="current-password"><button type="button" class="pass-toggle" aria-label="Afficher le mot de passe" data-toggle="pass">👁</button></div>
     <div class="actions"><button class="red" id="loginBtn">Se connecter</button></div>
   </div>
 
@@ -87,7 +87,7 @@ $currentUsername = htmlspecialchars($currentUser['username'] ?? '', ENT_QUOTES, 
         <h2 class="mini-title">Creer un acces</h2>
         <div class="grid">
           <div class="field-card"><label>Identifiant</label><input id="newUsername" placeholder="prenom.client" autocomplete="off"></div>
-          <div class="field-card"><label>Mot de passe</label><input id="newPassword" type="password" placeholder="6 caracteres min." autocomplete="new-password"></div>
+          <div class="field-card"><label>Mot de passe</label><div class="pass-wrap"><input id="newPassword" type="password" placeholder="6 caracteres min." autocomplete="new-password"><button type="button" class="pass-toggle" aria-label="Afficher le mot de passe" data-toggle="newPassword">👁</button></div></div>
           <div class="field-card"><label>Role</label><select id="newRole"><option value="client">Client (pages assignees seulement)</option><option value="admin">Admin (acces complet)</option></select></div>
         </div>
         <div class="actions"><button class="red" id="createUserBtn" type="button">Creer l'acces</button></div>
@@ -98,9 +98,9 @@ $currentUsername = htmlspecialchars($currentUser['username'] ?? '', ENT_QUOTES, 
       <div class="section" data-section="account">
         <h2 class="mini-title">Changer mon mot de passe</h2>
         <div class="grid">
-          <div class="field-card"><label>Mot de passe actuel</label><input id="currentPassword" type="password" autocomplete="current-password"></div>
-          <div class="field-card"><label>Nouveau mot de passe</label><input id="newPasswordAccount" type="password" autocomplete="new-password" placeholder="6 caracteres min."></div>
-          <div class="field-card"><label>Confirmer</label><input id="confirmPassword" type="password" autocomplete="new-password" placeholder="Identique au precedent"></div>
+          <div class="field-card"><label>Mot de passe actuel</label><div class="pass-wrap"><input id="currentPassword" type="password" autocomplete="current-password"><button type="button" class="pass-toggle" aria-label="Afficher le mot de passe" data-toggle="currentPassword">👁</button></div></div>
+          <div class="field-card"><label>Nouveau mot de passe</label><div class="pass-wrap"><input id="newPasswordAccount" type="password" autocomplete="new-password" placeholder="6 caracteres min."><button type="button" class="pass-toggle" aria-label="Afficher le mot de passe" data-toggle="newPasswordAccount">👁</button></div></div>
+          <div class="field-card"><label>Confirmer</label><div class="pass-wrap"><input id="confirmPassword" type="password" autocomplete="new-password" placeholder="Identique au precedent"><button type="button" class="pass-toggle" aria-label="Afficher le mot de passe" data-toggle="confirmPassword">👁</button></div></div>
         </div>
         <div class="actions"><button class="red" id="changePasswordBtn" type="button">Changer le mot de passe</button></div>
       </div>
@@ -748,6 +748,16 @@ document.getElementById('createUserBtn')?.addEventListener('click', async () => 
   } else {
     toast('error', res.error || 'Erreur');
   }
+});
+
+document.addEventListener('click', e => {
+  const btn = e.target.closest('.pass-toggle');
+  if(!btn) return;
+  const input = document.getElementById(btn.dataset.toggle);
+  if(!input) return;
+  const show = input.type === 'password';
+  input.type = show ? 'text' : 'password';
+  btn.textContent = show ? '🙈' : '👁';
 });
 
 <?php if ($isLoggedIn): ?>
