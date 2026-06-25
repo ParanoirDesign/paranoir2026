@@ -571,7 +571,6 @@ document.getElementById("applyJsonBtn").addEventListener("click", () => {
   }
 });
 
-document.getElementById("textSearch").addEventListener("input", renderTexts);
 
 document.querySelectorAll(".tab").forEach(tab => {
   tab.addEventListener("click", () => {
