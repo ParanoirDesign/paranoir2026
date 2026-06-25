@@ -1192,6 +1192,15 @@
       line-height:1.45;
     }
     .cell-note{display:none!important}
+    .comparison-table tr.group-header td{
+      background:rgba(25,18,16,.045);
+      font:800 10.5px var(--body,system-ui,sans-serif);
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      color:var(--muted);
+      padding:10px 20px;
+      border-bottom:1px solid rgba(25,18,16,.10);
+    }
     .comparison-cta{
       display:flex;
       justify-content:space-between;
@@ -1550,6 +1559,124 @@
       outline:2px dashed rgba(177,18,53,.26);
       outline-offset:4px;
     }
+    /* ── Réalisations ────────────────────────────────────────────────── */
+    .realisations{
+      padding:clamp(80px,10vw,140px) clamp(20px,6vw,80px);
+      background:var(--cream,#fffaf2);
+    }
+    .realisations-inner{
+      max-width:1160px;
+      margin:0 auto;
+      display:grid;
+      gap:52px;
+    }
+    .real-carousel{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:24px;
+    }
+    .real-card{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:20px;
+      background:rgba(255,255,255,.72);
+      border:1px solid rgba(25,18,16,.10);
+      border-radius:28px;
+      padding:32px 28px;
+      backdrop-filter:blur(18px);
+      box-shadow:0 12px 40px rgba(25,18,16,.07);
+      transition:box-shadow .2s;
+    }
+    .real-card:hover{box-shadow:0 20px 56px rgba(25,18,16,.12)}
+    .real-placeholder-card{opacity:.42;pointer-events:none}
+    .real-text{display:grid;gap:12px;align-content:start}
+    .real-client{font-size:17px;line-height:1.2}
+    .real-meta{color:var(--muted);font-size:13px}
+    .real-before,.real-after{font-size:14.5px;line-height:1.55;color:var(--ink2)}
+    .real-offer{color:var(--carmine);font-size:13px;font-weight:700;margin-top:4px}
+    .real-label{
+      display:inline-block;
+      margin-right:8px;
+      font:800 10.5px var(--body,system-ui,sans-serif);
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      padding:3px 8px;
+      border-radius:999px;
+    }
+    .real-label.check{background:rgba(177,18,53,.10);color:var(--carmine)}
+    .real-label.cross{background:rgba(25,18,16,.07);color:var(--muted)}
+    .real-visual{
+      width:120px;
+      height:120px;
+      border-radius:18px;
+      background:rgba(25,18,16,.06);
+      border:1px solid rgba(25,18,16,.10);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+      cursor:pointer;
+      transition:background .18s;
+    }
+    .real-visual:hover{background:rgba(25,18,16,.10)}
+    .real-visual-placeholder{cursor:default}
+    .real-placeholder{font-size:11px;color:var(--muted);text-align:center}
+    @media(max-width:640px){
+      .real-card{grid-template-columns:1fr;gap:16px}
+      .real-visual{width:100%;height:80px}
+    }
+    /* ── Google Reviews ──────────────────────────────────────────────── */
+    .google-reviews{
+      padding:clamp(80px,10vw,140px) clamp(20px,6vw,80px);
+      background:linear-gradient(160deg,rgba(255,250,242,.6) 0%,rgba(255,255,255,.4) 100%);
+    }
+    .reviews-inner{
+      max-width:1160px;
+      margin:0 auto;
+      display:grid;
+      gap:48px;
+    }
+    .reviews-head{
+      display:flex;
+      align-items:center;
+      gap:20px;
+    }
+    .reviews-stars{
+      font-size:22px;
+      color:#f4b400;
+      letter-spacing:2px;
+    }
+    .reviews-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:20px;
+    }
+    .review-card{
+      background:rgba(255,255,255,.72);
+      border:1px solid rgba(25,18,16,.10);
+      border-radius:28px;
+      padding:32px 28px;
+      display:grid;
+      gap:14px;
+      backdrop-filter:blur(18px);
+      box-shadow:0 12px 40px rgba(25,18,16,.07);
+    }
+    .review-stars{color:#f4b400;font-size:18px;letter-spacing:2px}
+    .review-text{font-size:15.5px;line-height:1.65;color:var(--ink2);font-style:italic}
+    .review-author{font-size:13px;font-weight:700;color:var(--muted)}
+    .reviews-footer{text-align:center}
+    a.buttonlike{
+      display:inline-block;
+      padding:14px 28px;
+      border-radius:999px;
+      border:2px solid rgba(25,18,16,.18);
+      font:700 14px var(--body,system-ui,sans-serif);
+      color:var(--ink);
+      transition:border-color .18s,background .18s;
+      text-decoration:none;
+    }
+    a.buttonlike:hover{border-color:var(--carmine);color:var(--carmine)}
+
     .front-edit-badge{
       position:absolute;
       z-index:9996;

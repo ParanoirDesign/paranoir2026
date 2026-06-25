@@ -2,7 +2,7 @@
 require_once __DIR__ . '/includes/cms-data.php';
 $homePage = cms_page('home') ?? [];
 $homeTitle = (string)($homePage['meta_title'] ?? 'Victoria Dury — Où ça bloque vraiment ?');
-$homeDescription = (string)($homePage['meta_description'] ?? 'Quiz de diagnostic gratuit : identifiez votre blocage probable, puis réservez directement votre Diagnostic Express à 290 €.');
+$homeDescription = (string)($homePage['meta_description'] ?? 'Clarifiez votre offre, votre message et votre positionnement avant d\'investir. Rapport de Clarté gratuit remis en visio.');
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -31,7 +31,7 @@ $homeDescription = (string)($homePage['meta_description'] ?? 'Quiz de diagnostic
 </nav>
 <section class="hero">
 <div class="reveal">
-<div class="eyebrow" data-edit="hero_victoria_dury_directrice_conseil"><span class="dot"></span>Victoria Dury — Directrice Conseil</div>
+<div class="eyebrow" data-edit="hero_victoria_dury_directrice_conseil"><span class="dot"></span>Nous aidons les entreprises à devenir plus faciles à comprendre.</div>
 <h1 data-edit="heroTitle">Avant d'investir encore, vérifiez d'abord <span class="highlight">où ça bloque.</span></h1>
 <p class="sub" data-edit="heroSub">
           Moins de demandes, message confus, site qui ne convertit pas :
@@ -41,7 +41,7 @@ $homeDescription = (string)($homePage['meta_description'] ?? 'Quiz de diagnostic
         </p>
 <div class="hero-actions">
 <a class="cta" data-edit="heroCta" data-link-edit="heroCta" href="#prediagnostic">Faire le test de clarté <span>→</span></a>
-<p class="micro" data-edit="hero_3_minutes_gratuit_resultat_personnalise_puis_">3 minutes · Gratuit · Résultat personnalisé · puis paiement direct 290 €</p>
+<p class="micro" data-edit="hero_3_minutes_gratuit_resultat_personnalise_puis_">3 minutes · Gratuit · Rapport de Clarté remis en visio</p>
 </div>
 </div>
 <div class="reveal">
@@ -82,7 +82,7 @@ $homeDescription = (string)($homePage['meta_description'] ?? 'Quiz de diagnostic
 <section class="proof">
 <div class="liquid proof-item reveal">
 <div class="stat" data-edit="proof_40">+40</div>
-<p data-edit="proof_situations_clarifiees_offre_message_positionn">situations clarifiées : offre, message, positionnement, site ou parcours d’achat.</p>
+<p data-edit="proof_situations_clarifiees_offre_message_positionn">entreprises accompagnées : offre, message, positionnement, site ou parcours d’achat.</p>
 </div>
 <div class="liquid proof-item reveal">
 <p class="quote" data-edit="proof_on_pensait_avoir_un_probleme_de_site_victoria">“On pensait avoir un problème de site. Victoria nous a aidés à voir que le vrai sujet, c'était notre offre.”</p>
@@ -94,7 +94,7 @@ $homeDescription = (string)($homePage['meta_description'] ?? 'Quiz de diagnostic
 </div>
 </section>
 <section class="statement">
-<h2 class="reveal" data-edit="statement_votre_probleme_visible_n_est_peut_etre_qu_un_">Votre problème visible n’est peut-être qu’un <span class="highlight">symptôme</span>.<br/>Le test de clarté sert à vérifier.</h2>
+<p class="reveal lede" data-edit="statement_votre_probleme_visible_n_est_peut_etre_qu_un_" style="max-width:760px;margin:0 auto;text-align:center">Paranoir n’est pas une agence de communication classique.<br>Nous clarifions d’abord — offre, message, positionnement — puis nous déployons&nbsp;: une page qui convertit, un réseau social raccord, un Google Business Profile qui travaille pour vous.</p>
 </section>
 <section class="prequiz" id="prediagnostic">
 <div class="prequiz-head reveal">
@@ -103,7 +103,7 @@ $homeDescription = (string)($homePage['meta_description'] ?? 'Quiz de diagnostic
 <p class="lede" data-edit="quiz_ce_n_est_pas_un_formulaire_de_contact_c_est_u">
           Ce n’est pas un formulaire de contact. C’est un filtre stratégique.
           Vous avancez question par question, on élimine les fausses pistes,
-          puis vous accédez à un paiement du Diagnostic Express à 290 € si le sujet mérite d’être creusé.
+          puis votre Rapport de Clarté vous est remis en visio — gratuit.
         </p>
 <div aria-hidden="true" class="quiz-orbit" data-edit="quiz_site_message_offre_parcours">
 <span class="orbit-center">?</span>
@@ -162,16 +162,16 @@ $homeDescription = (string)($homePage['meta_description'] ?? 'Quiz de diagnostic
 <input name="url" placeholder="https://" type="url"/>
 </label>
 </div>
-<p class="quiz-note" data-edit="quiz_apres_validation_votre_resultat_s_affiche_dir">Après validation, votre résultat s’affiche directement. Le Diagnostic Express devient la suite si vous voulez confirmer l’hypothèse.</p>
+<p class="quiz-note" data-edit="quiz_apres_validation_votre_resultat_s_affiche_dir">Après validation, votre résultat s’affiche directement. Votre Rapport de Clarté vous est remis en visio — gratuit.</p>
 </fieldset>
 <div aria-live="polite" class="quiz-result" id="quizResult"></div>
 <div class="result-cta" id="resultCta">
 <div data-edit="quiz_suite_logique_diagnostic_express_290_60_minut">
-<small>Suite logique</small>
-<strong>Diagnostic Express — 290 €</strong>
-<span>60 minutes + restitution claire pour confirmer la cause probable et prioriser les prochaines actions.</span>
+<small>Votre livrable gratuit</small>
+<strong>Rapport de Clarté — Gratuit</strong>
+<span>Votre Rapport de Clarté est gratuit. Il vous est remis en visio — 30 minutes pour comprendre ce qui bloque vraiment et décider ensemble de la suite.</span>
 </div>
-<a class="cta" data-edit="offerCta" data-link-edit="offerCta" href="#">Réserver mon Diagnostic Express <span>→</span></a>
+<a class="cta" data-edit="offerCta" data-link-edit="offerCta" href="#">Obtenir mon Rapport de Clarté <span>→</span></a>
 </div>
 <div class="quiz-actions">
 <button class="quiz-back" data-edit="quiz_retour" id="quizBack" type="button">← Retour</button>
@@ -232,21 +232,21 @@ $homeDescription = (string)($homePage['meta_description'] ?? 'Quiz de diagnostic
 <div class="offer-layout">
 <div class="price-panel reveal">
 <div>
-<p class="kicker" data-edit="offer_suite_possible" style="color:rgba(255,255,255,.72)">Suite possible</p>
-<h2 data-edit="offerTitle">Diagnostic Express</h2>
-<div class="price" data-edit="offerPrice">290 €</div>
-<p class="price-line" data-edit="offerLine">60 minutes.<br/>Une hypothèse solide.<br/>Trois priorités.</p>
+<p class="kicker" data-edit="offer_suite_possible" style="color:rgba(255,255,255,.72)">Votre livrable gratuit</p>
+<h2 data-edit="offerTitle">Rapport de Clarté</h2>
+<div class="price" data-edit="offerPrice">Gratuit</div>
+<p class="price-line" data-edit="offerLine">Remis en visio.<br/>30 minutes.<br/>La suite décidée ensemble.</p>
 </div>
 <div>
-<a class="cta" data-edit="offer_reserver_mon_diagnostic_express" data-link-edit="offer_reserver_mon_diagnostic_express" href="#">Réserver mon Diagnostic Express <span>→</span></a>
-<p class="micro" data-edit="offer_paiement_unique_pas_d_abonnement_restitution_">Paiement unique · Pas d’abonnement · Restitution claire</p>
+<a class="cta" data-edit="offer_reserver_mon_diagnostic_express" data-link-edit="offer_reserver_mon_diagnostic_express" href="#">Obtenir mon Rapport de Clarté <span>→</span></a>
+<p class="micro" data-edit="offer_paiement_unique_pas_d_abonnement_restitution_">Gratuit · Visio obligatoire · Aucun engagement</p>
 </div>
 </div>
 <div class="offer-list reveal">
-<div class="liquid detail" data-edit="offer_la_cause_la_plus_probable_formulee_clairement"><strong>La cause la plus probable</strong><span>Formulée clairement, à partir des indices et des preuves disponibles.</span></div>
-<div class="liquid detail" data-edit="offer_les_points_de_friction_identifies_sur_votre_o"><strong>Les points de friction identifiés</strong><span>Sur votre offre, votre message, votre positionnement ou votre parcours.</span></div>
+<div class="liquid detail" data-edit="offer_la_cause_la_plus_probable_formulee_clairement"><strong>Score de clarté sur 5 critères</strong><span>Formulé clairement, à partir des indices et des preuves disponibles.</span></div>
+<div class="liquid detail" data-edit="offer_les_points_de_friction_identifies_sur_votre_o"><strong>La cause la plus probable identifiée</strong><span>Sur votre offre, votre message, votre positionnement ou votre parcours.</span></div>
 <div class="liquid detail" data-edit="offer_vos_3_priorites_concretes_dans_le_bon_ordre_a"><strong>Vos 3 priorités concrètes</strong><span>Dans le bon ordre, avec la logique derrière chaque choix.</span></div>
-<div class="liquid detail" data-edit="offer_une_suite_seulement_si_utile_si_le_sujet_est_"><strong>Une suite seulement si utile</strong><span>Si le sujet est plus simple que prévu, inutile de vendre une usine à gaz. Concept audacieux, visiblement.</span></div>
+<div class="liquid detail" data-edit="offer_une_suite_seulement_si_utile_si_le_sujet_est_"><strong>La suite décidée ensemble</strong><span>30 minutes en visio pour comprendre ce qui bloque vraiment et décider ensemble de la prochaine étape.</span></div>
 </div>
 </div>
 </section>
@@ -258,6 +258,9 @@ $homeDescription = (string)($homePage['meta_description'] ?? 'Quiz de diagnostic
 <p data-edit="about_je_suis_victoria_dury_directrice_conseil_pend">Je suis Victoria Dury, Directrice Conseil. Pendant des années, j'ai travaillé sur des missions qui semblaient parler de site, de message ou de communication.</p>
 <p data-edit="about_tres_souvent_le_vrai_sujet_etait_ailleurs_une">Très souvent, le vrai sujet était ailleurs : une offre devenue confuse, une hypothèse de marché jamais revalidée, une différence mal formulée.</p>
 <p data-edit="about_j_ai_donc_recentre_mon_travail_sur_cette_etap"><strong>J'ai donc recentré mon travail sur cette étape-là : comprendre avant de corriger.</strong></p>
+<div class="about-member" style="margin-top:28px;padding-top:24px;border-top:1px solid var(--line)">
+<p data-edit="about_alexandre"><strong>Alexandre — Directeur des Opérations &amp; Associé</strong><br>En charge du déploiement, de la production et de la qualité des livrables. Son rôle est de s'assurer que chaque mission est livrée de façon fiable, structurée et dans les délais.</p>
+</div>
 </div>
 </section>
 <section class="faq">
@@ -269,7 +272,7 @@ $homeDescription = (string)($homePage['meta_description'] ?? 'Quiz de diagnostic
 </details>
 <details class="reveal">
 <summary data-edit="faq_que_se_passe_t_il_apres_le_quiz">Que se passe-t-il après le quiz ?</summary>
-<p data-edit="faq_vous_voyez_un_resultat_personnalise_si_vous_v">Vous voyez un résultat personnalisé. Si vous voulez confirmer la cause probable et repartir avec vos priorités, vous pouvez réserver directement le Diagnostic Express à 290 €.</p>
+<p data-edit="faq_vous_voyez_un_resultat_personnalise_si_vous_v">Vous voyez un résultat personnalisé. Votre Rapport de Clarté vous est ensuite remis en visio — gratuit. 30 minutes pour comprendre ce qui bloque vraiment et décider ensemble de la suite.</p>
 </details>
 <details class="reveal">
 <summary data-edit="faq_faut_il_deja_avoir_un_site">Faut-il déjà avoir un site ?</summary>
@@ -280,12 +283,88 @@ $homeDescription = (string)($homePage['meta_description'] ?? 'Quiz de diagnostic
 <p data-edit="faq_je_vous_le_dirai_clairement_le_but_n_est_pas_">Je vous le dirai clairement. Le but n’est pas d’empiler des prestations, mais de comprendre quelle décision doit venir ensuite.</p>
 </details>
 </section>
+<section class="realisations">
+<div class="realisations-inner">
+<div class="reveal">
+<p class="kicker" data-edit="real_kicker">Réalisations</p>
+<h2 data-edit="real_title">Ils sont passés du flou à <span class="highlight">l’évidence.</span></h2>
+</div>
+<div class="real-carousel reveal">
+<div class="real-card">
+<div class="real-text">
+<p class="real-client"><strong>EEV Paysages</strong></p>
+<p class="real-meta">Paysagiste · Bourron-Marlotte</p>
+<p class="real-before"><span class="real-label cross">✗ Avant</span>Perçu comme un paysagiste généraliste, comparé uniquement sur le prix.</p>
+<p class="real-after"><span class="real-label check">✓ Après</span>Repositionné en expert du Jardin Vivant sobre en eau. Offre restructurée en 3 portes d’entrée.</p>
+<p class="real-offer">— Clarté Déployée</p>
+</div>
+<button class="real-visual" aria-label="Voir le visuel EEV Paysages" data-modal="real1">
+<span class="real-placeholder">Visuel à venir</span>
+</button>
+</div>
+<div class="real-card real-placeholder-card">
+<div class="real-text">
+<p class="real-client"><strong>Client à venir</strong></p>
+<p class="real-meta">Client à venir · Client à venir</p>
+<p class="real-before"><span class="real-label cross">✗ Avant</span>Client à venir</p>
+<p class="real-after"><span class="real-label check">✓ Après</span>Client à venir</p>
+<p class="real-offer">— Clarté Déployée</p>
+</div>
+<div class="real-visual real-visual-placeholder" aria-hidden="true">
+<span class="real-placeholder">Visuel à venir</span>
+</div>
+</div>
+<div class="real-card real-placeholder-card">
+<div class="real-text">
+<p class="real-client"><strong>Client à venir</strong></p>
+<p class="real-meta">Client à venir · Client à venir</p>
+<p class="real-before"><span class="real-label cross">✗ Avant</span>Client à venir</p>
+<p class="real-after"><span class="real-label check">✓ Après</span>Client à venir</p>
+<p class="real-offer">— Clarté Déployée</p>
+</div>
+<div class="real-visual real-visual-placeholder" aria-hidden="true">
+<span class="real-placeholder">Visuel à venir</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="google-reviews">
+<div class="reviews-inner">
+<div class="reviews-head reveal">
+<p class="kicker">Avis Google vérifiés</p>
+<div class="reviews-stars" aria-label="5 étoiles sur 5">★★★★★</div>
+</div>
+<div class="reviews-grid">
+<div class="review-card liquid reveal">
+<div class="review-stars" aria-hidden="true">★★★★★</div>
+<p class="review-text">"Merci Victoria pour la création de mon site à mon image. C’est un plaisir de travailler avec vous. Vous alliez le meilleur de l’écoute et de la compétence."</p>
+<p class="review-author">— Sonia W., Fondatrice Eudokima</p>
+</div>
+<div class="review-card liquid reveal">
+<div class="review-stars" aria-hidden="true">★★★★★</div>
+<p class="review-text">"Déjà la 2e collaboration avec Victoria. C’est simple, fluide, professionnel, efficace… et bien sympathique. Jamais 2 sans 3, nous ne ferons pas mentir l’adage&nbsp;!"</p>
+<p class="review-author">— Client Paranoir Studio</p>
+</div>
+<div class="review-card liquid reveal">
+<div class="review-stars" aria-hidden="true">★★★★★</div>
+<p class="review-text">"Un grand merci à Victoria qui a fait preuve d’une grande écoute et d’un vrai professionnalisme. Je la recommande sans hésiter."</p>
+<p class="review-author">— Client Paranoir Studio</p>
+</div>
+</div>
+<div class="reviews-footer reveal">
+<a class="buttonlike" href="#" target="_blank" rel="noopener">Voir tous les avis Google →</a>
+</div>
+</div>
+</section>
+
 <section class="final">
 <div class="final-inner">
-<h2 class="reveal" data-edit="finalTitle">Avant de refaire votre site, vérifiez que c'est bien <span class="highlight">le problème.</span></h2>
+<h2 class="reveal" data-edit="finalTitle">Avant de refaire votre site, vérifiez que c’est bien <span class="highlight">le problème.</span></h2>
 <p class="reveal" data-edit="finalText">Commencez par le test de clarté. En quelques questions, vous vérifiez si votre blocage vient plutôt de l’offre, du message, du positionnement ou du parcours.</p>
-<a class="cta reveal" data-edit="finalCta" data-link-edit="finalCta" href="#">Réserver mon Diagnostic Express <span>→</span></a>
-<p class="micro reveal" data-edit="final_3_minutes_gratuit_resultat_personnalise_puis_">3 minutes · Gratuit · Résultat personnalisé · puis paiement direct 290 €</p>
+<a class="cta reveal" data-edit="finalCta" data-link-edit="finalCta" href="#">Obtenir mon Rapport de Clarté <span>→</span></a>
+<p class="micro reveal" data-edit="final_3_minutes_gratuit_resultat_personnalise_puis_">3 minutes · Gratuit · Rapport de Clarté remis en visio</p>
 </div>
 </section>
 <section class="offer-comparison" id="comparatif-offres">
@@ -296,59 +375,68 @@ $homeDescription = (string)($homePage['meta_description'] ?? 'Quiz de diagnostic
 <h2 data-edit="comparison_trois_niveaux_d_intervention_une_seule_logiqu">Trois niveaux d’intervention. Une seule logique : clarifier avant d’agir.</h2>
 </div>
 <p class="lede reveal" data-edit="comparison_le_quiz_reste_un_outil_d_entree_gratuit_les_o">
-            Le quiz reste un outil d’entrée gratuit. Les offres payantes montent en profondeur :
-            diagnostic rapide, diagnostic complet, puis formation de l’équipe. Simple. Presque suspect,
-            tant c’est rare.
+            Le point d’entrée, c’est le Rapport de Clarté. Gratuit. Remis en visio. Ensuite, si le sujet mérite d’aller plus loin, deux offres prolongent le travail.
           </p>
 </div>
 <div class="comparison-table-wrap reveal">
-<table aria-label="Comparatif des outils et livrables inclus dans les trois offres" class="comparison-table" data-offer-table="">
+<table aria-label="Comparatif des trois offres Paranoir" class="comparison-table">
 <thead>
 <tr>
-<th>Outils &amp; livrables</th>
+<th></th>
 <th>
-<div class="offer-col" data-edit="comparison_offre_d_appel_diagnostic_express_290">
-<small>Offre d’appel</small>
-<strong>Diagnostic Express</strong>
-<span>290 €</span>
+<div class="offer-col" data-edit="comparison_offre_rapport_de_clarte_gratuit">
+<small>Point d’entrée</small>
+<strong>Rapport de Clarté</strong>
+<span>Gratuit</span>
 </div>
 </th>
 <th>
-<div class="offer-col" data-edit="comparison_offre_complete_diagnostic_de_croissance_990">
-<small>Offre complète</small>
-<strong>Diagnostic de Croissance</strong>
-<span>990 €</span>
+<div class="offer-col" data-edit="comparison_offre_clarte_deployee_990">
+<small>Offre intermédiaire</small>
+<strong>Clarté Déployée</strong>
+<span>990 € HT</span>
 </div>
 </th>
 <th>
-<div class="offer-col" data-edit="comparison_offre_premium_formation_clarte_4_990">
-<small>Offre premium</small>
+<div class="offer-col" data-edit="comparison_offre_formation_clarte_2990">
+<small>Offre formation</small>
 <strong>Formation Clarté</strong>
-<span>4 990 €</span>
+<span>2 990 € HT</span>
 </div>
 </th>
 </tr>
 </thead>
-<tbody><tr><td class="tool-name">Positionnement</td><td data-bool="offerTool_0_0"><span class="check">✓</span></td><td data-bool="offerTool_0_1"><span class="check">✓</span></td><td data-bool="offerTool_0_2"><span class="check">✓</span></td></tr>
-<tr><td class="tool-name">Différenciation</td><td data-bool="offerTool_1_0"><span class="check">✓</span></td><td data-bool="offerTool_1_1"><span class="check">✓</span></td><td data-bool="offerTool_1_2"><span class="check">✓</span></td></tr>
-<tr><td class="tool-name">Message &amp; promesse</td><td data-bool="offerTool_2_0"><span class="check">✓</span></td><td data-bool="offerTool_2_1"><span class="check">✓</span></td><td data-bool="offerTool_2_2"><span class="check">✓</span></td></tr>
-<tr><td class="tool-name">Analyse concurrentielle</td><td data-bool="offerTool_3_0"><span class="dash">×</span></td><td data-bool="offerTool_3_1"><span class="check">✓</span></td><td data-bool="offerTool_3_2"><span class="check">✓</span></td></tr>
-<tr><td class="tool-name">SWOT</td><td data-bool="offerTool_4_0"><span class="dash">×</span></td><td data-bool="offerTool_4_1"><span class="check">✓</span></td><td data-bool="offerTool_4_2"><span class="check">✓</span></td></tr>
-<tr><td class="tool-name">Étude de marché légère</td><td data-bool="offerTool_5_0"><span class="dash">×</span></td><td data-bool="offerTool_5_1"><span class="check">✓</span></td><td data-bool="offerTool_5_2"><span class="dash">×</span></td></tr>
-<tr><td class="tool-name">Rapport LinkedIn à mettre à jour</td><td data-bool="offerTool_6_0"><span class="dash">×</span></td><td data-bool="offerTool_6_1"><span class="check">✓</span></td><td data-bool="offerTool_6_2"><span class="check">✓</span></td></tr>
-<tr><td class="tool-name">Rapport Google Business Profile à mettre à jour</td><td data-bool="offerTool_7_0"><span class="dash">×</span></td><td data-bool="offerTool_7_1"><span class="check">✓</span></td><td data-bool="offerTool_7_2"><span class="check">✓</span></td></tr>
-<tr><td class="tool-name">Création d’une landing page statique</td><td data-bool="offerTool_8_0"><span class="dash">×</span></td><td data-bool="offerTool_8_1"><span class="check">✓</span></td><td data-bool="offerTool_8_2"><span class="dash">×</span></td></tr>
-<tr><td class="tool-name">Rapport de clarté</td><td data-bool="offerTool_9_0"><span class="check">✓</span></td><td data-bool="offerTool_9_1"><span class="check">✓</span></td><td data-bool="offerTool_9_2"><span class="check">✓</span></td></tr>
-<tr><td class="tool-name">Plan d’action priorisé</td><td data-bool="offerTool_10_0"><span class="check">✓</span></td><td data-bool="offerTool_10_1"><span class="check">✓</span></td><td data-bool="offerTool_10_2"><span class="check">✓</span></td></tr>
-<tr><td class="tool-name">Restitution Loom ou PDF</td><td data-bool="offerTool_11_0"><span class="check">✓</span></td><td data-bool="offerTool_11_1"><span class="check">✓</span></td><td data-bool="offerTool_11_2"><span class="dash">×</span></td></tr>
-<tr><td class="tool-name">Atelier équipe</td><td data-bool="offerTool_12_0"><span class="dash">×</span></td><td data-bool="offerTool_12_1"><span class="dash">×</span></td><td data-bool="offerTool_12_2"><span class="check">✓</span></td></tr>
-<tr><td class="tool-name">Support de formation</td><td data-bool="offerTool_13_0"><span class="dash">×</span></td><td data-bool="offerTool_13_1"><span class="dash">×</span></td><td data-bool="offerTool_13_2"><span class="check">✓</span></td></tr>
-<tr><td class="tool-name">Méthode transmise à l’équipe</td><td data-bool="offerTool_14_0"><span class="dash">×</span></td><td data-bool="offerTool_14_1"><span class="dash">×</span></td><td data-bool="offerTool_14_2"><span class="check">✓</span></td></tr></tbody>
+<tbody>
+<tr class="group-header"><td colspan="4">Collecte</td></tr>
+<tr><td class="tool-name">Entretien de diagnostic (visio)</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+<tr><td class="tool-name">Audit de l’existant (site, offre, message)</td><td><span class="dash">—</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+<tr><td class="tool-name">Analyse concurrentielle</td><td><span class="dash">—</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+<tr class="group-header"><td colspan="4">Analyse</td></tr>
+<tr><td class="tool-name">Identification du blocage principal</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+<tr><td class="tool-name">Positionnement &amp; différenciation</td><td><span class="dash">—</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+<tr><td class="tool-name">Analyse de l’offre &amp; du message</td><td><span class="dash">—</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+<tr class="group-header"><td colspan="4">Stratégie</td></tr>
+<tr><td class="tool-name">Hypothèse de blocage formulée</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+<tr><td class="tool-name">Plan d’action priorisé</td><td><span class="dash">—</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+<tr><td class="tool-name">Recommandations de déploiement</td><td><span class="dash">—</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+<tr class="group-header"><td colspan="4">Déploiement</td></tr>
+<tr><td class="tool-name">Reformulation du message (site, profil…)</td><td><span class="dash">—</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+<tr><td class="tool-name">Mise à jour LinkedIn &amp; Google Business</td><td><span class="dash">—</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+<tr><td class="tool-name">Création d’une page de présentation</td><td><span class="dash">—</span></td><td><span class="check">✓</span></td><td><span class="dash">—</span></td></tr>
+<tr class="group-header"><td colspan="4">Livrables</td></tr>
+<tr><td class="tool-name">Rapport de Clarté remis en visio</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+<tr><td class="tool-name">Restitution enregistrée (Loom ou PDF)</td><td><span class="dash">—</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+<tr><td class="tool-name">Support de travail structuré</td><td><span class="dash">—</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+<tr class="group-header"><td colspan="4">Formation</td></tr>
+<tr><td class="tool-name">Atelier équipe (demi-journée)</td><td><span class="dash">—</span></td><td><span class="dash">—</span></td><td><span class="check">✓</span></td></tr>
+<tr><td class="tool-name">Méthode transmise à l’équipe</td><td><span class="dash">—</span></td><td><span class="dash">—</span></td><td><span class="check">✓</span></td></tr>
+<tr><td class="tool-name">Support de formation remis</td><td><span class="dash">—</span></td><td><span class="dash">—</span></td><td><span class="check">✓</span></td></tr>
+</tbody>
 </table>
 </div>
 <div class="comparison-cta reveal">
-<p data-edit="comparison_le_bon_point_d_entree_reste_le_diagnostic_exp"><strong>Le bon point d’entrée reste le Diagnostic Express.</strong> Il confirme la cause probable avant de partir sur une offre plus large ou une formation.</p>
-<a class="cta" data-edit="comparison_reserver_mon_diagnostic_express" data-link-edit="comparison_reserver_mon_diagnostic_express" href="#">Réserver mon Diagnostic Express <span>→</span></a>
+<p data-edit="comparison_le_bon_point_d_entree_reste_le_rapport_de_clarte"><strong>Le bon point d’entrée, c’est le Rapport de Clarté.</strong> Gratuit, remis en visio — il confirme la cause probable avant de décider si une suite est utile.</p>
+<a class="cta" data-edit="comparison_obtenir_mon_rapport_de_clarte" data-link-edit="comparison_obtenir_mon_rapport_de_clarte" href="#prediagnostic">Obtenir mon Rapport de Clarté <span>→</span></a>
 </div>
 </div>
 </section>
