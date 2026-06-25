@@ -107,3 +107,24 @@ function cms_page(string $slug): ?array {
 
 function cms_e(string $value): string { return htmlspecialchars($value, ENT_QUOTES, 'UTF-8'); }
 function cms_abs_url(string $url): string { return $url !== '' ? $url : '#'; }
+
+// Rendu serveur : retourne le texte stocké en DB, ou le fallback HTML si absent.
+function cms_t(string $key, string $fallback = ''): string {
+    $data = cms_content();
+    $val  = $data['texts'][$key] ?? null;
+    return ($val !== null && $val !== '') ? $val : $fallback;
+}
+
+// Retourne le label d'un CTA stocké en DB, ou le fallback.
+function cms_cta_label(string $key, string $fallback = ''): string {
+    $data  = cms_content();
+    $label = $data['ctas'][$key]['label'] ?? null;
+    return ($label !== null && $label !== '') ? $label : $fallback;
+}
+
+// Retourne l'URL d'un CTA stocké en DB, ou le fallback.
+function cms_cta_url(string $key, string $fallback = '#'): string {
+    $data = cms_content();
+    $url  = $data['ctas'][$key]['url'] ?? '';
+    return $url !== '' ? $url : $fallback;
+}
