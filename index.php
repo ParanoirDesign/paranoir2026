@@ -93,7 +93,7 @@ $homeDescription = (string)($homePage['meta_description'] ?? 'Clarifiez votre of
 </div>
 </section>
 <section class="statement">
-<p class="reveal lede" data-edit="statement_votre_probleme_visible_n_est_peut_etre_qu_un_" style="max-width:760px;margin:0 auto;text-align:center">Votre problème visible n’est peut-être qu’un <span class="highlight">symptôme</span>.<br/>Le test de clarté sert à vérifier.</p>
+<h2 class="reveal" data-edit="statement_votre_probleme_visible_n_est_peut_etre_qu_un_" style="margin:0 auto">Votre problème visible n’est peut-être qu’un <span class="highlight">symptôme</span>.<br/>Le test de clarté sert à vérifier.</h2>
 </section>
 <section class="prequiz" id="prediagnostic">
 <div class="prequiz-head reveal">
