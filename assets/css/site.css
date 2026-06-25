@@ -1742,35 +1742,59 @@
   
 
     /* FRONT MINI-EDITION — visible uniquement quand la session admin est ouverte */
-    body.front-edit-mode [data-edit],
-    body.front-edit-mode [data-link-edit],
-    body.front-edit-mode [data-image-edit],
-    body.front-edit-mode [data-bool],
-    body.front-edit-mode .tool-name[data-front-bool-label]{
+    body.pencils-on [data-edit],
+    body.pencils-on [data-link-edit],
+    body.pencils-on [data-image-edit],
+    body.pencils-on [data-bool],
+    body.pencils-on .tool-name[data-front-bool-label]{
       outline:2px dashed rgba(177,18,53,.26);
       outline-offset:4px;
     }
     .front-edit-badge{
       position:absolute;
       z-index:9996;
-      display:inline-flex;
+      display:none;
       align-items:center;
-      gap:6px;
       min-height:30px;
-      padding:7px 10px;
+      width:30px;
+      padding:0;
       border:1px solid rgba(255,255,255,.72);
       border-radius:999px;
       background:rgba(25,18,16,.92);
       color:#fffaf2;
-      font:800 11px var(--body,system-ui,sans-serif);
+      font:800 13px var(--body,system-ui,sans-serif);
       box-shadow:0 14px 38px rgba(25,18,16,.22);
       cursor:pointer;
       opacity:.86;
       transform:translate(-6px,-38px);
       backdrop-filter:blur(12px);
+      justify-content:center;
     }
+    body.pencils-on .front-edit-badge{display:inline-flex}
     .front-edit-badge:hover{opacity:1;background:var(--carmine,#b11235)}
     .front-edit-badge span{font-size:13px;line-height:1}
+    /* FAB toggle édition */
+    .front-edit-fab{
+      position:fixed;
+      bottom:24px;
+      right:24px;
+      z-index:9997;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:12px 18px;
+      border:1px solid rgba(255,255,255,.72);
+      border-radius:999px;
+      background:rgba(25,18,16,.88);
+      color:#fffaf2;
+      font:700 13px var(--body,system-ui,sans-serif);
+      box-shadow:0 18px 52px rgba(25,18,16,.26);
+      cursor:pointer;
+      backdrop-filter:blur(16px);
+      transition:background .18s,box-shadow .18s;
+    }
+    .front-edit-fab:hover{background:rgba(25,18,16,1)}
+    body.pencils-on .front-edit-fab{background:var(--carmine,#b11235);box-shadow:0 18px 52px rgba(177,18,53,.32)}
     .front-edit-panel{
       position:fixed;
       right:18px;

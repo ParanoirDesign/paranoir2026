@@ -620,7 +620,7 @@ const reveals = document.querySelectorAll(".reveal");
         const button = document.createElement("button");
         button.type = "button";
         button.className = "front-edit-badge";
-        button.innerHTML = '<span aria-hidden="true">✎</span><em>Éditer</em>';
+        button.innerHTML = '<span aria-hidden="true">✎</span>';
         button.addEventListener("click", event => {
           event.preventDefault();
           event.stopPropagation();
@@ -865,7 +865,17 @@ const reveals = document.querySelectorAll(".reveal");
       window.addEventListener("scroll", positionButtons, {passive:true});
       window.addEventListener("resize", positionButtons);
       window.setInterval(positionButtons, 1200);
-      toast("Mode édition front actif.");
+
+      const fab = document.createElement("button");
+      fab.type = "button";
+      fab.className = "front-edit-fab";
+      fab.innerHTML = '<span aria-hidden="true">✎</span> Éditer';
+      fab.addEventListener("click", () => {
+        const on = document.body.classList.toggle("pencils-on");
+        fab.innerHTML = on ? '<span aria-hidden="true">✎</span> Terminer' : '<span aria-hidden="true">✎</span> Éditer';
+        if(on) positionButtons();
+      });
+      document.body.appendChild(fab);
     }
 
     ready(init);
