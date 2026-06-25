@@ -75,35 +75,22 @@ iframe{width:100%;height:68vh;border:1px solid var(--line);border-radius:22px;ba
     </div>
 
     <div class="tabs">
-      <button class="tab active" data-tab="texts">Textes de la page</button>
-      <button class="tab" data-tab="ctas">Boutons + liens</button>
-      <button class="tab" data-tab="images">Images</button>
-      <button class="tab" data-tab="booleans">Tableau</button>
+      <button class="tab active" data-tab="pages">Pages</button>
       <button class="tab" data-tab="settings">Nav + footer</button>
-      <button class="tab" data-tab="pages">Pages</button>
       <button class="tab" data-tab="json">JSON</button>
       <button class="tab" data-tab="preview">Prévisualisation</button>
     </div>
 
     <div class="card">
-      <div class="section active" data-section="texts">
-        <div class="search"><input id="textSearch" placeholder="Rechercher un texte..."></div>
-        <div class="grid" id="textFields"></div>
+      <div class="section active" data-section="pages">
+        <div class="pages-list">
+          <div>
+            <div class="actions" style="margin-top:0;margin-bottom:12px"><button class="red" id="addPageBtn" type="button">+ Nouvelle page</button></div>
+            <div class="page-buttons" id="pageButtons"></div>
+          </div>
+          <div class="page-editor" id="pageEditor"></div>
+        </div>
       </div>
-
-      <div class="section" data-section="ctas">
-        <div class="grid" id="ctaFields"></div>
-      </div>
-
-      <div class="section" data-section="images">
-        <div class="grid" id="imageFields"></div>
-      </div>
-
-      <div class="section" data-section="booleans">
-        <p class="msg">Colonnes : 290 € · 990 € · 4 990 €. Toutes les lignes détectées dans le tableau sont ici.</p>
-        <div class="bool-grid" id="boolFields"></div>
-      </div>
-
 
       <div class="section" data-section="settings">
         <h2 class="mini-title">Navigation commune</h2>
@@ -117,16 +104,6 @@ iframe{width:100%;height:68vh;border:1px solid var(--line);border-radius:22px;ba
         <div class="list-editor" id="footerItems"></div>
         <div class="actions"><button class="light" id="addFooterBtn" type="button">+ Ajouter un lien footer</button></div>
         <p class="msg">Ces éléments sont partagés par toutes les pages PHP. Oui, enfin un seul footer à maintenir, civilisation retrouvée.</p>
-      </div>
-
-      <div class="section" data-section="pages">
-        <div class="pages-list">
-          <div>
-            <div class="actions" style="margin-top:0;margin-bottom:12px"><button class="red" id="addPageBtn" type="button">+ Nouvelle page</button></div>
-            <div class="page-buttons" id="pageButtons"></div>
-          </div>
-          <div class="page-editor" id="pageEditor"></div>
-        </div>
       </div>
 
       <div class="section" data-section="json">
@@ -147,7 +124,7 @@ iframe{width:100%;height:68vh;border:1px solid var(--line);border-radius:22px;ba
 <script>
 let content = null;
 let saving = false;
-let selectedPageSlug = null;
+let selectedPageSlug = 'home';
 
 function toast(type, text){
   const el = document.getElementById("toast");
@@ -227,10 +204,6 @@ async function load(){
 }
 
 function render(){
-  renderTexts();
-  renderCtas();
-  renderImages();
-  renderBooleans();
   renderSettings();
   renderPages();
   document.getElementById("jsonBox").value = JSON.stringify(content, null, 2);
@@ -398,25 +371,60 @@ function renderPages(){
     btn.type = "button";
     btn.className = "page-button" + (slug === selectedPageSlug ? " active" : "");
     btn.dataset.selectPage = slug;
-    btn.textContent = (page.title || slug) + (page.status === "published" ? " · publiée" : " · brouillon");
+    btn.textContent = (page.title || slug) + (page.system ? "" : (page.status === "published" ? " · publiée" : " · brouillon"));
     buttons.appendChild(btn);
   });
-  if(!selectedPageSlug){ editor.innerHTML = '<p class="msg">Aucune page. Même le néant a besoin d’un bouton + Nouvelle page.</p>'; return; }
+  if(!selectedPageSlug){ editor.innerHTML = ‘<p class="msg">Aucune page. Même le néant a besoin d’un bouton + Nouvelle page.</p>’; return; }
   const page = content.pages[selectedPageSlug] || {};
+  const isSystem = !!page.system;
+  const isHome = selectedPageSlug === ‘home’;
+  const pageUrl = isHome ? ‘/’ : ‘page.php?slug=’ + encodeURIComponent(page.slug || selectedPageSlug);
   editor.innerHTML = `
     <div class="page-meta">
-      <div><label>Slug URL</label><input id="pageSlug" value="${htmlEscape(page.slug || selectedPageSlug)}"></div>
-      <div><label>Statut</label><select id="pageStatus"><option value="draft">Brouillon</option><option value="published">Publié</option></select></div>
+      <div><label>Slug URL</label><input id="pageSlug" value="${htmlEscape(page.slug || selectedPageSlug)}"${isSystem ? ‘ readonly style="opacity:.55;cursor:default"’ : ‘’}></div>
+      <div><label>Statut</label><select id="pageStatus"${isHome ? ‘ disabled style="opacity:.55"’ : ‘’}><option value="draft">Brouillon</option><option value="published">Publié</option></select></div>
     </div>
-    <div><label>Titre H1</label><input id="pageTitle" value="${htmlEscape(page.title)}"></div>
     <div><label>Méta title</label><input id="pageMetaTitle" value="${htmlEscape(page.meta_title)}"></div>
     <div><label>Méta description</label><textarea id="pageMetaDescription">${htmlEscape(page.meta_description)}</textarea></div>
+    ${!isHome ? `
+    <div><label>Titre H1</label><input id="pageTitle" value="${htmlEscape(page.title)}"></div>
     <div><label>Surtitre</label><input id="pageKicker" value="${htmlEscape(page.kicker)}"></div>
     <div><label>Intro</label><textarea id="pageIntro">${htmlEscape(page.intro)}</textarea></div>
-    <div><label>Contenu HTML</label><div id="pageContent" class="editable-html page-content" contenteditable="true" data-placeholder="Contenu de la page...">${page.content || ""}</div><p class="hint">Tu peux utiliser h2, p, strong, ul/li. Oui, c’est du HTML, parce que les éditeurs WYSIWYG maison finissent souvent en carnaval.</p></div>
-    <div class="actions"><button class="light" type="button" id="deletePageBtn">Supprimer cette page</button><a class="buttonlike" id="openPageLink" target="_blank" rel="noopener" href="page.php?slug=${encodeURIComponent(page.slug || selectedPageSlug)}">Voir la page</a></div>
+    <div><label>Contenu HTML</label><div id="pageContent" class="editable-html page-content" contenteditable="true" data-placeholder="Contenu de la page...">${page.content || ""}</div><p class="hint">Tu peux utiliser h2, p, strong, ul/li.</p></div>
+    ` : ‘’}
+    <div class="actions">${!isSystem ? ‘<button class="light" type="button" id="deletePageBtn">Supprimer cette page</button>’ : ‘’}<a class="buttonlike" id="openPageLink" target="_blank" rel="noopener" href="${pageUrl}">Voir la page</a></div>
   `;
   document.getElementById("pageStatus").value = page.status === "published" ? "published" : "draft";
+  if(isHome){
+    const homeExtra = document.createElement(‘div’);
+    homeExtra.style.cssText = ‘display:grid;gap:10px;margin-top:4px’;
+    homeExtra.innerHTML = `
+      <details open>
+        <summary style="cursor:pointer;user-select:none;font-size:18px;font-weight:700;letter-spacing:-.03em;margin-bottom:10px">Textes de la page</summary>
+        <div class="search" style="margin:10px 0 4px"><input id="textSearch" placeholder="Rechercher un texte..."></div>
+        <div class="grid" id="textFields"></div>
+      </details>
+      <details>
+        <summary style="cursor:pointer;user-select:none;font-size:18px;font-weight:700;letter-spacing:-.03em;margin-bottom:10px">Boutons + liens</summary>
+        <div class="grid" id="ctaFields" style="margin-top:10px"></div>
+      </details>
+      <details>
+        <summary style="cursor:pointer;user-select:none;font-size:18px;font-weight:700;letter-spacing:-.03em;margin-bottom:10px">Images</summary>
+        <div class="grid" id="imageFields" style="margin-top:10px"></div>
+      </details>
+      <details>
+        <summary style="cursor:pointer;user-select:none;font-size:18px;font-weight:700;letter-spacing:-.03em;margin-bottom:10px">Tableau de comparaison</summary>
+        <p class="msg" style="margin-top:10px">Colonnes : 290 € · 990 € · 4 990 €.</p>
+        <div class="bool-grid" id="boolFields"></div>
+      </details>
+    `;
+    editor.appendChild(homeExtra);
+    document.getElementById("textSearch").addEventListener("input", renderTexts);
+    renderTexts();
+    renderCtas();
+    renderImages();
+    renderBooleans();
+  }
 }
 
 function collectSettings(){
@@ -444,19 +452,23 @@ function collectSettings(){
 
 function collectCurrentPage(){
   if(!selectedPageSlug || !content.pages || !content.pages[selectedPageSlug]) return;
+  const oldPage = content.pages[selectedPageSlug] || {};
+  const isSystem = !!oldPage.system;
   const oldSlug = selectedPageSlug;
-  const slug = slugify(document.getElementById("pageSlug")?.value || oldSlug);
+  const slug = isSystem ? oldSlug : slugify(document.getElementById("pageSlug")?.value || oldSlug);
   const page = {
     slug,
-    title: document.getElementById("pageTitle")?.value.trim() || "Nouvelle page",
+    title: isSystem ? (oldPage.title || slug) : (document.getElementById("pageTitle")?.value.trim() || "Nouvelle page"),
     meta_title: document.getElementById("pageMetaTitle")?.value.trim() || "",
     meta_description: document.getElementById("pageMetaDescription")?.value.trim() || "",
-    kicker: document.getElementById("pageKicker")?.value.trim() || "",
-    intro: document.getElementById("pageIntro")?.value.trim() || "",
-    content: document.getElementById("pageContent")?.innerHTML.trim() || "",
-    status: document.getElementById("pageStatus")?.value === "published" ? "published" : "draft"
+    kicker: isSystem ? (oldPage.kicker || "") : (document.getElementById("pageKicker")?.value.trim() || ""),
+    intro: isSystem ? (oldPage.intro || "") : (document.getElementById("pageIntro")?.value.trim() || ""),
+    content: isSystem ? (oldPage.content || "") : (document.getElementById("pageContent")?.innerHTML.trim() || ""),
+    status: isSystem ? "published" : (document.getElementById("pageStatus")?.value === "published" ? "published" : "draft"),
+    ...(oldPage.template ? {template: oldPage.template} : {}),
+    ...(isSystem ? {system: true} : {})
   };
-  delete content.pages[oldSlug];
+  if(!isSystem) delete content.pages[oldSlug];
   content.pages[slug] = page;
   selectedPageSlug = slug;
 }
@@ -464,37 +476,46 @@ function collectCurrentPage(){
 function collect(){
   collectSettings();
   collectCurrentPage();
-  content.texts = content.texts || {};
-  document.querySelectorAll("[data-text]").forEach(input => {
-    content.texts[input.dataset.text] = input.innerHTML.trim();
-  });
 
-  content.ctas = content.ctas || {};
-  document.querySelectorAll("[data-cta-label]").forEach(input => {
-    const key = input.dataset.ctaLabel;
-    content.ctas[key] = content.ctas[key] || {};
-    content.ctas[key].label = input.innerHTML.trim();
-  });
-  document.querySelectorAll("[data-cta-url]").forEach(input => {
-    const key = input.dataset.ctaUrl;
-    content.ctas[key] = content.ctas[key] || {};
-    content.ctas[key].url = input.value;
-  });
+  // Only update home page data from DOM when the home page editor is visible
+  if(document.querySelectorAll("[data-text]").length > 0){
+    content.texts = content.texts || {};
+    document.querySelectorAll("[data-text]").forEach(input => {
+      content.texts[input.dataset.text] = input.innerHTML.trim();
+    });
+  }
 
-  content.images = content.images || {};
-  document.querySelectorAll("[data-image]").forEach(input => {
-    content.images[input.dataset.image] = input.value;
-  });
+  if(document.querySelectorAll("[data-cta-label]").length > 0){
+    content.ctas = content.ctas || {};
+    document.querySelectorAll("[data-cta-label]").forEach(input => {
+      const key = input.dataset.ctaLabel;
+      content.ctas[key] = content.ctas[key] || {};
+      content.ctas[key].label = input.innerHTML.trim();
+    });
+    document.querySelectorAll("[data-cta-url]").forEach(input => {
+      const key = input.dataset.ctaUrl;
+      content.ctas[key] = content.ctas[key] || {};
+      content.ctas[key].url = input.value;
+    });
+  }
 
-  content.boolean_labels = content.boolean_labels || {};
-  document.querySelectorAll("[data-bool-label]").forEach(input => {
-    content.boolean_labels[input.dataset.boolLabel] = input.value.trim() || niceLabel(input.dataset.boolLabel);
-  });
+  if(document.querySelectorAll("[data-image]").length > 0){
+    content.images = content.images || {};
+    document.querySelectorAll("[data-image]").forEach(input => {
+      content.images[input.dataset.image] = input.value;
+    });
+  }
 
-  content.booleans = content.booleans || {};
-  document.querySelectorAll("[data-bool]").forEach(input => {
-    content.booleans[input.dataset.bool] = input.checked;
-  });
+  if(document.querySelectorAll("[data-bool-label]").length > 0){
+    content.boolean_labels = content.boolean_labels || {};
+    document.querySelectorAll("[data-bool-label]").forEach(input => {
+      content.boolean_labels[input.dataset.boolLabel] = input.value.trim() || niceLabel(input.dataset.boolLabel);
+    });
+    content.booleans = content.booleans || {};
+    document.querySelectorAll("[data-bool]").forEach(input => {
+      content.booleans[input.dataset.bool] = input.checked;
+    });
+  }
 
   document.getElementById("jsonBox").value = JSON.stringify(content, null, 2);
   return content;
