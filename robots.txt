@@ -1,0 +1,48 @@
+# robots.txt — paranoir.paranoir.pro
+# Dernière mise à jour : 2026-06-25
+
+# ── Moteurs de recherche ──────────────────────────────────────────────
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# ── Assistants IA & LLMs ─────────────────────────────────────────────
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# ── Règle générale ───────────────────────────────────────────────────
+User-agent: *
+Disallow: /passage-secret.php
+Disallow: /api.php
+Disallow: /config.php
+Disallow: /setup.sql
+Disallow: /includes/
+Disallow: /assets/css/admin.css
+
+Sitemap: https://paranoir.paranoir.pro/sitemap.xml
