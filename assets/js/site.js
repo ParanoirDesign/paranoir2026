@@ -620,6 +620,7 @@ const reveals = document.querySelectorAll(".reveal");
         const button = document.createElement("button");
         button.type = "button";
         button.className = "front-edit-badge";
+        button.setAttribute("aria-label", "Modifier ce bloc");
         button.innerHTML = '<span aria-hidden="true">✎</span>';
         button.addEventListener("click", event => {
           event.preventDefault();
@@ -635,11 +636,11 @@ const reveals = document.querySelectorAll(".reveal");
     function positionButtons(){
       buttons.forEach(({target, button}) => {
         if(!isVisible(target)){
-          button.style.display = "none";
+          button.style.visibility = "hidden";
           return;
         }
+        button.style.visibility = "";
         const rect = target.getBoundingClientRect();
-        button.style.display = "inline-flex";
         button.style.left = Math.max(8, rect.left + window.scrollX) + "px";
         button.style.top = Math.max(8, rect.top + window.scrollY) + "px";
       });
@@ -873,7 +874,7 @@ const reveals = document.querySelectorAll(".reveal");
       fab.addEventListener("click", () => {
         const on = document.body.classList.toggle("pencils-on");
         fab.innerHTML = on ? '<span aria-hidden="true">✎</span> Terminer' : '<span aria-hidden="true">✎</span> Éditer';
-        if(on) positionButtons();
+        positionButtons();
       });
       document.body.appendChild(fab);
     }
