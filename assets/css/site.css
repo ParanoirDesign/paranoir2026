@@ -751,18 +751,6 @@
     .final .cta{margin-top:32px;background:white;color:var(--carmine);box-shadow:0 20px 50px rgba(0,0,0,.13)}
     .final .micro{margin:15px auto 0;color:rgba(255,255,255,.68)}
 
-    footer{
-      width:min(calc(100% - 2*var(--gutter)),var(--max));
-      margin:0 auto;
-      padding:34px 0 56px;
-      display:flex;
-      justify-content:space-between;
-      gap:22px;
-      color:rgba(25,18,16,.48);
-      font-size:13px;
-    }
-
-
     .site-footer{margin-top:80px}
     .footer-inner{
       width:min(calc(100% - 2*var(--gutter)),var(--max));
