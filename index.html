@@ -33,7 +33,7 @@
 <link rel="preload" href="/assets/fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin/>
 <link rel="preload" href="/assets/fonts/poppins-400.woff2" as="font" type="font/woff2" crossorigin/>
 <link rel="stylesheet" href="/assets/css/fonts.css"/>
-<link rel="stylesheet" href="/assets/css/site.css?v=5"/>
+<link rel="stylesheet" href="/assets/css/site.css?v=6"/>
 <script type="application/ld+json">
 [
   {
@@ -452,8 +452,9 @@
 <div class="real-carousel reveal">
 <div class="real-card">
 <div class="real-visual-top">
-<button class="real-visual-btn" aria-label="Voir le visuel EEV Paysages" data-modal="real1">
-<span class="real-placeholder-label">Visuel à venir</span>
+<button class="site-preview-btn" aria-label="Agrandir le visuel ANVL" data-src="/assets/images/realisation-anvl.jpg" data-label="ANVL — Association naturaliste">
+<div class="site-preview-scroll"><img src="/assets/images/realisation-anvl.jpg" alt="Site ANVL" loading="lazy"/></div>
+<span class="site-preview-hint">Cliquer pour agrandir</span>
 </button>
 </div>
 <div class="real-body">
@@ -472,9 +473,10 @@
 </div>
 <div class="real-card">
 <div class="real-visual-top">
-<div class="real-visual-placeholder-wrap" aria-hidden="true">
-<span class="real-placeholder-label">Visuel à venir</span>
-</div>
+<button class="site-preview-btn" aria-label="Agrandir le visuel Laetitia Juet" data-src="/assets/images/realisation-laetitia.jpg" data-label="Laetitia Juet — Sophrologue">
+<div class="site-preview-scroll"><img src="/assets/images/realisation-laetitia.jpg" alt="Site Laetitia Juet sophrologue" loading="lazy"/></div>
+<span class="site-preview-hint">Cliquer pour agrandir</span>
+</button>
 </div>
 <div class="real-body">
 <p class="real-client"><strong>Atelier Moreau</strong></p>
@@ -492,9 +494,10 @@
 </div>
 <div class="real-card">
 <div class="real-visual-top">
-<div class="real-visual-placeholder-wrap" aria-hidden="true">
-<span class="real-placeholder-label">Visuel à venir</span>
-</div>
+<button class="site-preview-btn" aria-label="Agrandir le visuel Xanthe Conseil" data-src="/assets/images/realisation-xanthe.jpg" data-label="Xanthe Conseil — Finance">
+<div class="site-preview-scroll"><img src="/assets/images/realisation-xanthe.jpg" alt="Site Xanthe Conseil" loading="lazy"/></div>
+<span class="site-preview-hint">Cliquer pour agrandir</span>
+</button>
 </div>
 <div class="real-body">
 <p class="real-client"><strong>Clinique Véto du Parc</strong></p>
@@ -625,6 +628,17 @@
 </div>
 </section>
 </main>
+<div class="site-lightbox" id="siteLightbox" role="dialog" aria-modal="true" aria-label="Aperçu du site" hidden>
+<button class="lightbox-close" id="lightboxClose" aria-label="Fermer">✕</button>
+<div class="lightbox-inner">
+<p class="lightbox-label" id="lightboxLabel"></p>
+<div class="lightbox-viewport">
+<div class="lightbox-scroll" id="lightboxScroll">
+<img id="lightboxImg" src="" alt=""/>
+</div>
+</div>
+</div>
+</div>
 <footer class="site-footer">
 <span>Paranoir Studio — Clarifier avant de construire.</span>
 <nav aria-label="Liens légaux" class="site-footer-links">
