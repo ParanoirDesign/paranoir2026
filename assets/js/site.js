@@ -124,13 +124,14 @@ const reveals = document.querySelectorAll(".reveal");
       }
       prevBtn.addEventListener('click', () => track.scrollBy({left: -slideWidth(), behavior:'smooth'}));
       nextBtn.addEventListener('click', () => track.scrollBy({left: slideWidth(), behavior:'smooth'}));
+      let cachedWidth = 0;
+      const ro = new ResizeObserver(entries => { cachedWidth = entries[0].contentRect.width; updateNav(); });
+      ro.observe(track);
       function updateNav(){
         prevBtn.disabled = track.scrollLeft < 8;
-        nextBtn.disabled = track.scrollLeft + track.offsetWidth >= track.scrollWidth - 8;
+        nextBtn.disabled = track.scrollLeft + (cachedWidth || track.offsetWidth) >= track.scrollWidth - 8;
       }
       track.addEventListener('scroll', updateNav, {passive:true});
-      window.addEventListener('resize', updateNav);
-      updateNav();
     })();
 
 
