@@ -1864,7 +1864,7 @@
       scroll-snap-type:x mandatory;
       scroll-behavior:smooth;
       overscroll-behavior-x:contain;
-      padding-bottom:4px;
+      padding:8px 4px 12px;
       -ms-overflow-style:none;
       scrollbar-width:none;
     }
