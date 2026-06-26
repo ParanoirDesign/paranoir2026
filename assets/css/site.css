@@ -1864,10 +1864,11 @@
       width:100%;display:block;
       animation:site-scroll 30s ease-in-out infinite alternate;
       transform-origin:top center;
+      will-change:transform;
     }
     @keyframes site-scroll{
       0%{transform:translateY(0)}
-      100%{transform:translateY(calc(-100% + 240px))}
+      100%{transform:translateY(var(--travel,0px))}
     }
     .site-preview-hint{
       position:absolute;bottom:0;left:0;right:0;
@@ -1883,23 +1884,21 @@
 
     /* ── Lightbox ───────────────────────────────────────────────── */
     .site-lightbox{
-      position:fixed;inset:0;
-      background:rgba(10,6,4,.88);
-      z-index:8000;
-      display:none;align-items:center;justify-content:center;
-      padding:24px;
-    }
-    .site-lightbox.is-open{
-      display:flex;
+      border:none;padding:24px;
+      background:transparent;
+      max-width:100vw;max-height:100vh;
+      width:100vw;height:100vh;
+      display:flex;align-items:center;justify-content:center;
       animation:lb-in .2s ease;
     }
+    .site-lightbox::backdrop{background:rgba(10,6,4,.88)}
     @keyframes lb-in{from{opacity:0}to{opacity:1}}
     .lightbox-close{
-      position:absolute;top:20px;right:24px;
+      position:fixed;top:20px;right:24px;
       background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);
       color:white;font-size:18px;width:40px;height:40px;
       border-radius:50%;cursor:pointer;line-height:1;
-      transition:background .15s;
+      transition:background .15s;z-index:1;
     }
     .lightbox-close:hover{background:rgba(255,255,255,.22)}
     .lightbox-inner{
@@ -1916,18 +1915,12 @@
       overflow:hidden;
       border-radius:16px;
       box-shadow:0 32px 80px rgba(0,0,0,.6);
-      position:relative;
     }
-    .lightbox-scroll{
-      width:100%;height:100%;overflow:hidden;
-    }
+    .lightbox-scroll{width:100%;height:100%;overflow:hidden}
     .lightbox-scroll img{
       width:100%;display:block;
-      animation:site-scroll-lb 60s ease-in-out infinite alternate;
-    }
-    @keyframes site-scroll-lb{
-      0%{transform:translateY(0)}
-      100%{transform:translateY(calc(-100% + min(78vh,700px)))}
+      animation:site-scroll 60s ease-in-out infinite alternate;
+      will-change:transform;
     }
     .real-body{padding:24px 24px 28px;display:flex;flex-direction:column;gap:16px;flex:1}
     .real-client{font-size:17px;line-height:1.2;font-family:var(--title)}
