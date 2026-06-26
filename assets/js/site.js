@@ -45,9 +45,16 @@ const reveals = document.querySelectorAll(".reveal");
         if (!img) return;
         const s = { container, img, pos: 0, dir: -1 };
         scrollers.push(s);
+        // start loop once first image is ready
+        function tryStart() {
+          if (!rafId && scrollers.length) { lastTs = null; rafId = requestAnimationFrame(tick); }
+        }
+        if (img.complete && img.naturalHeight > 0) { tryStart(); }
+        else { img.addEventListener('load', tryStart, { once: true }); }
       });
 
-      if (scrollers.length) rafId = requestAnimationFrame(tick);
+      // fallback: start anyway after 2s in case load events already fired
+      setTimeout(() => { if (!rafId && scrollers.length) { lastTs = null; rafId = requestAnimationFrame(tick); } }, 2000);
 
       // Lightbox rAF séparé
       let lbRaf = null;
