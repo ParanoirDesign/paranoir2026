@@ -55,6 +55,25 @@
 
     *{box-sizing:border-box}
     html{scroll-behavior:auto}
+
+    /* ── RGAA — Skip link ──────────────────────────────────────── */
+    .skip-link{
+      position:absolute;top:-100%;left:16px;
+      background:var(--carmine);color:white;
+      padding:10px 20px;border-radius:0 0 8px 8px;
+      font-weight:700;font-size:14px;z-index:9999;
+      transition:top .15s;
+    }
+    .skip-link:focus{top:0}
+
+    /* ── RGAA — Focus visible global ──────────────────────────── */
+    :focus-visible{
+      outline:2px solid var(--carmine);
+      outline-offset:3px;
+      border-radius:4px;
+    }
+    /* Désactive l'outline natif (on gère nous-mêmes) */
+    :focus:not(:focus-visible){outline:none}
     body{
       margin:0;
       font-family:var(--body);
@@ -114,9 +133,9 @@
     }
 
     .brand{font-family:var(--title);font-weight:800;font-size:14px;letter-spacing:-.025em}
-    .nav-mid{font-size:11px;text-transform:uppercase;letter-spacing:.17em;color:var(--faint);font-weight:700}
+    .nav-mid{font-size:11px;text-transform:uppercase;letter-spacing:.17em;color:rgba(25,18,16,.60);font-weight:700}
     .nav-right{display:flex;justify-content:flex-end;align-items:center;gap:18px}
-    .nav-link{font-size:13px;font-weight:600;color:rgba(25,18,16,.58)}
+    .nav-link{font-size:13px;font-weight:600;color:rgba(25,18,16,.72)}
     .nav-cta{
       background:var(--ink);
       color:var(--cream);
@@ -876,10 +895,12 @@
       cursor:default;
     }
     .quiz-fields label span{
-      color:var(--faint);
+      color:rgba(25,18,16,.66);
       font-size:12px;
       font-weight:500;
     }
+    .quiz-fields label span [aria-hidden]{color:var(--carmine);font-weight:700}
+    .field-opt{color:var(--faint);font-weight:400;font-size:11px;margin-left:4px}
     .quiz-fields input{
       width:100%;
       min-height:50px;

@@ -176,6 +176,7 @@
 <canvas id="clarityCanvas"></canvas>
 </div>
 <div class="page">
+<a class="skip-link" href="#main">Aller au contenu principal</a>
 <nav class="nav">
 <a class="brand" href="/">Victoria Dury</a>
 <div class="nav-mid">Diagnostic &amp; Clarté</div>
@@ -184,6 +185,7 @@
 <a class="nav-cta" href="#prediagnostic">Test de clarté</a>
 </div>
 </nav>
+<main id="main">
 <section class="hero">
 <div class="reveal">
 <div class="eyebrow"><span class="dot"></span>Nous aidons les entreprises à devenir plus faciles à comprendre.</div>
@@ -309,11 +311,9 @@
 <fieldset class="quiz-step" data-step="5">
 <legend>Où voulez-vous recevoir la suite ?</legend>
 <div class="quiz-fields">
-<label><input autocomplete="given-name" name="prenom" placeholder="Victoria" required="" type="text"/><span>Prénom</span></label>
-<label><input autocomplete="email" name="email" placeholder="vous@entreprise.fr" required="" type="email"/><span>Email professionnel</span></label>
-<label>Site ou LinkedIn <span>facultatif</span>
-<input name="url" placeholder="https://" type="url"/>
-</label>
+<label for="prenom"><span>Prénom <span aria-hidden="true">*</span></span><input id="prenom" autocomplete="given-name" name="prenom" placeholder="Victoria" required aria-required="true" type="text"/></label>
+<label for="email"><span>Email professionnel <span aria-hidden="true">*</span></span><input id="email" autocomplete="email" name="email" placeholder="vous@entreprise.fr" required aria-required="true" type="email"/></label>
+<label for="url"><span>Site ou LinkedIn <span class="field-opt">facultatif</span></span><input id="url" name="url" placeholder="https://" type="url"/></label>
 </div>
 <p class="quiz-note">Après validation, votre résultat s'affiche directement. Votre Rapport de Clarté vous est remis en visio — gratuit.</p>
 </fieldset>
@@ -535,7 +535,7 @@
 </div>
 </div>
 <div class="reviews-footer reveal">
-<a class="buttonlike reviews-cta" href="#" target="_blank" rel="noopener">Voir tous les avis Google →</a>
+<a class="buttonlike reviews-cta" href="https://g.page/r/paranoir/review" target="_blank" rel="noopener noreferrer" aria-label="Voir tous les avis Google (ouvre dans un nouvel onglet)">Voir tous les avis Google →</a>
 </div>
 </div>
 </section>
@@ -622,6 +622,7 @@
 </div>
 </div>
 </section>
+</main>
 <footer class="site-footer">
 <span>Paranoir Studio — Clarifier avant de construire.</span>
 <nav aria-label="Liens légaux" class="site-footer-links">
