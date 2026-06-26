@@ -301,3 +301,15 @@ const reveals = document.querySelectorAll(".reveal");
         board.style.transform = `rotateX(${1.5 + y}deg) rotateY(${-2.4 + x}deg)`;
       }, { passive:true });
     }
+
+    // Comparison table accordion
+    document.querySelectorAll('.comparison-table .group-header').forEach(tr => {
+      tr.addEventListener('click', () => {
+        const group = tr.closest('.cat-group');
+        const open = group.classList.toggle('open');
+        tr.setAttribute('aria-expanded', open);
+      });
+      tr.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tr.click(); }
+      });
+    });
