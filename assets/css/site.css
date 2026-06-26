@@ -270,6 +270,20 @@
     }
 
 
+    .paper-layer{
+      position:absolute;
+      border-radius:16px;
+      background:rgba(255,250,242,.52);
+      border:1px solid rgba(255,255,255,.62);
+      box-shadow:0 6px 20px rgba(74,43,31,.07);
+      transform:rotate(var(--r));
+      z-index:1;
+    }
+    .paper-a{width:32%;height:14%;left:4%;top:12%;--r:-2.5deg}
+    .paper-b{width:24%;height:13%;right:5%;top:15%;--r:2deg}
+    .paper-c{width:27%;height:13%;left:15%;top:40%;--r:1.5deg}
+    .paper-d{width:26%;height:13%;right:7%;top:42%;--r:-2deg}
+
     .thread-svg{
       position:absolute;
       inset:0;
