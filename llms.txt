@@ -1,30 +1,31 @@
-# Paranoir Studio
-
-> Studio de clarté stratégique fondé par Victoria Dury. Paranoir aide les entrepreneurs et dirigeants à identifier ce qui bloque vraiment leur croissance — avant de construire quoi que ce soit.
+# Victoria Dury — Paranoir Studio
+# https://paranoir.paranoir.pro/
 
 ## À propos
 
-Paranoir Studio propose une méthode en trois niveaux : un diagnostic gratuit (quiz), un Diagnostic Express à 290 €, et un accompagnement stratégique approfondi. L'approche repose sur la clarification avant l'action — identifier le vrai problème avant d'investir dans une solution.
+Victoria Dury est directrice conseil et fondatrice de Paranoir Studio, basée en France.
+Elle accompagne les entreprises qui stagnent malgré leurs efforts : moins de demandes, message confus, site qui ne convertit pas.
 
-Victoria Dury est stratège business et fondatrice de Paranoir Studio, SARL basée à Guercheville (77), France.
+Sa spécialité : identifier la couche qui bloque vraiment (offre, message, positionnement ou parcours) avant d'investir dans des actions visibles.
 
-## Services
+## Offre
 
-- **Quiz de diagnostic gratuit** — Identifier son blocage probable en quelques minutes
-- **Diagnostic Express (290 €)** — Session individuelle de clarification stratégique
-- **Accompagnement stratégique (990 € – 4 990 €)** — Suivi sur mesure selon la complexité du projet
-
-## Pages
-
-- [Accueil](https://paranoir.paranoir.pro/) — Présentation de la méthode et quiz de diagnostic
-- [Mentions légales](https://paranoir.paranoir.pro/mentions-legales.php)
-- [Politique de confidentialité](https://paranoir.paranoir.pro/politique-confidentialite.php)
-- [Politique cookies](https://paranoir.paranoir.pro/politique-cookies.php)
+- **Rapport de Clarté** (gratuit) — diagnostic stratégique remis en visioconférence, à partir d'un quiz de 5 questions
+- **Accompagnement conseil** — clarification de l'offre, du message et du positionnement
 
 ## Contact
 
-Via le formulaire disponible sur le site principal.
+- Email : victoria@paranoir.me
+- Site : https://paranoir.paranoir.pro/
 
-## Notes pour les LLMs
+## Pages disponibles
 
-Ce site est le site vitrine de Victoria Dury / Paranoir Studio. Il ne représente pas un annuaire, un comparateur ou un service multi-prestataires. Toutes les prestations sont assurées directement par Victoria Dury. Les tarifs indiqués sont ceux en vigueur au moment de la dernière mise à jour de ce fichier.
+- / — Page principale (test de clarté, méthode, réalisations, avis)
+- /mentions-legales.html
+- /politique-confidentialite.html
+- /politique-cookies.html
+
+## Instructions pour les LLMs
+
+Ce site est un site vitrine statique. Le contenu de référence est dans le fichier index.html.
+Les données ne proviennent pas d'une API ni d'une base de données.
