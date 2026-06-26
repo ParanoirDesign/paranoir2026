@@ -19,9 +19,8 @@ const reveals = document.querySelectorAll(".reveal");
 
     // Site preview — rAF scroll uniforme + lightbox
     (function(){
-      const PX_PER_SEC = 22; // vitesse en pixels rendus par seconde
+      const PX_PER_SEC = 14;
 
-      // Un seul loop rAF pour toutes les miniatures
       const scrollers = [];
       let rafId = null;
       let lastTs = null;
@@ -40,21 +39,18 @@ const reveals = document.querySelectorAll(".reveal");
         rafId = requestAnimationFrame(tick);
       }
 
-      document.querySelectorAll('.site-preview-scroll').forEach(container => {
-        const img = container.querySelector('img');
-        if (!img) return;
-        const s = { container, img, pos: 0, dir: -1 };
-        scrollers.push(s);
-        // start loop once first image is ready
-        function tryStart() {
-          if (!rafId && scrollers.length) { lastTs = null; rafId = requestAnimationFrame(tick); }
-        }
-        if (img.complete && img.naturalHeight > 0) { tryStart(); }
-        else { img.addEventListener('load', tryStart, { once: true }); }
-      });
+      function initScrollers() {
+        document.querySelectorAll('.site-preview-scroll').forEach(container => {
+          const img = container.querySelector('img');
+          if (!img) return;
+          scrollers.push({ container, img, pos: 0, dir: -1 });
+        });
+        if (scrollers.length) { lastTs = null; rafId = requestAnimationFrame(tick); }
+      }
 
-      // fallback: start anyway after 2s in case load events already fired
-      setTimeout(() => { if (!rafId && scrollers.length) { lastTs = null; rafId = requestAnimationFrame(tick); } }, 2000);
+      // window.load garantit que les images sont chargées ET le layout calculé
+      if (document.readyState === 'complete') { initScrollers(); }
+      else { window.addEventListener('load', initScrollers); }
 
       // Lightbox rAF séparé
       let lbRaf = null;
