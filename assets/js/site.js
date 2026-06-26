@@ -303,13 +303,22 @@ const reveals = document.querySelectorAll(".reveal");
     }
 
     // Comparison table accordion
-    document.querySelectorAll('.comparison-table .group-header').forEach(tr => {
-      tr.addEventListener('click', () => {
-        const group = tr.closest('.cat-group');
-        const open = group.classList.toggle('open');
-        tr.setAttribute('aria-expanded', open);
+    (function(){
+      var table = document.querySelector('.comparison-table');
+      if (!table) return;
+      function toggle(header) {
+        var group = header.closest('.cat-group');
+        if (!group) return;
+        var open = group.classList.toggle('open');
+        header.setAttribute('aria-expanded', String(open));
+      }
+      table.addEventListener('click', function(e) {
+        var header = e.target.closest('.group-header');
+        if (header) toggle(header);
       });
-      tr.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tr.click(); }
+      table.addEventListener('keydown', function(e) {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        var header = e.target.closest('.group-header');
+        if (header) { e.preventDefault(); toggle(header); }
       });
-    });
+    })();
