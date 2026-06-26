@@ -1872,14 +1872,12 @@
       scroll-snap-align:start;
       display:flex;
       flex-direction:column;
-      background:white;
-      border:1px solid rgba(25,18,16,.09);
+      background:var(--cream);
       border-radius:24px;
       overflow:hidden;
-      box-shadow:0 6px 28px rgba(25,18,16,.06);
-      transition:box-shadow .2s;
+      transition:transform .22s ease;
     }
-    .real-card:hover{box-shadow:0 16px 48px rgba(25,18,16,.11)}
+    .real-card:hover{transform:translateY(-4px)}
     .real-visual-top{
       height:240px;
       overflow:hidden;
