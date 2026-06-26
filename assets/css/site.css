@@ -1175,9 +1175,7 @@
       width:100%;
       max-width:none;
       padding:clamp(70px,9vw,118px) var(--gutter);
-      background:
-        radial-gradient(circle at 18% 10%,rgba(177,18,53,.10),transparent 30%),
-        linear-gradient(135deg,var(--paper),var(--paper2));
+      background:none;
     }
     .comparison-inner{
       width:min(100%,var(--max));
