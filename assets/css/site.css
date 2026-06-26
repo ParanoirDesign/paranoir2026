@@ -161,7 +161,7 @@
 
     .hero{
       min-height:calc(100svh - 18px);
-      padding:clamp(72px,9vw,110px) 0;
+      padding:clamp(100px,11vw,148px) 0 clamp(72px,9vw,110px);
       display:grid;
       grid-template-columns:minmax(0,.92fr) minmax(390px,.86fr);
       gap:clamp(30px,5vw,68px);
@@ -755,7 +755,6 @@
     .final .micro{margin:15px auto 0;color:rgba(255,255,255,.68)}
 
     .site-footer{
-      margin-top:80px;
       border-top:1px solid var(--line);
       padding:52px 0 48px;
     }
