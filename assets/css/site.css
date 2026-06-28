@@ -414,8 +414,11 @@
     .byline{font-family:var(--body);font-size:13px!important;color:rgba(25,18,16,.46)!important;margin-top:16px}
 
     .statement{
-      padding:clamp(80px,10vw,140px) clamp(20px,6vw,80px);
+      min-height:60svh;
+      display:grid;
+      place-items:center;
       text-align:center;
+      padding:clamp(80px,10vw,140px) clamp(20px,6vw,80px);
     }
     .statement h2{
       max-width:920px;
