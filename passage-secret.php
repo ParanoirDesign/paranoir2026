@@ -48,6 +48,7 @@ $currentUsername = htmlspecialchars($currentUser['username'] ?? '', ENT_QUOTES, 
       <button class="tab" data-tab="settings">Nav + footer</button>
       <button class="tab" data-tab="users">Utilisateurs</button>
       <?php endif; ?>
+      <button class="tab" data-tab="account">Mon compte</button>
       <button class="tab" data-tab="json">JSON</button>
       <button class="tab" data-tab="preview">Previsualisation</button>
     </div>
@@ -93,6 +94,16 @@ $currentUsername = htmlspecialchars($currentUser['username'] ?? '', ENT_QUOTES, 
         <p class="msg">Le client ne voit que les pages ou "Accessible au client" est coche. Il ne peut pas modifier la nav, le footer, ni ajouter de pages.</p>
       </div>
       <?php endif; ?>
+
+      <div class="section" data-section="account">
+        <h2 class="mini-title">Changer mon mot de passe</h2>
+        <div class="grid">
+          <div class="field-card"><label>Mot de passe actuel</label><input id="currentPassword" type="password" autocomplete="current-password"></div>
+          <div class="field-card"><label>Nouveau mot de passe</label><input id="newPasswordAccount" type="password" autocomplete="new-password" placeholder="6 caracteres min."></div>
+          <div class="field-card"><label>Confirmer</label><input id="confirmPassword" type="password" autocomplete="new-password" placeholder="Identique au precedent"></div>
+        </div>
+        <div class="actions"><button class="red" id="changePasswordBtn" type="button">Changer le mot de passe</button></div>
+      </div>
 
       <div class="section" data-section="json">
         <label>JSON complet</label>
@@ -703,6 +714,24 @@ document.getElementById('addPageBtn')?.addEventListener('click', () => {
   while(content.pages[slug]) slug = base + '-' + i++;
   content.pages[slug] = {slug, title:'Nouvelle page', meta_title:'', meta_description:'', kicker:'', intro:'', content:'<h2>Nouvelle section</h2><p>Texte de la page.</p>', status:'draft', client_editable:false};
   selectedPageSlug = slug; renderPages();
+});
+
+document.getElementById('changePasswordBtn')?.addEventListener('click', async () => {
+  const current  = document.getElementById('currentPassword').value;
+  const next     = document.getElementById('newPasswordAccount').value;
+  const confirm  = document.getElementById('confirmPassword').value;
+  if(!current || !next){ toast('error', 'Remplissez tous les champs'); return; }
+  if(next !== confirm){ toast('error', 'Les mots de passe ne correspondent pas'); return; }
+  if(next.length < 6){ toast('error', 'Nouveau mot de passe trop court (6 caracteres min.)'); return; }
+  const res = await api('change_password', {current_password: current, new_password: next});
+  if(res.ok){
+    toast('success', 'Mot de passe mis a jour');
+    document.getElementById('currentPassword').value = '';
+    document.getElementById('newPasswordAccount').value = '';
+    document.getElementById('confirmPassword').value = '';
+  } else {
+    toast('error', res.error || 'Erreur');
+  }
 });
 
 document.getElementById('createUserBtn')?.addEventListener('click', async () => {

@@ -292,6 +292,28 @@ try {
         ]);
     }
 
+    /* CHANGE PASSWORD — any logged-in user */
+    if ($action === 'change_password') {
+        require_login();
+        check_csrf();
+        $input    = json_decode(file_get_contents('php://input'), true) ?: [];
+        $current  = (string)($input['current_password'] ?? '');
+        $new_pass = (string)($input['new_password'] ?? '');
+        if (strlen($new_pass) < 6) json_response(['ok' => false, 'error' => 'Mot de passe trop court (6 caracteres min.)'], 400);
+
+        $stmt = db()->prepare("SELECT password_hash FROM cms_users WHERE id = :id AND active = 1");
+        $stmt->execute(['id' => current_user()['id']]);
+        $row = $stmt->fetch();
+        if (!$row || !password_verify($current, $row['password_hash'])) {
+            json_response(['ok' => false, 'error' => 'Mot de passe actuel incorrect'], 403);
+        }
+
+        $hash = password_hash($new_pass, PASSWORD_DEFAULT);
+        db()->prepare("UPDATE cms_users SET password_hash = :h WHERE id = :id")
+            ->execute(['h' => $hash, 'id' => current_user()['id']]);
+        json_response(['ok' => true, 'message' => 'Mot de passe mis a jour']);
+    }
+
     /* LIST USERS — admin only */
     if ($action === 'list_users') {
         require_admin();
