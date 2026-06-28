@@ -200,8 +200,8 @@ const reveals = document.querySelectorAll(".reveal");
         });
       }
 
-      if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", loadCmsFromDatabase);
-      else loadCmsFromDatabase();
+      // Auto-load désactivé : le HTML est la source de vérité.
+      // Le CMS back-office reste fonctionnel pour les saves live en session admin.
     })();
 
 (function(){
