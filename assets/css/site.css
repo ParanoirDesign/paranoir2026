@@ -1690,7 +1690,7 @@
       font-weight:400;
       line-height:1.6;
       color:rgba(255,250,242,.9);
-      font-style:normal;
+      font-style:italic;
     }
     .review-author{font-size:12px;font-weight:700;color:rgba(255,250,242,.38);text-transform:uppercase;letter-spacing:.10em}
     .reviews-footer{text-align:center}
