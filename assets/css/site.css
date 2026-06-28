@@ -1366,9 +1366,21 @@
       .comparison-cta{grid-template-columns:1fr}
     }
     @media(max-width:720px){
-      .offer-comparison{padding-inline:20px}
-      .comparison-table-wrap{border-radius:26px}
+      .offer-comparison{padding-inline:16px}
+      .comparison-head{grid-template-columns:1fr;gap:20px}
+      .comparison-table-wrap{
+        border-radius:20px;
+        overflow-x:auto;
+        -webkit-overflow-scrolling:touch;
+      }
+      .comparison-table{min-width:520px}
+      .comparison-cta{
+        grid-template-columns:1fr;
+        padding:20px;
+        gap:14px;
+      }
       .cta-col-secondary{min-width:0;width:100%}
+      .cta-col-secondary .cta-secondary{white-space:normal}
     }
 
 
