@@ -1212,6 +1212,9 @@
       margin-top:0;
       max-width:620px;
     }
+    /* ── Cards mobiles (cachées sur desktop/tablette) ─────────────── */
+    .comparison-cards{display:none}
+
     .comparison-table-wrap{
       overflow:auto;
       border-radius:34px;
@@ -1368,12 +1371,86 @@
     @media(max-width:720px){
       .offer-comparison{padding-inline:16px}
       .comparison-head{grid-template-columns:1fr;gap:20px}
-      .comparison-table-wrap{
-        border-radius:20px;
-        overflow-x:auto;
-        -webkit-overflow-scrolling:touch;
+      /* Table cachée, cards affichées */
+      .comparison-table-wrap{display:none}
+      .comparison-cards{
+        display:flex;
+        flex-direction:column;
+        gap:16px;
       }
-      .comparison-table{min-width:520px}
+      .cmp-card{
+        border-radius:24px;
+        background:rgba(255,255,255,.72);
+        backdrop-filter:blur(20px) saturate(1.2);
+        box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 4px 24px rgba(72,43,31,.09);
+        overflow:hidden;
+      }
+      .cmp-card--featured{
+        background:var(--carmine);
+        color:white;
+        box-shadow:0 12px 40px rgba(177,18,53,.22);
+      }
+      .cmp-card-head{
+        padding:20px 20px 16px;
+        border-bottom:1px solid rgba(25,18,16,.08);
+      }
+      .cmp-card--featured .cmp-card-head{border-bottom-color:rgba(255,255,255,.18)}
+      .cmp-card-head small{
+        display:block;
+        font-size:10px;
+        font-weight:700;
+        text-transform:uppercase;
+        letter-spacing:.12em;
+        color:var(--carmine);
+        margin-bottom:4px;
+      }
+      .cmp-card--featured .cmp-card-head small{color:rgba(255,255,255,.72)}
+      .cmp-card-head strong{
+        display:block;
+        font-family:var(--title);
+        font-size:18px;
+        font-weight:700;
+        letter-spacing:-.02em;
+      }
+      .cmp-price{
+        display:inline-block;
+        margin-top:6px;
+        font-size:13px;
+        font-weight:600;
+        color:var(--ink2);
+      }
+      .cmp-card--featured .cmp-price{color:rgba(255,255,255,.84)}
+      .cmp-list{
+        list-style:none;
+        padding:12px 20px 20px;
+        margin:0;
+        display:flex;
+        flex-direction:column;
+        gap:0;
+      }
+      .cmp-list li{
+        font-size:13.5px;
+        padding:7px 0;
+        border-bottom:1px solid rgba(25,18,16,.06);
+        display:flex;
+        gap:8px;
+        align-items:baseline;
+      }
+      .cmp-card--featured .cmp-list li{border-bottom-color:rgba(255,255,255,.12)}
+      .cmp-list li:last-child{border-bottom:none}
+      .cmp-list .cmp-cat{
+        font-size:10px;
+        font-weight:700;
+        text-transform:uppercase;
+        letter-spacing:.1em;
+        color:var(--carmine);
+        padding-top:14px;
+        border-bottom:none;
+      }
+      .cmp-card--featured .cmp-list .cmp-cat{color:rgba(255,255,255,.6)}
+      .cmp-list .check{color:var(--carmine);font-weight:700;flex-shrink:0}
+      .cmp-card--featured .cmp-list .check{color:rgba(255,255,255,.9)}
+      /* CTA bloc */
       .comparison-cta{
         grid-template-columns:1fr;
         padding:20px;
