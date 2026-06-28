@@ -1,8 +1,6 @@
 /* Fonts — latin uniquement, pas d'ext (site FR) */
 @font-face{font-family:'Italiana';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/italiana-400.woff2') format('woff2')}
 @font-face{font-family:'Poppins';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/poppins-400.woff2') format('woff2')}
-@font-face{font-family:'Poppins';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/poppins-500.woff2') format('woff2')}
-@font-face{font-family:'Poppins';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/poppins-600.woff2') format('woff2')}
 @font-face{font-family:'Poppins';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/poppins-700.woff2') format('woff2')}
 @font-face{font-family:'Sora';font-style:normal;font-weight:500 800;font-display:swap;src:url('../fonts/sora-latin.woff2') format('woff2')}
 /* CSS global du site. Remplace progressivement home.css. */
