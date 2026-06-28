@@ -334,7 +334,10 @@ const reveals = document.querySelectorAll(".reveal");
         if (document.hidden) { cancelAnimationFrame(raf); raf = null; }
         else if (!raf) { last = 0; raf = requestAnimationFrame(tick); }
       });
-      raf = requestAnimationFrame(tick);
+
+      function startAnim() { raf = requestAnimationFrame(tick); }
+      if (document.readyState === 'complete') { setTimeout(startAnim, 200); }
+      else { window.addEventListener('load', () => setTimeout(startAnim, 200)); }
     })();
 
     // Comparison table accordion
