@@ -303,22 +303,21 @@ const reveals = document.querySelectorAll(".reveal");
     }
 
     // Comparison table accordion
-    (function(){
-      var table = document.querySelector('.comparison-table');
-      if (!table) return;
-      function toggle(header) {
-        var group = header.closest('.cat-group');
-        if (!group) return;
-        var open = group.classList.toggle('open');
-        header.setAttribute('aria-expanded', String(open));
-      }
-      table.addEventListener('click', function(e) {
-        var header = e.target.closest('.group-header');
-        if (header) toggle(header);
-      });
-      table.addEventListener('keydown', function(e) {
-        if (e.key !== 'Enter' && e.key !== ' ') return;
-        var header = e.target.closest('.group-header');
-        if (header) { e.preventDefault(); toggle(header); }
-      });
-    })();
+    document.addEventListener('click', function(e) {
+      var header = e.target.closest && e.target.closest('tr.group-header');
+      if (!header) return;
+      var group = header.closest('.cat-group');
+      if (!group) return;
+      group.classList.toggle('open');
+      header.setAttribute('aria-expanded', group.classList.contains('open') ? 'true' : 'false');
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      var header = e.target.closest && e.target.closest('tr.group-header');
+      if (!header) return;
+      var group = header.closest('.cat-group');
+      if (!group) return;
+      e.preventDefault();
+      group.classList.toggle('open');
+      header.setAttribute('aria-expanded', group.classList.contains('open') ? 'true' : 'false');
+    });
