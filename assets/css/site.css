@@ -806,8 +806,7 @@
 
     .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;will-change:opacity,transform}
     .visible{opacity:1;transform:translateY(0)}
-    @keyframes hero-in{from{transform:translateY(16px)}to{transform:translateY(0)}}
-    .hero-text{animation:hero-in .6s ease both}
+    .hero-text{}
 
 
     /* FOND THREE.JS — clair, discret, piloté par le scroll et la souris */
