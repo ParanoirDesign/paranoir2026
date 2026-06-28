@@ -1624,7 +1624,7 @@
     }
 
     @media (max-height: 780px) and (min-width: 1041px){
-      .hero{padding-top:82px;gap:42px}
+      .hero{padding-top:120px;gap:42px}
       h1{font-size:clamp(34px,4.25vw,56px)}
       .sub{font-size:14.5px;line-height:1.68;margin-top:16px}
       .hero-actions{margin-top:22px}
