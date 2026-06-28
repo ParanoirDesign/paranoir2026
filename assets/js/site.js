@@ -17,6 +17,38 @@ const reveals = document.querySelectorAll(".reveal");
     }, { threshold: .13 });
     reveals.forEach(el => io.observe(el));
 
+    // Site preview lightbox
+    (function(){
+      const lb = document.getElementById('siteLightbox');
+      const lbImg = document.getElementById('lightboxImg');
+      const lbLabel = document.getElementById('lightboxLabel');
+      const lbClose = document.getElementById('lightboxClose');
+      if(!lb || !lbImg || !lbClose) return;
+
+      function openLightbox(src, label, alt){
+        lbImg.src = src;
+        lbImg.alt = alt || '';
+        lbLabel.textContent = label || '';
+        lb.hidden = false;
+        document.body.style.overflow = 'hidden';
+        lbClose.focus();
+      }
+      function closeLightbox(){
+        lb.hidden = true;
+        document.body.style.overflow = '';
+        lbImg.src = '';
+      }
+
+      document.querySelectorAll('.site-preview-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          openLightbox(btn.dataset.src, btn.dataset.label, btn.querySelector('img')?.alt);
+        });
+      });
+      lbClose.addEventListener('click', closeLightbox);
+      lb.addEventListener('click', e => { if(e.target === lb) closeLightbox(); });
+      document.addEventListener('keydown', e => { if(e.key === 'Escape' && !lb.hidden) closeLightbox(); });
+    })();
+
     // Réalisations carousel
     (function(){
       const track = document.querySelector('.real-carousel');
