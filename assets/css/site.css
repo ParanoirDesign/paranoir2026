@@ -143,7 +143,8 @@
     .brand{font-family:var(--title);font-weight:800;font-size:14px;letter-spacing:-.025em}
     .nav-mid{font-size:11px;text-transform:uppercase;letter-spacing:.17em;color:rgba(25,18,16,.60);font-weight:700}
     .nav-right{display:flex;justify-content:flex-end;align-items:center;gap:18px}
-    .nav-link{font-size:13px;font-weight:600;color:rgba(25,18,16,.72)}
+    .nav-link{font-size:13px;font-weight:600;color:rgba(25,18,16,.72);transition:color .15s}
+    .nav-link:hover{color:var(--carmine)}
     .nav-cta{
       background:var(--ink);
       color:var(--cream);
@@ -1327,15 +1328,14 @@
     }
     .cta-col-secondary .cta-secondary{
       display:block;white-space:nowrap;text-align:center;
-      padding:13px 18px;
+      padding:13px 22px;
       border-radius:999px;
-      border:1.5px solid rgba(25,18,16,.18);
       color:var(--ink);
       font-size:14px;font-weight:600;
       background:rgba(255,250,242,.92);
-      transition:transform .22s ease,box-shadow .22s ease,border-color .15s,color .15s,background .15s;
+      transition:transform .22s ease,box-shadow .22s ease,color .15s,background .15s;
     }
-    .cta-col-secondary .cta-secondary:hover{transform:translateY(-3px);box-shadow:0 20px 52px rgba(177,18,53,.18);border-color:var(--carmine);color:var(--carmine);background:white}
+    .cta-col-secondary .cta-secondary:hover{transform:translateY(-3px);box-shadow:0 20px 52px rgba(177,18,53,.18);color:var(--carmine);background:white}
     @media(max-width:1040px){
       .comparison-head{grid-template-columns:1fr}
       .comparison-head .lede{margin-top:0}
@@ -1784,7 +1784,10 @@
       font-size: 13px;
       font-weight: 700;
       color: rgba(25,18,16,.58);
+      transition:color .15s;
     }
+    .site-nav .site-nav-link:hover,
+    .site-nav .nav-link:hover{color:var(--carmine)}
 
     .site-nav .site-nav-cta,
     .site-nav .nav-cta {
@@ -1872,12 +1875,13 @@
       scroll-snap-align:start;
       display:flex;
       flex-direction:column;
-      background:var(--cream);
+      background:white;
+      border:1px solid var(--line);
       border-radius:24px;
       overflow:hidden;
-      transition:transform .22s ease;
+      transition:transform .22s ease,border-color .22s ease;
     }
-    .real-card:hover{transform:translateY(-4px)}
+    .real-card:hover{transform:translateY(-4px);border-color:rgba(177,18,53,.22)}
     .real-visual-top{
       height:240px;
       overflow:hidden;
