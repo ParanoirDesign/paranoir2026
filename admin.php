@@ -374,15 +374,15 @@ function renderPages(){
     btn.textContent = (page.title || slug) + (page.system ? "" : (page.status === "published" ? " · publiée" : " · brouillon"));
     buttons.appendChild(btn);
   });
-  if(!selectedPageSlug){ editor.innerHTML = ‘<p class="msg">Aucune page. Même le néant a besoin d’un bouton + Nouvelle page.</p>’; return; }
+  if(!selectedPageSlug){ editor.innerHTML = `<p class="msg">Aucune page. Même le néant a besoin d'un bouton + Nouvelle page.</p>`; return; }
   const page = content.pages[selectedPageSlug] || {};
   const isSystem = !!page.system;
-  const isHome = selectedPageSlug === ‘home’;
-  const pageUrl = isHome ? ‘/’ : ‘page.php?slug=’ + encodeURIComponent(page.slug || selectedPageSlug);
+  const isHome = selectedPageSlug === 'home';
+  const pageUrl = isHome ? '/' : 'page.php?slug=' + encodeURIComponent(page.slug || selectedPageSlug);
   editor.innerHTML = `
     <div class="page-meta">
-      <div><label>Slug URL</label><input id="pageSlug" value="${htmlEscape(page.slug || selectedPageSlug)}"${isSystem ? ‘ readonly style="opacity:.55;cursor:default"’ : ‘’}></div>
-      <div><label>Statut</label><select id="pageStatus"${isHome ? ‘ disabled style="opacity:.55"’ : ‘’}><option value="draft">Brouillon</option><option value="published">Publié</option></select></div>
+      <div><label>Slug URL</label><input id="pageSlug" value="${htmlEscape(page.slug || selectedPageSlug)}"${isSystem ? ' readonly style="opacity:.55;cursor:default"' : ''}></div>
+      <div><label>Statut</label><select id="pageStatus"${isHome ? ' disabled style="opacity:.55"' : ''}><option value="draft">Brouillon</option><option value="published">Publié</option></select></div>
     </div>
     <div><label>Méta title</label><input id="pageMetaTitle" value="${htmlEscape(page.meta_title)}"></div>
     <div><label>Méta description</label><textarea id="pageMetaDescription">${htmlEscape(page.meta_description)}</textarea></div>
@@ -391,13 +391,13 @@ function renderPages(){
     <div><label>Surtitre</label><input id="pageKicker" value="${htmlEscape(page.kicker)}"></div>
     <div><label>Intro</label><textarea id="pageIntro">${htmlEscape(page.intro)}</textarea></div>
     <div><label>Contenu HTML</label><div id="pageContent" class="editable-html page-content" contenteditable="true" data-placeholder="Contenu de la page...">${page.content || ""}</div><p class="hint">Tu peux utiliser h2, p, strong, ul/li.</p></div>
-    ` : ‘’}
-    <div class="actions">${!isSystem ? ‘<button class="light" type="button" id="deletePageBtn">Supprimer cette page</button>’ : ‘’}<a class="buttonlike" id="openPageLink" target="_blank" rel="noopener" href="${pageUrl}">Voir la page</a></div>
+    ` : ''}
+    <div class="actions">${!isSystem ? '<button class="light" type="button" id="deletePageBtn">Supprimer cette page</button>' : ''}<a class="buttonlike" id="openPageLink" target="_blank" rel="noopener" href="${pageUrl}">Voir la page</a></div>
   `;
   document.getElementById("pageStatus").value = page.status === "published" ? "published" : "draft";
   if(isHome){
-    const homeExtra = document.createElement(‘div’);
-    homeExtra.style.cssText = ‘display:grid;gap:10px;margin-top:4px’;
+    const homeExtra = document.createElement('div');
+    homeExtra.style.cssText = 'display:grid;gap:10px;margin-top:4px';
     homeExtra.innerHTML = `
       <details open>
         <summary style="cursor:pointer;user-select:none;font-size:18px;font-weight:700;letter-spacing:-.03em;margin-bottom:10px">Textes de la page</summary>
