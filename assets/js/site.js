@@ -19,46 +19,43 @@ const reveals = document.querySelectorAll(".reveal");
 
     // Site preview — vitesse uniforme + lightbox
     (function(){
-      const PX_PER_SEC = 40; // pixels par seconde (même vitesse pour toutes)
-      const THUMB_H = 240;   // hauteur miniature en px
+      const PX_PER_SEC = 40;
+      const THUMB_H = 240;
 
-      // Calcule et applique la durée d'animation selon la hauteur réelle de l'image
-      function setScrollDuration(img, containerH, targetImg){
-        const applyTo = targetImg || img;
-        function calc(){
+      function applySpeed(img, containerH) {
+        function calc() {
           const travel = img.naturalHeight - containerH;
-          if(travel > 0) applyTo.style.animationDuration = (travel / PX_PER_SEC) + 's';
+          if (travel <= 0) return;
+          img.style.setProperty('--travel', `-${travel}px`);
+          img.style.animationDuration = `${travel / PX_PER_SEC}s`;
         }
-        if(img.complete && img.naturalHeight) calc();
-        else img.addEventListener('load', calc, {once:true});
+        img.addEventListener('load', calc, {once: true});
+        if (img.complete && img.naturalHeight > 0) calc();
       }
 
-      // Appliquer aux miniatures
-      document.querySelectorAll('.site-preview-scroll img').forEach(img => {
-        setScrollDuration(img, THUMB_H);
-      });
+      document.querySelectorAll('.site-preview-scroll img').forEach(img => applySpeed(img, THUMB_H));
 
-      // Lightbox
-      const lb = document.getElementById('siteLightbox');
+      const dlg = document.getElementById('siteLightbox');
+      if (!dlg) return;
       const lbImg = document.getElementById('lightboxImg');
       const lbLabel = document.getElementById('lightboxLabel');
       const lbClose = document.getElementById('lightboxClose');
-      if(!lb) return;
 
-      function openLightbox(src, label, alt){
+      function openLightbox(src, label, alt) {
         lbImg.src = src;
         lbImg.alt = alt || '';
         lbLabel.textContent = label || '';
-        lb.classList.add('is-open');
+        dlg.showModal();
         document.body.style.overflow = 'hidden';
         lbClose.focus();
-        // durée lightbox calculée dès que l'image est chargée
-        setScrollDuration(lbImg, lb.querySelector('.lightbox-viewport').offsetHeight);
+        const vpH = dlg.querySelector('.lightbox-viewport').offsetHeight;
+        applySpeed(lbImg, vpH);
       }
-      function closeLightbox(){
-        lb.classList.remove('is-open');
+
+      function closeLightbox() {
+        dlg.close();
         document.body.style.overflow = '';
-        setTimeout(() => { lbImg.src = ''; }, 250);
+        setTimeout(() => { lbImg.src = ''; lbImg.removeAttribute('style'); }, 300);
       }
 
       document.querySelectorAll('.site-preview-btn').forEach(btn => {
@@ -67,8 +64,8 @@ const reveals = document.querySelectorAll(".reveal");
         });
       });
       lbClose.addEventListener('click', closeLightbox);
-      lb.addEventListener('click', e => { if(!e.target.closest('.lightbox-inner')) closeLightbox(); });
-      document.addEventListener('keydown', e => { if(e.key === 'Escape' && lb.classList.contains('is-open')) closeLightbox(); });
+      dlg.addEventListener('click', e => { if (e.target === dlg) closeLightbox(); });
+      dlg.addEventListener('cancel', e => { e.preventDefault(); closeLightbox(); });
     })();
 
     // Réalisations carousel
