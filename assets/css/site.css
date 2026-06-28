@@ -1878,9 +1878,7 @@
       background:white;
       border-radius:24px;
       overflow:hidden;
-      transition:transform .22s ease;
     }
-    .real-card:hover{transform:translateY(-4px)}
     .real-visual-top{
       height:240px;
       overflow:hidden;
