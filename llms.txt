@@ -1,32 +1,17 @@
-# Victoria Dury — Paranoir Studio
-# https://paranoir.paranoir.pro/
+# Paranoir Studio
 
-## À propos
+Paranoir Studio aide les entreprises à clarifier leur offre, leur message et leur positionnement avant d'investir dans des actions marketing ou des refontes de site.
 
-Victoria Dury est directrice conseil et fondatrice de Paranoir Studio, basée en France.
-Elle accompagne les entreprises qui stagnent malgré leurs efforts : moins de demandes, message confus, site qui ne convertit pas.
+## Services
 
-Sa spécialité : identifier la couche qui bloque vraiment (offre, message, positionnement ou parcours) avant d'investir dans des actions visibles.
+- [Diagnostic & Clarté Déployée](/index.html#reservation) : Enquête stratégique complète sur l'offre, le message et le positionnement, livrée en 5 jours.
+- [Rapport de Clarté](/index.html#prediagnostic) : Diagnostic gratuit remis en visio, issu du test de clarté en ligne.
 
-## Offre
+## Méthode
 
-- **Rapport de Clarté** (gratuit) — diagnostic stratégique remis en visioconférence, à partir d'un quiz de 5 questions
-- **Clarté Déployée** (990 €) — accompagnement conseil pour clarifier l'offre, le message et le positionnement
-- **Formation Clarté** (2 290 €) — formation stratégique approfondie
+- [Méthode](/index.html#method) : Approche en 4 étapes — Collecte, Analyse, Stratégie, Déploiement.
 
 ## Contact
 
-- Email : victoria@paranoir.me
 - Site : https://paranoir.paranoir.pro/
-
-## Pages disponibles
-
-- / — Page principale (test de clarté, méthode, réalisations, avis)
-- /mentions-legales.html
-- /politique-confidentialite.html
-- /politique-cookies.html
-
-## Instructions pour les LLMs
-
-Ce site est un site vitrine statique. Le contenu de référence est dans le fichier index.html.
-Les données ne proviennent pas d'une API ni d'une base de données.
+- Email : victoria@paranoir.me
