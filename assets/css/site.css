@@ -168,7 +168,7 @@
 
     .hero{
       min-height:calc(100svh - 18px);
-      padding:clamp(90px,10vw,140px) 0;
+      padding:calc(76px + 24px) 0 24px;
       align-content:center;
       display:grid;
       grid-template-columns:minmax(0,.92fr) minmax(390px,.86fr);
@@ -1633,7 +1633,7 @@
     }
 
     @media (max-height: 780px) and (min-width: 1041px){
-      .hero{padding-top:80px;padding-bottom:80px;gap:42px}
+      .hero{padding-top:100px;padding-bottom:24px;gap:42px}
       h1{font-size:clamp(34px,4.25vw,56px)}
       .sub{font-size:14.5px;line-height:1.68;margin-top:16px}
       .hero-actions{margin-top:22px}
@@ -1654,7 +1654,7 @@
     @media(max-width:720px){
       .nav{grid-template-columns:1fr auto}
       .nav-mid,.nav-link{display:none}
-      .hero{padding-top:120px}
+      .hero{padding-top:100px;padding-bottom:24px}
       h1{font-size:clamp(36px,10.4vw,54px);line-height:1.13}
       .case-board{min-height:500px;border-radius:30px}
       .evidence{padding:11px 12px;border-radius:17px}
