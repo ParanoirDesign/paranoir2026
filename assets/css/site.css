@@ -1760,8 +1760,9 @@
       outline-offset:4px;
     }
     /* ── Réalisations ────────────────────────────────────────────────── */
+    .realisations,.google-reviews{width:100%;max-width:100%}
     .realisations{
-      padding:clamp(80px,10vw,140px) clamp(20px,6vw,80px);
+      padding:clamp(60px,8vw,120px) clamp(20px,6vw,80px);
       background:var(--cream,#fffaf2);
     }
     .realisations-inner{
@@ -1827,7 +1828,7 @@
     }
     /* ── Google Reviews ──────────────────────────────────────────────── */
     .google-reviews{
-      padding:clamp(80px,10vw,140px) clamp(20px,6vw,80px);
+      padding:clamp(60px,8vw,120px) clamp(20px,6vw,80px);
       background:linear-gradient(160deg,rgba(255,250,242,.6) 0%,rgba(255,255,255,.4) 100%);
     }
     .reviews-inner{

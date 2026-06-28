@@ -14,7 +14,7 @@ $homeDescription = (string)($homePage['meta_description'] ?? 'Clarifiez votre of
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Poppins:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="/assets/css/site.css"></head>
+<link rel="stylesheet" href="/assets/css/site.css?v=<?php echo filemtime(__DIR__.'/assets/css/site.css'); ?>"></head>
 <body class="site-home">
 <div aria-hidden="true" class="three-bg">
 <canvas id="clarityCanvas"></canvas>
