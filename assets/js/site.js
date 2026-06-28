@@ -17,36 +17,58 @@ const reveals = document.querySelectorAll(".reveal");
     }, { threshold: .13 });
     reveals.forEach(el => io.observe(el));
 
-    // Site preview lightbox
+    // Site preview — vitesse uniforme + lightbox
     (function(){
+      const PX_PER_SEC = 40; // pixels par seconde (même vitesse pour toutes)
+      const THUMB_H = 240;   // hauteur miniature en px
+
+      // Calcule et applique la durée d'animation selon la hauteur réelle de l'image
+      function setScrollDuration(img, containerH, targetImg){
+        const applyTo = targetImg || img;
+        function calc(){
+          const travel = img.naturalHeight - containerH;
+          if(travel > 0) applyTo.style.animationDuration = (travel / PX_PER_SEC) + 's';
+        }
+        if(img.complete && img.naturalHeight) calc();
+        else img.addEventListener('load', calc, {once:true});
+      }
+
+      // Appliquer aux miniatures
+      document.querySelectorAll('.site-preview-scroll img').forEach(img => {
+        setScrollDuration(img, THUMB_H);
+      });
+
+      // Lightbox
       const lb = document.getElementById('siteLightbox');
       const lbImg = document.getElementById('lightboxImg');
       const lbLabel = document.getElementById('lightboxLabel');
       const lbClose = document.getElementById('lightboxClose');
-      if(!lb || !lbImg || !lbClose) return;
+      if(!lb) return;
 
       function openLightbox(src, label, alt){
         lbImg.src = src;
         lbImg.alt = alt || '';
         lbLabel.textContent = label || '';
-        lb.hidden = false;
+        lb.classList.add('is-open');
         document.body.style.overflow = 'hidden';
         lbClose.focus();
+        // durée lightbox calculée dès que l'image est chargée
+        setScrollDuration(lbImg, lb.querySelector('.lightbox-viewport').offsetHeight);
       }
       function closeLightbox(){
-        lb.hidden = true;
+        lb.classList.remove('is-open');
         document.body.style.overflow = '';
-        lbImg.src = '';
+        setTimeout(() => { lbImg.src = ''; }, 250);
       }
 
       document.querySelectorAll('.site-preview-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-          openLightbox(btn.dataset.src, btn.dataset.label, btn.querySelector('img')?.alt);
+          openLightbox(btn.dataset.src, btn.dataset.label, btn.querySelector('img')?.alt || '');
         });
       });
       lbClose.addEventListener('click', closeLightbox);
-      lb.addEventListener('click', e => { if(e.target === lb) closeLightbox(); });
-      document.addEventListener('keydown', e => { if(e.key === 'Escape' && !lb.hidden) closeLightbox(); });
+      lb.addEventListener('click', e => { if(!e.target.closest('.lightbox-inner')) closeLightbox(); });
+      document.addEventListener('keydown', e => { if(e.key === 'Escape' && lb.classList.contains('is-open')) closeLightbox(); });
     })();
 
     // Réalisations carousel
