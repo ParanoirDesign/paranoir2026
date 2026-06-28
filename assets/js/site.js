@@ -163,6 +163,39 @@ const reveals = document.querySelectorAll(".reveal");
         if (!validateQuizStep(currentStep)) return;
         buildQuizResult();
         quiz.scrollIntoView({ behavior: "smooth", block: "center" });
+
+        const data = new FormData(quiz);
+        const resultatEl = document.getElementById("quizResult");
+        const resultatTexte = resultatEl ? resultatEl.textContent.trim() : "";
+
+        const payload = {
+          prenom:    data.get("prenom"),
+          email:     data.get("email"),
+          url:       data.get("url") || "",
+          signal:    data.get("signal"),
+          offre:     data.get("offre"),
+          actions:   data.getAll("actions"),
+          certitude: data.get("certitude"),
+          resultat:  resultatTexte,
+        };
+
+        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Envoi…"; }
+
+        fetch("/mail.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        })
+          .then(r => r.json())
+          .then(res => {
+            if (submitBtn) {
+              submitBtn.textContent = res.ok ? "✓ Rapport envoyé !" : "Erreur — réessayez";
+              submitBtn.disabled = !res.ok;
+            }
+          })
+          .catch(() => {
+            if (submitBtn) { submitBtn.textContent = "Erreur réseau"; submitBtn.disabled = false; }
+          });
       });
     }
 
