@@ -168,7 +168,8 @@
 
     .hero{
       min-height:calc(100svh - 18px);
-      padding:clamp(140px,15vw,200px) 0 clamp(72px,9vw,110px);
+      padding:clamp(90px,10vw,140px) 0;
+      align-content:center;
       display:grid;
       grid-template-columns:minmax(0,.92fr) minmax(390px,.86fr);
       gap:clamp(30px,5vw,68px);
@@ -1632,7 +1633,7 @@
     }
 
     @media (max-height: 780px) and (min-width: 1041px){
-      .hero{padding-top:120px;gap:42px}
+      .hero{padding-top:80px;padding-bottom:80px;gap:42px}
       h1{font-size:clamp(34px,4.25vw,56px)}
       .sub{font-size:14.5px;line-height:1.68;margin-top:16px}
       .hero-actions{margin-top:22px}
