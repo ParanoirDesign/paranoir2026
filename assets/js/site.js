@@ -303,6 +303,40 @@ const reveals = document.querySelectorAll(".reveal");
       }, { passive:true });
     }
 
+    // Hero background — logo parallax + float (remplace Three.js)
+    (function(){
+      const img = document.querySelector('.hero-bg img');
+      if (!img) return;
+      let mx = 0, my = 0, raf = null;
+      let t = 0;
+      const FPS = 1000 / 30;
+      let last = 0;
+
+      window.addEventListener('pointermove', e => {
+        if (window.innerWidth < 1040) return;
+        mx = (e.clientX / window.innerWidth - 0.5) * 32;
+        my = (e.clientY / window.innerHeight - 0.5) * -22;
+      }, { passive: true });
+
+      function tick(ts) {
+        raf = requestAnimationFrame(tick);
+        if (ts - last < FPS) return;
+        last = ts;
+        t += 0.012;
+        const maxScroll = document.body.scrollHeight - window.innerHeight;
+        const sp = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+        const fy = Math.sin(t * 0.65) * 10;
+        const fr = Math.sin(t * 0.42) * 0.5;
+        img.style.transform = `translateY(calc(-50% + ${fy + my + sp * 40}px)) translateX(${mx}px) rotate(${fr}deg)`;
+      }
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) { cancelAnimationFrame(raf); raf = null; }
+        else if (!raf) { last = 0; raf = requestAnimationFrame(tick); }
+      });
+      raf = requestAnimationFrame(tick);
+    })();
+
     // Comparison table accordion
     document.addEventListener('click', function(e) {
       var header = e.target.closest && e.target.closest('tr.group-header');
