@@ -27,7 +27,7 @@ $currentUsername = htmlspecialchars($currentUser['username'] ?? '', ENT_QUOTES, 
   <div id="login" class="login card<?= $isLoggedIn ? ' hidden' : '' ?>">
     <h1>Connexion</h1>
     <label>Identifiant</label><input id="user" autocomplete="username">
-    <label>Mot de passe</label><div class="pass-wrap"><input id="pass" type="password" autocomplete="current-password"><button type="button" class="pass-toggle" aria-label="Afficher le mot de passe" data-toggle="pass">👁</button></div>
+    <label>Mot de passe</label><div class="pass-wrap"><input id="pass" type="password" autocomplete="current-password"><button type="button" class="pass-toggle" aria-label="Afficher le mot de passe" data-toggle="pass"></button></div>
     <div class="actions"><button class="red" id="loginBtn">Se connecter</button></div>
   </div>
 
@@ -87,7 +87,7 @@ $currentUsername = htmlspecialchars($currentUser['username'] ?? '', ENT_QUOTES, 
         <h2 class="mini-title">Creer un acces</h2>
         <div class="grid">
           <div class="field-card"><label>Identifiant</label><input id="newUsername" placeholder="prenom.client" autocomplete="off"></div>
-          <div class="field-card"><label>Mot de passe</label><div class="pass-wrap"><input id="newPassword" type="password" placeholder="6 caracteres min." autocomplete="new-password"><button type="button" class="pass-toggle" aria-label="Afficher le mot de passe" data-toggle="newPassword">👁</button></div></div>
+          <div class="field-card"><label>Mot de passe</label><div class="pass-wrap"><input id="newPassword" type="password" placeholder="6 caracteres min." autocomplete="new-password"><button type="button" class="pass-toggle" aria-label="Afficher le mot de passe" data-toggle="newPassword"></button></div></div>
           <div class="field-card"><label>Role</label><select id="newRole"><option value="client">Client (pages assignees seulement)</option><option value="admin">Admin (acces complet)</option></select></div>
         </div>
         <div class="actions"><button class="red" id="createUserBtn" type="button">Creer l'acces</button></div>
@@ -98,9 +98,9 @@ $currentUsername = htmlspecialchars($currentUser['username'] ?? '', ENT_QUOTES, 
       <div class="section" data-section="account">
         <h2 class="mini-title">Changer mon mot de passe</h2>
         <div class="grid">
-          <div class="field-card"><label>Mot de passe actuel</label><div class="pass-wrap"><input id="currentPassword" type="password" autocomplete="current-password"><button type="button" class="pass-toggle" aria-label="Afficher le mot de passe" data-toggle="currentPassword">👁</button></div></div>
-          <div class="field-card"><label>Nouveau mot de passe</label><div class="pass-wrap"><input id="newPasswordAccount" type="password" autocomplete="new-password" placeholder="6 caracteres min."><button type="button" class="pass-toggle" aria-label="Afficher le mot de passe" data-toggle="newPasswordAccount">👁</button></div></div>
-          <div class="field-card"><label>Confirmer</label><div class="pass-wrap"><input id="confirmPassword" type="password" autocomplete="new-password" placeholder="Identique au precedent"><button type="button" class="pass-toggle" aria-label="Afficher le mot de passe" data-toggle="confirmPassword">👁</button></div></div>
+          <div class="field-card"><label>Mot de passe actuel</label><div class="pass-wrap"><input id="currentPassword" type="password" autocomplete="current-password"><button type="button" class="pass-toggle" aria-label="Afficher le mot de passe" data-toggle="currentPassword"></button></div></div>
+          <div class="field-card"><label>Nouveau mot de passe</label><div class="pass-wrap"><input id="newPasswordAccount" type="password" autocomplete="new-password" placeholder="6 caracteres min."><button type="button" class="pass-toggle" aria-label="Afficher le mot de passe" data-toggle="newPasswordAccount"></button></div></div>
+          <div class="field-card"><label>Confirmer</label><div class="pass-wrap"><input id="confirmPassword" type="password" autocomplete="new-password" placeholder="Identique au precedent"><button type="button" class="pass-toggle" aria-label="Afficher le mot de passe" data-toggle="confirmPassword"></button></div></div>
         </div>
         <div class="actions"><button class="red" id="changePasswordBtn" type="button">Changer le mot de passe</button></div>
       </div>
@@ -750,6 +750,11 @@ document.getElementById('createUserBtn')?.addEventListener('click', async () => 
   }
 });
 
+const EYE_OPEN  = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+const EYE_CLOSE = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
+
+document.querySelectorAll('.pass-toggle').forEach(btn => btn.innerHTML = EYE_OPEN);
+
 document.addEventListener('click', e => {
   const btn = e.target.closest('.pass-toggle');
   if(!btn) return;
@@ -757,7 +762,7 @@ document.addEventListener('click', e => {
   if(!input) return;
   const show = input.type === 'password';
   input.type = show ? 'text' : 'password';
-  btn.textContent = show ? '🙈' : '👁';
+  btn.innerHTML = show ? EYE_CLOSE : EYE_OPEN;
 });
 
 <?php if ($isLoggedIn): ?>
