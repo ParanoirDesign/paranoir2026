@@ -279,12 +279,12 @@
       transform:rotate(var(--r));
       z-index:1;
     }
-    .paper-a{width:40%;height:17%;left:3%;top:11%;--r:-2.5deg}
-    .paper-b{width:28%;height:16%;right:4%;top:14%;--r:2deg}
-    .paper-c{width:30%;height:16%;left:14%;top:40%;--r:1.8deg}
-    .paper-d{width:30%;height:16%;right:6%;top:42%;--r:-2.2deg}
-    .paper-e{width:30%;height:16%;left:5%;bottom:10%;--r:2deg}
-    .paper-f{width:28%;height:17%;right:5%;bottom:11%;--r:-1.8deg}
+    .paper-a{width:50%;height:22%;left:1%;top:8%;--r:-2.5deg}
+    .paper-b{width:36%;height:21%;right:2%;top:11%;--r:2deg}
+    .paper-c{width:38%;height:21%;left:10%;top:37%;--r:1.8deg}
+    .paper-d{width:37%;height:21%;right:4%;top:39%;--r:-2.2deg}
+    .paper-e{width:37%;height:21%;left:3%;bottom:7%;--r:2deg}
+    .paper-f{width:34%;height:22%;right:3%;bottom:8%;--r:-1.8deg}
 
     .thread-svg{
       position:absolute;
