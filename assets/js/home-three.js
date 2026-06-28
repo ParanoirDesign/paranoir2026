@@ -69,8 +69,15 @@ import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
       resize();
 
       const clock = new THREE.Clock();
+      let rafId = null;
+      let lastFrameTime = 0;
+      const FRAME_INTERVAL = 1000 / 30;
 
-      function animate(){
+      function animate(timestamp){
+        rafId = requestAnimationFrame(animate);
+        if (timestamp - lastFrameTime < FRAME_INTERVAL) return;
+        lastFrameTime = timestamp;
+
         const time = clock.getElapsedTime();
         const maxScroll = document.body.scrollHeight - window.innerHeight;
         const scroll = maxScroll > 0 ? window.scrollY / maxScroll : 0;
@@ -94,8 +101,12 @@ import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
         haloMaterial.opacity = 0.012 + Math.sin(time * .42) * .004;
 
         renderer.render(scene, camera);
-        requestAnimationFrame(animate);
       }
 
-      animate();
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) { cancelAnimationFrame(rafId); rafId = null; }
+        else if (!rafId) { lastFrameTime = 0; rafId = requestAnimationFrame(animate); }
+      });
+
+      rafId = requestAnimationFrame(animate);
     }
