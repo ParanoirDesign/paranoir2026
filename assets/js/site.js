@@ -17,45 +17,84 @@ const reveals = document.querySelectorAll(".reveal");
     }, { threshold: .13 });
     reveals.forEach(el => io.observe(el));
 
-    // Site preview — vitesse uniforme + lightbox
+    // Site preview — rAF scroll uniforme + lightbox
     (function(){
-      const PX_PER_SEC = 40;
-      const THUMB_H = 240;
+      const PX_PER_SEC = 22; // vitesse en pixels rendus par seconde
 
-      function applySpeed(img, containerH) {
-        function calc() {
-          const travel = img.naturalHeight - containerH;
-          if (travel <= 0) return;
-          img.style.setProperty('--travel', `-${travel}px`);
-          img.style.animationDuration = `${travel / PX_PER_SEC}s`;
-        }
-        img.addEventListener('load', calc, {once: true});
-        if (img.complete && img.naturalHeight > 0) calc();
+      // Un seul loop rAF pour toutes les miniatures
+      const scrollers = [];
+      let rafId = null;
+      let lastTs = null;
+
+      function tick(ts) {
+        const dt = lastTs ? Math.min((ts - lastTs) / 1000, 0.1) : 0;
+        lastTs = ts;
+        scrollers.forEach(s => {
+          const max = s.img.offsetHeight - s.container.offsetHeight;
+          if (max <= 0) return;
+          s.pos += s.dir * PX_PER_SEC * dt;
+          if (s.pos <= -max) { s.pos = -max; s.dir = 1; }
+          if (s.pos >= 0)    { s.pos = 0;    s.dir = -1; }
+          s.img.style.transform = `translateY(${s.pos}px)`;
+        });
+        rafId = requestAnimationFrame(tick);
       }
 
-      document.querySelectorAll('.site-preview-scroll img').forEach(img => applySpeed(img, THUMB_H));
+      document.querySelectorAll('.site-preview-scroll').forEach(container => {
+        const img = container.querySelector('img');
+        if (!img) return;
+        const s = { container, img, pos: 0, dir: -1 };
+        scrollers.push(s);
+      });
 
+      if (scrollers.length) rafId = requestAnimationFrame(tick);
+
+      // Lightbox rAF séparé
+      let lbRaf = null;
+      let lbScroller = null;
+
+      function lbTick(ts) {
+        if (!lbScroller) return;
+        const s = lbScroller;
+        const dt = s.lastTs ? Math.min((ts - s.lastTs) / 1000, 0.1) : 0;
+        s.lastTs = ts;
+        const max = s.img.offsetHeight - s.container.offsetHeight;
+        if (max > 0) {
+          s.pos += s.dir * PX_PER_SEC * dt;
+          if (s.pos <= -max) { s.pos = -max; s.dir = 1; }
+          if (s.pos >= 0)    { s.pos = 0;    s.dir = -1; }
+          s.img.style.transform = `translateY(${s.pos}px)`;
+        }
+        lbRaf = requestAnimationFrame(lbTick);
+      }
+
+      // Lightbox
       const dlg = document.getElementById('siteLightbox');
       if (!dlg) return;
       const lbImg = document.getElementById('lightboxImg');
       const lbLabel = document.getElementById('lightboxLabel');
       const lbClose = document.getElementById('lightboxClose');
+      const lbViewport = dlg.querySelector('.lightbox-viewport');
 
       function openLightbox(src, label, alt) {
         lbImg.src = src;
         lbImg.alt = alt || '';
         lbLabel.textContent = label || '';
+        lbImg.style.transform = '';
         dlg.showModal();
         document.body.style.overflow = 'hidden';
         lbClose.focus();
-        const vpH = dlg.querySelector('.lightbox-viewport').offsetHeight;
-        applySpeed(lbImg, vpH);
+        lbScroller = { img: lbImg, container: lbViewport, pos: 0, dir: -1, lastTs: null };
+        cancelAnimationFrame(lbRaf);
+        lbRaf = requestAnimationFrame(lbTick);
       }
 
       function closeLightbox() {
+        cancelAnimationFrame(lbRaf);
+        lbScroller = null;
         dlg.close();
         document.body.style.overflow = '';
-        setTimeout(() => { lbImg.src = ''; lbImg.removeAttribute('style'); }, 300);
+        setTimeout(() => { lbImg.src = ''; lbImg.style.transform = ''; }, 300);
       }
 
       document.querySelectorAll('.site-preview-btn').forEach(btn => {
