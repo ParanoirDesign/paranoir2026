@@ -213,51 +213,86 @@ function renderTexts(){
   const wrap = document.getElementById("textFields");
   const q = (document.getElementById("textSearch")?.value || "").toLowerCase();
   wrap.innerHTML = "";
-  Object.entries(content.texts || {}).forEach(([key,value]) => {
-    const readable = adminFieldLabel(key);
-    const hay = (key + " " + readable + " " + fieldSnippet(value)).toLowerCase();
+
+  // Keys to exclude: old inline-editor UI labels and complex HTML fragments clients shouldn't touch
+  const EXCLUDE_PREFIXES = ['page_'];
+  const EXCLUDE_KEYS = new Set([
+    'quiz_site_message_offre_parcours',
+    'hero_dossier_ouvert_enquete_strategique',
+    'quiz_hypothese_en_cours_on_commence_par_le_symptom',
+    'quiz_question_1_5'
+  ]);
+
+  // Group entries by section (from "Section · Label" field_labels format)
+  const sections = {};
+  Object.entries(content.texts || {}).forEach(([key, value]) => {
+    if(EXCLUDE_PREFIXES.some(p => key.startsWith(p))) return;
+    if(EXCLUDE_KEYS.has(key)) return;
+    const full = adminFieldLabel(key);
+    const dot = full.indexOf(' · ');
+    const section = dot > -1 ? full.slice(0, dot) : 'Général';
+    const label = dot > -1 ? full.slice(dot + 3) : full;
+    const hay = (key + ' ' + full + ' ' + fieldSnippet(value)).toLowerCase();
     if(q && !hay.includes(q)) return;
-    const div = document.createElement("div");
-    div.className = "field-card " + (String(value).length > 90 ? "full" : "");
-    const code = document.createElement("code");
-    code.textContent = adminFieldLabel(key);
-    const editor = document.createElement("div");
-    editor.className = "editable-html";
-    editor.contentEditable = "true";
-    editor.dataset.text = key;
-    editor.dataset.placeholder = "Modifier le texte...";
-    editor.innerHTML = value || "";
-    div.appendChild(code);
-    const hint = document.createElement("div");
-    hint.style.cssText = "font-size:11px;color:rgba(25,18,16,.46);margin:-3px 0 8px;word-break:break-all";
-    hint.textContent = key;
-    div.appendChild(hint);
-    div.appendChild(editor);
-    wrap.appendChild(div);
+    if(!sections[section]) sections[section] = [];
+    sections[section].push({key, value, label});
+  });
+
+  if(Object.keys(sections).length === 0){
+    wrap.innerHTML = '<p class="msg" style="grid-column:1/-1">Aucun champ trouvé.</p>';
+    return;
+  }
+
+  Object.entries(sections).forEach(([section, fields]) => {
+    const heading = document.createElement('div');
+    heading.className = 'full';
+    heading.innerHTML = `<p style="font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:800;color:var(--muted);margin:18px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--line)">${section}</p>`;
+    wrap.appendChild(heading);
+    fields.forEach(({key, value, label}) => {
+      const div = document.createElement('div');
+      div.className = 'field-card' + (String(value).length > 90 ? ' full' : '');
+      const lbl = document.createElement('code');
+      lbl.textContent = label;
+      const editor = document.createElement('div');
+      editor.className = 'editable-html';
+      editor.contentEditable = 'true';
+      editor.dataset.text = key;
+      editor.dataset.placeholder = 'Modifier le texte...';
+      editor.innerHTML = value || '';
+      div.appendChild(lbl);
+      div.appendChild(editor);
+      wrap.appendChild(div);
+    });
   });
 }
 
 function renderCtas(){
   const wrap = document.getElementById("ctaFields");
   wrap.innerHTML = "";
-  Object.entries(content.ctas || {}).forEach(([key,value]) => {
+  // Internal keys not shown to clients
+  const HIDE_CTA = new Set(['heroCtaLink']);
+  Object.entries(content.ctas || {}).forEach(([key, value]) => {
+    if(HIDE_CTA.has(key)) return;
+    const full = adminFieldLabel(key);
+    const dot = full.indexOf(' · ');
+    const label = dot > -1 ? full.slice(dot + 3) : full;
     const div = document.createElement("div");
     div.className = "cta-card";
     const title = document.createElement("strong");
-    title.textContent = adminFieldLabel(key);
+    title.textContent = label;
     const labelWrap = document.createElement("div");
-    const label = document.createElement("label");
-    label.textContent = "Texte du bouton";
+    const lbl = document.createElement("label");
+    lbl.textContent = "Texte du bouton";
     const labelEditor = document.createElement("div");
     labelEditor.className = "editable-html";
     labelEditor.contentEditable = "true";
     labelEditor.dataset.ctaLabel = key;
     labelEditor.dataset.placeholder = "Modifier le bouton...";
     labelEditor.innerHTML = value.label || "";
-    labelWrap.appendChild(label);
+    labelWrap.appendChild(lbl);
     labelWrap.appendChild(labelEditor);
     const urlWrap = document.createElement("div");
-    urlWrap.innerHTML = `<label>URL du bouton</label><input data-cta-url="${key}" />`;
+    urlWrap.innerHTML = `<label>URL</label><input data-cta-url="${key}" />`;
     div.appendChild(title);
     div.appendChild(labelWrap);
     div.appendChild(urlWrap);
@@ -271,10 +306,13 @@ function renderImages(){
   wrap.innerHTML = "";
   const images = content.images || {};
   if(Object.keys(images).length === 0) images.aboutImage = "";
-  Object.entries(images).forEach(([key,value]) => {
+  Object.entries(images).forEach(([key, value]) => {
+    const full = adminFieldLabel(key);
+    const dot = full.indexOf(' · ');
+    const label = dot > -1 ? full.slice(dot + 3) : full;
     const div = document.createElement("div");
     div.className = "field-card full";
-    div.innerHTML = `<code>${adminFieldLabel(key)}</code><div style="font-size:11px;color:rgba(25,18,16,.46);margin:-3px 0 8px;word-break:break-all">${key}</div><label>URL image</label><input data-image="${key}" placeholder="https://..." />`;
+    div.innerHTML = `<code>${label}</code><label>URL de l'image</label><input data-image="${key}" placeholder="https://..." />`;
     div.querySelector("input").value = value || "";
     wrap.appendChild(div);
   });
