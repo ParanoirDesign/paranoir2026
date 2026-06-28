@@ -161,7 +161,7 @@
 
     .hero{
       min-height:calc(100svh - 18px);
-      padding:92px 0 22px;
+      padding:clamp(72px,9vw,110px) 0;
       display:grid;
       grid-template-columns:minmax(0,.92fr) minmax(390px,.86fr);
       gap:clamp(30px,5vw,68px);
@@ -427,7 +427,7 @@
     }
 
     .proof{
-      padding:18px 0 76px;
+      padding:clamp(72px,9vw,110px) 0;
       display:grid;
       grid-template-columns:.78fr 1.44fr .78fr;
       gap:18px;
@@ -456,7 +456,7 @@
       display:grid;
       place-items:center;
       text-align:center;
-      padding:clamp(80px,10vw,140px) clamp(20px,6vw,80px);
+      padding:clamp(72px,9vw,110px) clamp(20px,6vw,80px);
     }
     .statement h2{
       max-width:920px;
@@ -547,7 +547,7 @@
     }
 
     .method{
-      padding:86px 0;
+      padding:clamp(72px,9vw,110px) 0;
       display:grid;
       grid-template-columns:.85fr 1.15fr;
       gap:clamp(38px,6vw,86px);
@@ -620,7 +620,7 @@
       max-width:540px;
     }
 
-    .offer{padding:86px 0}
+    .offer{padding:clamp(72px,9vw,110px) 0}
     .offer-layout{
       display:grid;
       grid-template-columns:.72fr 1.28fr;
@@ -687,7 +687,7 @@
     }
 
     .about{
-      padding:82px 0;
+      padding:clamp(72px,9vw,110px) 0;
       display:grid;
       grid-template-columns:.78fr 1.22fr;
       gap:18px;
@@ -712,7 +712,7 @@
       line-height:1.86;
     }
 
-    .faq{max-width:900px;padding:82px 0}
+    .faq{max-width:900px;padding:clamp(72px,9vw,110px) 0}
     details{padding:24px 0;border-bottom:1px solid var(--line)}
     summary{
       list-style:none;cursor:pointer;
@@ -739,7 +739,7 @@
       background:var(--carmine);
       color:white;
       text-align:center;
-      padding:clamp(70px,9vw,126px) var(--gutter);
+      padding:clamp(72px,9vw,110px) var(--gutter);
     }
     .final-inner{max-width:960px;margin:0 auto}
     .final h2{color:white;font-size:clamp(35px,5vw,70px)}
@@ -847,7 +847,7 @@
 
 
     .prequiz{
-      padding:86px 0;
+      padding:clamp(72px,9vw,110px) 0;
       display:grid;
       grid-template-columns:.72fr 1.28fr;
       gap:clamp(28px,5vw,72px);
@@ -1175,7 +1175,7 @@
     .offer-comparison{
       width:100%;
       max-width:none;
-      padding:clamp(70px,9vw,118px) var(--gutter);
+      padding:clamp(72px,9vw,110px) var(--gutter);
       background:none;
     }
     .comparison-inner{
@@ -1857,7 +1857,7 @@
     /* ── Réalisations ────────────────────────────────────────────────── */
     .realisations,.google-reviews{width:100%;max-width:100%}
     .realisations{
-      padding:clamp(60px,8vw,120px) clamp(20px,6vw,80px);
+      padding:clamp(72px,9vw,110px) clamp(20px,6vw,80px);
       background:var(--cream,#fffaf2);
     }
     .realisations-inner{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:36px}
@@ -1996,7 +1996,7 @@
     }
     /* ── Google Reviews ──────────────────────────────────────────────── */
     .google-reviews{
-      padding:clamp(60px,8vw,120px) clamp(20px,6vw,80px);
+      padding:clamp(72px,9vw,110px) clamp(20px,6vw,80px);
       background:var(--ink);
     }
     .reviews-inner{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:56px}
