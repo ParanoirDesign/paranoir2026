@@ -9,7 +9,7 @@
   };
 
   ensureStylesheet('/assets/css/navigation-v2.css?v=2', 'navigation-v2-css');
-  ensureStylesheet('/assets/css/hero-v2.css?v=7', 'hero-v2-css');
+  ensureStylesheet('/assets/css/hero-v2.css?v=8', 'hero-v2-css');
 
   const currentNav = document.querySelector('.nav');
   if (currentNav && !document.getElementById('site-header')) {
