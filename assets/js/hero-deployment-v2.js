@@ -1,137 +1,121 @@
 (() => {
   const SVG_NS = 'http://www.w3.org/2000/svg';
 
-  const rectAnchor = (rect, boardRect, towardRect) => {
-    const cx = rect.left - boardRect.left + rect.width / 2;
-    const cy = rect.top - boardRect.top + rect.height / 2;
-    const tx = towardRect.left - boardRect.left + towardRect.width / 2;
-    const ty = towardRect.top - boardRect.top + towardRect.height / 2;
-    const dx = tx - cx;
-    const dy = ty - cy;
-    const safeDx = Math.abs(dx) < 0.001 ? 0.001 : Math.abs(dx);
-    const safeDy = Math.abs(dy) < 0.001 ? 0.001 : Math.abs(dy);
-    const scale = Math.min((rect.width / 2) / safeDx, (rect.height / 2) / safeDy);
-
-    return {
-      x: cx + dx * scale,
-      y: cy + dy * scale
-    };
-  };
-
-  const panelAnchor = (panelRect, boardRect) => ({
-    x: panelRect.left - boardRect.left + panelRect.width / 2,
-    y: panelRect.top - boardRect.top + 2
-  });
-
   const createSvgElement = (name, className) => {
     const element = document.createElementNS(SVG_NS, name);
     if (className) element.setAttribute('class', className);
     return element;
   };
 
-  const mountDetectiveThreads = (board, evidence, panel) => {
-    const svg = board.querySelector('.thread-svg');
-    if (!svg || evidence.length < 5) return;
+  const pointOnRect = (rect, boardRect, xRatio, yRatio) => ({
+    x: rect.left - boardRect.left + rect.width * xRatio,
+    y: rect.top - boardRect.top + rect.height * yRatio
+  });
 
-    svg.setAttribute('aria-hidden', 'true');
-    svg.setAttribute('preserveAspectRatio', 'none');
-    svg.innerHTML = '';
+  const buildThreadPath = points => {
+    if (!points.length) return '';
 
-    const connections = [
-      { from: evidence[0], to: evidence[1], tone: 'soft', bend: -5, phase: 0 },
-      { from: evidence[1], to: evidence[2], tone: 'soft', bend: 8, phase: 0.7 },
-      { from: evidence[2], to: evidence[3], tone: 'hot', bend: -7, phase: 1.4 },
-      { from: evidence[3], to: evidence[4], tone: 'hot', bend: 9, phase: 2.1 },
-      { from: evidence[4], to: panel, tone: 'hot', bend: -4, phase: 2.8, panelTarget: true }
-    ];
+    let d = `M ${points[0].x.toFixed(2)} ${points[0].y.toFixed(2)}`;
 
-    const rendered = connections.map(connection => {
-      const group = createSvgElement('g', `detective-thread detective-thread--${connection.tone}`);
-      const shadow = createSvgElement('path', 'detective-thread__shadow');
-      const fiber = createSvgElement('path', 'detective-thread__fiber');
-      const twist = createSvgElement('path', 'detective-thread__twist');
-      const pinStartHalo = createSvgElement('circle', 'detective-pin__halo');
-      const pinStart = createSvgElement('circle', 'detective-pin');
-      const pinStartCore = createSvgElement('circle', 'detective-pin__core');
-      const pinEndHalo = createSvgElement('circle', 'detective-pin__halo');
-      const pinEnd = createSvgElement('circle', 'detective-pin');
-      const pinEndCore = createSvgElement('circle', 'detective-pin__core');
+    for (let index = 0; index < points.length - 1; index += 1) {
+      const start = points[index];
+      const end = points[index + 1];
+      const dx = end.x - start.x;
+      const dy = end.y - start.y;
+      const length = Math.max(1, Math.hypot(dx, dy));
+      const perpendicularX = -dy / length;
+      const perpendicularY = dx / length;
+      const sag = Math.min(13, Math.max(5, length * 0.035)) * (index % 2 === 0 ? 1 : -1);
+      const controlX = start.x + dx * 0.5 + perpendicularX * sag;
+      const controlY = start.y + dy * 0.5 + perpendicularY * sag;
 
-      [pinStartHalo, pinEndHalo].forEach(pin => pin.setAttribute('r', '7'));
-      [pinStart, pinEnd].forEach(pin => pin.setAttribute('r', '4.2'));
-      [pinStartCore, pinEndCore].forEach(pin => pin.setAttribute('r', '1.5'));
+      d += ` Q ${controlX.toFixed(2)} ${controlY.toFixed(2)} ${end.x.toFixed(2)} ${end.y.toFixed(2)}`;
+    }
 
-      group.append(shadow, fiber, twist, pinStartHalo, pinStart, pinStartCore, pinEndHalo, pinEnd, pinEndCore);
-      svg.appendChild(group);
+    return d;
+  };
 
-      return {
-        ...connection,
-        group,
-        paths: [shadow, fiber, twist],
-        pins: {
-          start: [pinStartHalo, pinStart, pinStartCore],
-          end: [pinEndHalo, pinEnd, pinEndCore]
-        }
-      };
+  const mountDetectiveThread = (board, evidence, panel) => {
+    const threadSvg = board.querySelector('.thread-svg');
+    if (!threadSvg || evidence.length < 5) return;
+
+    threadSvg.setAttribute('aria-hidden', 'true');
+    threadSvg.setAttribute('preserveAspectRatio', 'none');
+    threadSvg.innerHTML = '';
+
+    const shadow = createSvgElement('path', 'detective-thread__shadow');
+    const fiber = createSvgElement('path', 'detective-thread__fiber');
+    const twist = createSvgElement('path', 'detective-thread__twist');
+    threadSvg.append(shadow, fiber, twist);
+
+    const previousPins = board.querySelector('.detective-pin-svg');
+    previousPins?.remove();
+
+    const pinSvg = createSvgElement('svg', 'detective-pin-svg');
+    pinSvg.setAttribute('aria-hidden', 'true');
+    pinSvg.setAttribute('preserveAspectRatio', 'none');
+    board.appendChild(pinSvg);
+
+    const pins = Array.from({ length: 6 }, () => {
+      const group = createSvgElement('g', 'detective-pin-group');
+      const halo = createSvgElement('circle', 'detective-pin__halo');
+      const head = createSvgElement('circle', 'detective-pin');
+      const core = createSvgElement('circle', 'detective-pin__core');
+      halo.setAttribute('r', '7');
+      head.setAttribute('r', '4.4');
+      core.setAttribute('r', '1.45');
+      group.append(halo, head, core);
+      pinSvg.appendChild(group);
+      return [halo, head, core];
     });
 
-    let frame = 0;
-    let running = true;
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    const setPin = (pins, point) => {
-      pins.forEach(pin => {
-        pin.setAttribute('cx', point.x.toFixed(2));
-        pin.setAttribute('cy', point.y.toFixed(2));
+    const setPin = (pinParts, point) => {
+      pinParts.forEach(part => {
+        part.setAttribute('cx', point.x.toFixed(2));
+        part.setAttribute('cy', point.y.toFixed(2));
       });
     };
 
-    const render = time => {
-      if (!running) return;
+    let frameId = 0;
+    let active = true;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const render = () => {
+      if (!active) return;
 
       const boardRect = board.getBoundingClientRect();
       const width = Math.max(1, boardRect.width);
       const height = Math.max(1, boardRect.height);
-      svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+      const panelRect = panel.getBoundingClientRect();
+      const evidenceRects = evidence.slice(0, 5).map(item => item.getBoundingClientRect());
 
-      rendered.forEach(connection => {
-        const fromRect = connection.from.getBoundingClientRect();
-        const toRect = connection.to.getBoundingClientRect();
-        const start = rectAnchor(fromRect, boardRect, toRect);
-        const end = connection.panelTarget
-          ? panelAnchor(toRect, boardRect)
-          : rectAnchor(toRect, boardRect, fromRect);
-        const dx = end.x - start.x;
-        const dy = end.y - start.y;
-        const length = Math.max(1, Math.hypot(dx, dy));
-        const px = -dy / length;
-        const py = dx / length;
-        const pulse = reducedMotion ? 0 : Math.sin(time / 875 + connection.phase) * 2.3;
-        const bend = connection.bend + pulse;
-        const first = {
-          x: start.x + dx * 0.34 + px * bend,
-          y: start.y + dy * 0.34 + py * bend
-        };
-        const second = {
-          x: start.x + dx * 0.67 - px * bend * 0.62,
-          y: start.y + dy * 0.67 - py * bend * 0.62
-        };
-        const d = `M ${start.x.toFixed(2)} ${start.y.toFixed(2)} L ${first.x.toFixed(2)} ${first.y.toFixed(2)} L ${second.x.toFixed(2)} ${second.y.toFixed(2)} L ${end.x.toFixed(2)} ${end.y.toFixed(2)}`;
+      threadSvg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+      pinSvg.setAttribute('viewBox', `0 0 ${width} ${height}`);
 
-        connection.paths.forEach(path => path.setAttribute('d', d));
-        setPin(connection.pins.start, start);
-        setPin(connection.pins.end, end);
-      });
+      const points = [
+        pointOnRect(evidenceRects[0], boardRect, 0.94, 0.56),
+        pointOnRect(evidenceRects[1], boardRect, 0.06, 0.68),
+        pointOnRect(evidenceRects[2], boardRect, 0.94, 0.35),
+        pointOnRect(evidenceRects[3], boardRect, 0.06, 0.67),
+        pointOnRect(evidenceRects[4], boardRect, 0.94, 0.36),
+        pointOnRect(panelRect, boardRect, 0.5, 0.03)
+      ];
 
-      if (!reducedMotion) frame = requestAnimationFrame(render);
+      const d = buildThreadPath(points);
+      shadow.setAttribute('d', d);
+      fiber.setAttribute('d', d);
+      twist.setAttribute('d', d);
+      points.forEach((point, index) => setPin(pins[index], point));
+
+      if (!reducedMotion) frameId = requestAnimationFrame(render);
     };
 
-    render(0);
+    render();
 
     document.addEventListener('visibilitychange', () => {
-      running = !document.hidden;
-      if (running && !reducedMotion) frame = requestAnimationFrame(render);
-      else if (frame) cancelAnimationFrame(frame);
+      active = !document.hidden;
+      if (active && !reducedMotion) frameId = requestAnimationFrame(render);
+      else if (frameId) cancelAnimationFrame(frameId);
     });
   };
 
@@ -162,7 +146,7 @@
     const deploymentCard = evidence[evidence.length - 1];
     deploymentCard?.classList.add('evidence--hidden');
 
-    mountDetectiveThreads(board, evidence, panel);
+    mountDetectiveThread(board, evidence, panel);
   };
 
   if (document.readyState === 'loading') {
