@@ -9,7 +9,7 @@
   };
 
   ensureStylesheet('/assets/css/navigation-v2.css?v=2', 'navigation-v2-css');
-  ensureStylesheet('/assets/css/hero-v2.css?v=3', 'hero-v2-css');
+  ensureStylesheet('/assets/css/hero-v2.css?v=4', 'hero-v2-css');
 
   const currentNav = document.querySelector('.nav');
   if (currentNav && !document.getElementById('site-header')) {
@@ -74,7 +74,7 @@
     if (eyebrow) eyebrow.innerHTML = '<span class="dot"></span>Stratégie de marque, message et déploiement digital';
 
     const title = hero.querySelector('h1');
-    if (title) title.innerHTML = 'Les gens ne comprennent pas ce que vous faites.<span class="hero-line-two">Nous rendons votre activité évidente.</span>';
+    if (title) title.innerHTML = 'Votre valeur reste floue.<span class="hero-line-two">Nous la rendons évidente.</span>';
 
     const sub = hero.querySelector('.sub');
     if (sub) sub.innerHTML = 'Nous clarifions <strong>ce que vous vendez</strong>, <strong>à qui vous le vendez</strong> et <strong>pourquoi vous êtes différent</strong>. Puis nous déployons cette clarté sur votre site, votre réseau social principal et votre fiche Google Business Profile.';
