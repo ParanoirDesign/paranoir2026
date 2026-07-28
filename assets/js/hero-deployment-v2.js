@@ -1,6 +1,6 @@
 (() => {
   const heroStylesheet = document.getElementById('hero-v2-css');
-  if (heroStylesheet) heroStylesheet.href = '/assets/css/hero-v2.css?v=10';
+  if (heroStylesheet) heroStylesheet.href = '/assets/css/hero-v2.css?v=11';
 
   const SVG_NS = 'http://www.w3.org/2000/svg';
 
@@ -144,6 +144,9 @@
     });
 
     if (!board.contains(panel)) board.appendChild(panel);
+
+    const stamp = board.querySelector('.stamp');
+    if (stamp) stamp.textContent = 'Cause trouvée';
 
     const evidence = Array.from(board.querySelectorAll('.evidence'));
     const deploymentCard = evidence[evidence.length - 1];
