@@ -9,7 +9,7 @@
   };
 
   ensureStylesheet('/assets/css/navigation-v2.css?v=2', 'navigation-v2-css');
-  ensureStylesheet('/assets/css/hero-v2.css?v=1', 'hero-v2-css');
+  ensureStylesheet('/assets/css/hero-v2.css?v=2', 'hero-v2-css');
 
   const currentNav = document.querySelector('.nav');
   if (currentNav && !document.getElementById('site-header')) {
@@ -71,28 +71,28 @@
     hero.classList.add('hero-v2');
 
     const eyebrow = hero.querySelector('.eyebrow');
-    if (eyebrow) eyebrow.innerHTML = '<span class="dot"></span>Stratégie de marque, message et déploiement digital';
+    if (eyebrow) eyebrow.innerHTML = '<span class="dot"></span>Stratégie · Site · Réseau social · Google';
 
     const title = hero.querySelector('h1');
-    if (title) title.innerHTML = 'Les gens ne comprennent pas ce que vous faites.<span class="hero-line-two">Nous rendons votre activité évidente.</span>';
+    if (title) title.innerHTML = 'Rendez votre entreprise<span class="hero-line-two">évidente partout.</span>';
 
     const sub = hero.querySelector('.sub');
-    if (sub) sub.innerHTML = 'Nous clarifions <strong>ce que vous vendez</strong>, <strong>à qui vous le vendez</strong> et <strong>pourquoi vous êtes différent</strong>. Puis nous déployons cette clarté sur votre site, votre réseau social principal et votre fiche Google Business Profile.';
+    if (sub) sub.innerHTML = 'Nous clarifions votre offre, votre positionnement et votre message, puis nous les déployons sur les trois points de contact qui comptent.';
 
     const actions = hero.querySelector('.hero-actions');
-    if (actions) actions.innerHTML = '<a class="cta" href="#test">Faire le test gratuit <span>→</span></a><p class="micro">3 minutes · Sans engagement · Un premier niveau de clarté immédiatement</p><div class="hero-proof-line"><span class="hero-proof-line__stars" aria-label="5 étoiles">★★★★★</span><span>23 avis Google</span><span class="hero-proof-line__separator" aria-hidden="true"></span><span>Plus de 60 entreprises accompagnées</span></div>';
+    if (actions) actions.innerHTML = '<a class="cta" href="#test">Faire le test gratuit <span>→</span></a><p class="micro">3 minutes · Résultat immédiat · Recommandation personnalisée</p><div class="hero-proof-line"><span class="hero-proof-line__stars" aria-label="5 étoiles">★★★★★</span><span>5/5 sur Google</span><span class="hero-proof-line__separator" aria-hidden="true"></span><span>+60 entreprises accompagnées</span></div>';
 
     const boardTop = hero.querySelector('.board-top');
-    if (boardTop) boardTop.innerHTML = '<span>Système de clarté</span><span>Stratégie → déploiement</span>';
+    if (boardTop) boardTop.innerHTML = '<span>Une seule stratégie</span><span>Trois points de contact</span>';
 
     const evidence = hero.querySelectorAll('.evidence');
     const evidenceContent = [
-      ['Offre claire','ce que vous vendez'],
-      ['Cible précise','à qui vous le vendez'],
-      ['Différence forte','pourquoi vous choisir'],
-      ['Message cohérent','ce que les gens retiennent'],
-      ['Parcours lisible','ce qu’ils doivent faire'],
-      ['Déploiement','site · social · Google']
+      ['Offre','claire'],
+      ['Cible','précise'],
+      ['Différence','visible'],
+      ['Message','cohérent'],
+      ['Parcours','lisible'],
+      ['Déploiement','aligné']
     ];
     evidence.forEach((item, index) => {
       const data = evidenceContent[index];
@@ -102,15 +102,15 @@
     });
 
     const stamp = hero.querySelector('.stamp');
-    if (stamp) stamp.textContent = 'Message aligné';
+    if (stamp) stamp.textContent = 'Tout s’aligne';
 
     const oldOffer = hero.querySelector('.hero-offer');
     if (oldOffer) {
       oldOffer.outerHTML = `
         <div class="hero-system-panel" aria-label="Les trois points de contact déployés">
-          <div class="hero-system-panel__item"><small>01 · Site</small><strong>Votre socle</strong><span>Une offre et un parcours compréhensibles immédiatement.</span></div>
-          <div class="hero-system-panel__item"><small>02 · Réseau social</small><strong>Votre voix</strong><span>Un message cohérent sur votre canal principal.</span></div>
-          <div class="hero-system-panel__item"><small>03 · Google</small><strong>Votre présence locale</strong><span>Une fiche alignée avec votre positionnement réel.</span></div>
+          <div class="hero-system-panel__item"><small>01</small><strong>Site</strong><span>Le socle</span></div>
+          <div class="hero-system-panel__item"><small>02</small><strong>Réseau social</strong><span>La relation</span></div>
+          <div class="hero-system-panel__item"><small>03</small><strong>Google</strong><span>La confiance</span></div>
         </div>`;
     }
   }
