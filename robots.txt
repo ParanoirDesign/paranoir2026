@@ -1,8 +1,9 @@
 # robots.txt — paranoir.paranoir.pro
-# Dernière mise à jour : 2026-06-26
+# Dernière mise à jour : 2026-08-25
 
 User-agent: *
 Allow: /
 Disallow: /mail.php
+Disallow: /candidatureSPLN/
 
 Sitemap: https://paranoir.paranoir.pro/sitemap.xml
