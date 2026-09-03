@@ -13,6 +13,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Bust cache for main script
+        run: |
+          sed -i 's|/assets/js/site.min.js?v=4|/assets/js/site.min.js?v=5|g' index.html
+
       - name: Deploy to FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
