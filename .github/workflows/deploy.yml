@@ -15,7 +15,8 @@ jobs:
 
       - name: Bust cache for main script
         run: |
-          sed -i 's|/assets/js/site.min.js?v=4|/assets/js/site.min.js?v=5|g' index.html
+          SHORT_SHA="${GITHUB_SHA::8}"
+          sed -E -i "s|/assets/js/site.min.js\?v=[A-Za-z0-9._-]+|/assets/js/site.min.js?v=${SHORT_SHA}|g" index.html
 
       - name: Deploy to FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
