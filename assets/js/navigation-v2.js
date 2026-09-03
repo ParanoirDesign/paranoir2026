@@ -71,7 +71,7 @@
     hero.classList.add('hero-v2');
 
     const eyebrow = hero.querySelector('.eyebrow');
-    if (eyebrow) eyebrow.innerHTML = '<span class="dot"></span>Stratégie de marque, message et déploiement digital';
+    if (eyebrow) eyebrow.innerHTML = '<span class="dot"></span>Site internet · Réseau social · Fiche Google';
 
     const title = hero.querySelector('h1');
     if (title) title.innerHTML = 'Votre valeur reste floue.<span class="hero-line-two">Nous la rendons évidente.</span>';
