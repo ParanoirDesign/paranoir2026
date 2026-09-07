@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+concurrency:
+  group: deploy-paranoir-preview
+  cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -13,10 +17,35 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Bust cache for main script
+      - name: Version local assets
+        env:
+          BUILD_VERSION: ${{ github.sha }}
         run: |
-          SHORT_SHA="${GITHUB_SHA::8}"
-          sed -E -i "s|/assets/js/site.min.js\?v=[A-Za-z0-9._-]+|/assets/js/site.min.js?v=${SHORT_SHA}|g" index.html
+          python3 - <<'PY'
+          from pathlib import Path
+          import os
+          import re
+
+          version = os.environ['BUILD_VERSION'][:8]
+
+          index = Path('index.html')
+          html = index.read_text(encoding='utf-8')
+          html = re.sub(
+              r'(/assets/js/site\.min\.js)\?v=[^"\']+',
+              lambda match: f'{match.group(1)}?v={version}',
+              html,
+          )
+          index.write_text(html, encoding='utf-8')
+
+          bootstrap = Path('assets/js/site.min.js')
+          script = bootstrap.read_text(encoding='utf-8')
+          script = re.sub(
+              r'(/assets/(?:js|css)/[^?"\']+)\?v=[^"\']+',
+              lambda match: f'{match.group(1)}?v={version}',
+              script,
+          )
+          bootstrap.write_text(script, encoding='utf-8')
+          PY
 
       - name: Deploy to FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
