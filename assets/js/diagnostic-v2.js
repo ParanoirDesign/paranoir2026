@@ -5,7 +5,7 @@
     if (document.querySelector('link[href*="diagnostic-v2.css"]')) return;
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = '/assets/css/diagnostic-v2.css?v=2';
+    link.href = '/assets/css/diagnostic-v2.css?v=3';
     document.head.appendChild(link);
   };
 
@@ -16,9 +16,10 @@
   const applyDiagnosticCopy = () => {
     ensureStylesheet();
 
-    const section = document.getElementById('test') || document.getElementById('prediagnostic');
+    const section = document.querySelector('section.prequiz#test, section.prequiz#prediagnostic, section.prequiz');
     if (!section || section.dataset.diagnosticV3 === 'true') return;
     section.dataset.diagnosticV3 = 'true';
+    if (section.id !== 'test') section.id = 'test';
 
     const head = section.querySelector('.prequiz-head');
     setText(head?.querySelector('.kicker'), 'Diagnostic stratégique gratuit');
