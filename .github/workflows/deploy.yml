@@ -20,7 +20,9 @@ jobs:
       - name: Prepare deployed home
         env:
           BUILD_VERSION: ${{ github.sha }}
-        run: python3 scripts/prepare_deploy.py
+        run: |
+          python3 scripts/prepare_deploy.py
+          python3 scripts/patch_site_runtime.py
 
       - name: Deploy to FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
