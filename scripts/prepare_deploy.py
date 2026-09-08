@@ -54,6 +54,54 @@ new_result = f'''<div class="result-cta diagnostic-result-v2" id="resultCta">
 </div>'''
 html = html.replace(old_result, new_result)
 
+new_offer = '''<section class="offer offer-v2" id="reservation">
+<div class="offer-layout">
+<div class="price-panel reveal">
+<div>
+<p class="kicker" style="color:rgba(255,255,255,.76)">Deux formats. Une stratégie complète.</p>
+<h2>Le bon projet dépend de <span class="offer-v2__accent">l’étape où se trouve votre activité.</span></h2>
+<p class="price-note">Dans les deux formats, nous clarifions votre offre, votre cible, votre différence et votre message. Puis nous déployons cette stratégie sur vos trois points de contact essentiels.</p>
+<div class="offer-v2__common">
+<div class="offer-v2__common-item"><strong>Plan stratégique complet</strong><span>Offre, cible, positionnement, différence et message.</span></div>
+<div class="offer-v2__common-item"><strong>Site internet conçu et développé</strong><span>Un parcours cohérent avec votre stratégie et vos objectifs.</span></div>
+<div class="offer-v2__common-item"><strong>Réseau social principal optimisé</strong><span>Profil, présentation et message alignés.</span></div>
+<div class="offer-v2__common-item"><strong>Fiche Google optimisée</strong><span>Une présence locale cohérente, lisible et crédible.</span></div>
+</div>
+</div>
+<div>
+<a class="cta" href="#test">Demander mon diagnostic gratuit <span>→</span></a>
+<p class="micro">Nous déterminons ensemble le format réellement adapté à votre activité.</p>
+</div>
+</div>
+<div class="offer-v2__cards reveal">
+<article class="liquid offer-v2__card">
+<p class="offer-v2__eyebrow">Pour lancer une activité ou repartir de zéro</p>
+<h3>Stratégie complète + site en une page</h3>
+<div class="offer-v2__price">990 € <small>HT</small></div>
+<p class="offer-v2__desc">Vous lancez une activité, recentrez votre entreprise autour d’une offre principale ou souhaitez repartir de zéro avec un positionnement plus solide. Nous construisons une base stratégique complète puis la déployons sur un site en une page, votre réseau social principal et votre fiche Google.</p>
+<div class="offer-v2__ideal"><small>Idéal lorsque</small><strong>Votre activité peut être présentée autour d’une offre principale et d’un parcours de vente simple.</strong></div>
+<div class="offer-v2__chips"><span>Plan stratégique complet</span><span>Site one-page</span><span>Réseau social</span><span>Fiche Google</span></div>
+</article>
+<article class="liquid offer-v2__card">
+<p class="offer-v2__eyebrow">Pour faire évoluer ou réaligner une activité installée</p>
+<h3>Stratégie complète + site de 5 à 15 pages</h3>
+<div class="offer-v2__price">À partir de 3 290 € <small>HT</small></div>
+<p class="offer-v2__desc">Votre activité grandit, vos offres se multiplient ou votre site actuel ne reflète plus votre positionnement. Nous réalignons l’ensemble puis construisons une architecture plus complète, capable de soutenir plusieurs offres, publics ou parcours.</p>
+<div class="offer-v2__ideal"><small>Idéal lorsque</small><strong>Votre activité a gagné en maturité et votre site doit enfin suivre sa complexité, son ambition ou sa croissance.</strong></div>
+<div class="offer-v2__chips"><span>Plan stratégique complet</span><span>5 à 15 pages</span><span>Architecture SEO</span><span>Réseau social</span><span>Fiche Google</span></div>
+</article>
+</div>
+</div>
+</section>'''
+
+html = re.sub(
+    r'<section class="offer" id="reservation">.*?</section>\s*(?=<section class="about">)',
+    new_offer + "\n",
+    html,
+    count=1,
+    flags=re.S,
+)
+
 footer_old = '''<div class="footer-contact">
 <a href="mailto:victoria@paranoir.me">victoria@paranoir.me</a>
 <a href="https://www.linkedin.com/in/victoria-dury-paranoir/" target="_blank" rel="noopener noreferrer">LinkedIn →</a>
@@ -64,6 +112,13 @@ footer_new = f'''<div class="footer-contact">
 <a href="https://www.linkedin.com/in/victoria-dury-paranoir/" target="_blank" rel="noopener noreferrer">LinkedIn →</a>
 </div>'''
 html = html.replace(footer_old, footer_new)
+
+if 'offers-v2.css' not in html:
+    html = html.replace(
+        '</head>',
+        f'<link rel="stylesheet" href="/assets/css/offers-v2.css?v={version}"/>\n</head>',
+        1,
+    )
 
 html = re.sub(
     r'(/assets/js/site\.min\.js)\?v=[^"\']+',
