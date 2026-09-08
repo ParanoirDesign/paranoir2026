@@ -34,16 +34,16 @@ if (!$prenom || !$email) {
 }
 
 $to      = 'victoria@paranoir.me';
-$subject = "Nouveau Rapport de Clarté — $prenom";
+$subject = "Nouveau diagnostic stratégique — $prenom";
 $body    = "Prénom : $prenom\n"
          . "Email : $email\n"
          . ($url ? "Site/LinkedIn : $url\n" : '')
-         . "\n--- Réponses quiz ---\n"
+         . "\n--- Réponses questionnaire ---\n"
          . "Signal principal : $signal\n"
          . "Offre : $offre\n"
          . "Actions déjà tentées : $actions\n"
          . "Niveau de certitude : $certitude\n"
-         . "Résultat affiché : $resultat\n";
+         . "Hypothèse interne issue du questionnaire : $resultat\n";
 
 $headers = "From: noreply@paranoir.pro\r\n"
          . "Reply-To: $email\r\n"
