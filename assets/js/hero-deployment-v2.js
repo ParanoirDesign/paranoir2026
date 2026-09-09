@@ -122,6 +122,22 @@
     });
   };
 
+  const loadHomeV3 = () => {
+    if (!document.querySelector('link[href*="home-v3.css"]')) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = '/assets/css/home-v3.css?v=1';
+      document.head.appendChild(link);
+    }
+
+    if (!document.querySelector('script[src*="home-v3.js"]')) {
+      const script = document.createElement('script');
+      script.src = '/assets/js/home-v3.js?v=1';
+      script.defer = true;
+      document.head.appendChild(script);
+    }
+  };
+
   const mountDeployment = () => {
     const hero = document.querySelector('.hero-v2');
     if (!hero) return;
@@ -155,9 +171,16 @@
     mountDetectiveThread(board, evidence, panel);
   };
 
+  const boot = () => {
+    requestAnimationFrame(() => {
+      mountDeployment();
+      loadHomeV3();
+    });
+  };
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(mountDeployment), { once: true });
+    document.addEventListener('DOMContentLoaded', boot, { once: true });
   } else {
-    requestAnimationFrame(mountDeployment);
+    boot();
   }
 })();
