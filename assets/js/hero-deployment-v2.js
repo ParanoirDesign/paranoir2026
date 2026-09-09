@@ -1,6 +1,11 @@
 (() => {
+  const currentScript = document.currentScript;
+  const buildVersion = currentScript
+    ? new URL(currentScript.src, window.location.href).searchParams.get('v') || '1'
+    : '1';
+
   const heroStylesheet = document.getElementById('hero-v2-css');
-  if (heroStylesheet) heroStylesheet.href = '/assets/css/hero-v2.css?v=11';
+  if (heroStylesheet) heroStylesheet.href = `/assets/css/hero-v2.css?v=${encodeURIComponent(buildVersion)}`;
 
   const SVG_NS = 'http://www.w3.org/2000/svg';
 
@@ -123,28 +128,30 @@
   };
 
   const loadHomeV3 = () => {
+    const version = encodeURIComponent(buildVersion);
+
     if (!document.querySelector('link[href*="home-v3.css"]')) {
       const link = document.createElement('link');
       link.rel = 'stylesheet';
-      link.href = '/assets/css/home-v3.css?v=1';
+      link.href = `/assets/css/home-v3.css?v=${version}`;
       document.head.appendChild(link);
     }
 
     if (!document.querySelector('link[href*="home-v3-qc.css"]')) {
       const qcLink = document.createElement('link');
       qcLink.rel = 'stylesheet';
-      qcLink.href = '/assets/css/home-v3-qc.css?v=1';
+      qcLink.href = `/assets/css/home-v3-qc.css?v=${version}`;
       document.head.appendChild(qcLink);
     }
 
     if (!document.querySelector('script[src*="home-v3.js"]')) {
       const script = document.createElement('script');
-      script.src = '/assets/js/home-v3.js?v=1';
+      script.src = `/assets/js/home-v3.js?v=${version}`;
       script.defer = true;
       script.onload = () => {
         if (document.querySelector('script[src*="home-v3-qc.js"]')) return;
         const qcScript = document.createElement('script');
-        qcScript.src = '/assets/js/home-v3-qc.js?v=1';
+        qcScript.src = `/assets/js/home-v3-qc.js?v=${version}`;
         qcScript.defer = true;
         document.head.appendChild(qcScript);
       };
@@ -176,7 +183,7 @@
     if (!board.contains(panel)) board.appendChild(panel);
 
     const stamp = board.querySelector('.stamp');
-    if (stamp) stamp.textContent = 'Cause trouvée';
+    if (stamp) stamp.textContent = 'Message aligné';
 
     const evidence = Array.from(board.querySelectorAll('.evidence'));
     const deploymentCard = evidence[evidence.length - 1];
