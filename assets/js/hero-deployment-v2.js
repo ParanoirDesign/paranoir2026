@@ -130,10 +130,24 @@
       document.head.appendChild(link);
     }
 
+    if (!document.querySelector('link[href*="home-v3-qc.css"]')) {
+      const qcLink = document.createElement('link');
+      qcLink.rel = 'stylesheet';
+      qcLink.href = '/assets/css/home-v3-qc.css?v=1';
+      document.head.appendChild(qcLink);
+    }
+
     if (!document.querySelector('script[src*="home-v3.js"]')) {
       const script = document.createElement('script');
       script.src = '/assets/js/home-v3.js?v=1';
       script.defer = true;
+      script.onload = () => {
+        if (document.querySelector('script[src*="home-v3-qc.js"]')) return;
+        const qcScript = document.createElement('script');
+        qcScript.src = '/assets/js/home-v3-qc.js?v=1';
+        qcScript.defer = true;
+        document.head.appendChild(qcScript);
+      };
       document.head.appendChild(script);
     }
   };
