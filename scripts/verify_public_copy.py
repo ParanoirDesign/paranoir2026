@@ -1,63 +1,72 @@
 from pathlib import Path
 import os
+import re
 
 version = os.environ.get("BUILD_VERSION", "dev")[:8]
 html = Path("index.html").read_text(encoding="utf-8")
+site_js = Path("assets/js/site.js").read_text(encoding="utf-8")
 home_js = Path("assets/js/home-v3.js").read_text(encoding="utf-8")
-public_runtime = html + "\n" + home_js
+hero_js = Path("assets/js/hero-deployment-v2.js").read_text(encoding="utf-8")
+nav_js = Path("assets/js/home-v3-nav.js").read_text(encoding="utf-8")
+public_runtime = "\n".join([html, site_js, home_js, hero_js, nav_js])
 
 expected_html = [
-    "Votre valeur reste floue.",
-    "Nous la rendons évidente.",
-    "Commencer mon diagnostic gratuit",
-    "7 questions. 3 minutes max. Une première réponse claire, sans engagement.",
-    "Plus de communication.<br>Pas forcément plus de clarté.</strong>",
-    "Vous recevez votre dossier stratégique complet",
-    "Réponses aux objections clients",
-    "Plan d’action 30 jours",
-    "Nous le déployons avec vous",
-    "Une page claire peut suffire.",
-    "990 € HT",
-    "Il faut organiser avant d’ajouter des pages.",
-    "3 290 € HT",
-    "L’IA est un outil.<br>Pas un technicien.",
-    "maintenable, évolutif et pérenne",
-    "Pas de boîte noire entre le premier échange et la mise en ligne.",
-    "Des problèmes différents.",
-    "Le résultat compte. La façon d’y arriver aussi.",
-    "Diplômes & certifications",
-    "Accessibilité numérique RGAA",
-    "UX Vision",
-    "Marketing Digital",
-    "Learning Shelter",
-    "Fonderie de l’image",
-    "Développeur WordPress",
-    "CFM",
-    "Au fil de nos parcours",
-    "Pourquoi travailler avec Paranoir plutôt qu’avec une agence classique ?",
-    "5/5 sur Google",
-    "Instagram",
-    "Échanger sur WhatsApp",
+    'class="site-home home-v3-ready"',
+    'Votre valeur reste floue.',
+    'Nous la rendons évidente.',
+    'Faire le test gratuit',
+    'id="approche"',
+    'les mauvais signaux.',
+    'v3-tangle',
+    'id="test"',
+    'Une question à la fois.',
+    'Question <strong id="quizCurrent">1</strong>/5',
+    'id="strategie"',
+    'La stratégie est incluse',
+    'id="document-strategique"',
+    'Document de référence',
+    'id="deploiement"',
+    'Le fil se dénoue',
+    'id="projets"',
+    '990 € HT',
+    '1 990 € HT',
+    '2 990 € HT+',
+    'id="fonctionnalites"',
+    '17 bundles disponibles',
+    'Boutique en ligne',
+    'Espace formation / LMS',
+    'Automatisations',
+    'id="technique"',
+    'L’IA va vite.',
+    'Les mauvais choix aussi.',
+    'id="methode"',
+    'Comprendre.',
+    'Décider.',
+    'Déployer.',
+    'Transmettre.',
+    'id="realisations"',
+    'Décision stratégique',
+    'id="avis"',
+    'id="studio"',
+    'Deux expertises associées.',
+    'id="faq"',
+    'Le résultat du test est-il immédiat ?',
+    'La stratégie est-elle réellement incluse ?',
+    'Combien coûte un projet ?',
+    'id="cta-final"',
+    'Résultat immédiat',
+    'Recommandation personnalisée',
+    'À venir',
 ]
 
 expected_runtime = [
-    "Question 1 sur 7",
-    "Où en est votre activité aujourd’hui ?",
-    "Combien d’offres vos clients doivent-ils comprendre ?",
-    "Quelqu’un qui vous découvre comprend-il rapidement ce que vous vendez ?",
-    "Votre site, votre réseau social et votre fiche Google racontent-ils la même chose ?",
-    "Qu’avez-vous déjà aujourd’hui ?",
-    "Qu’est-ce qui vous freine le plus aujourd’hui ?",
-    "Quelle est votre priorité maintenant ?",
-    "Votre priorité : clarifier avant de communiquer davantage.",
-    "Votre priorité : remettre vos supports dans le même sens.",
-    "Votre priorité : organiser une activité devenue plus complexe.",
-    "Votre priorité : mieux exploiter des bases déjà solides.",
-    "Votre priorité : construire dans le bon ordre.",
-    "Parler de mon diagnostic",
-    "Continuer sur WhatsApp",
-    "Nous avons vos réponses, vous n’aurez pas à recommencer.",
-    "fetch('/mail.php'",
+    'fetch("/mail.php"',
+    'initProjectSelector',
+    'initBundles',
+    'initProcess',
+    'detective-thread',
+    'requestAnimationFrame(render)',
+    "querySelectorAll('.site-header__link[href^=\"#\"]')",
 ]
 
 missing_html = [text for text in expected_html if text not in html]
@@ -67,22 +76,38 @@ if missing:
     raise RuntimeError("Contenu public incomplet avant déploiement : " + " | ".join(missing))
 
 forbidden = [
-    "Rapport de Clarté",
-    "Clarté Déployée",
-    "Test de clarté",
-    "test de clarté",
-    "Faire le test gratuit",
-    "23 avis Google",
-    "Stratégie + déploiement digital",
-    "Cinq questions",
-    "parcours de vente simple",
-    "si elle est utile",
-    '"reviewCount": "23"',
+    'Question 1 sur 7',
+    '7 questions. 3 minutes max.',
+    '3 290 € HT',
+    'cycle-ring',
+    'Deux situations, deux formats',
+    'Pas de boîte noire entre le premier échange et la mise en ligne.',
 ]
-
-remaining = [text for text in forbidden if text in public_runtime]
+remaining = [text for text in forbidden if text in html]
 if remaining:
-    raise RuntimeError("Ancien ou contenu contradictoire encore présent : " + " | ".join(remaining))
+    raise RuntimeError("Ancienne direction encore présente dans le HTML public : " + " | ".join(remaining))
+
+# Le CTA de conversion principal doit rester strictement identique.
+if html.count('Faire le test gratuit') < 3:
+    raise RuntimeError("CTA principal insuffisamment présent dans le HTML public")
+
+# Les 17 bundles doivent bien être présents dans le navigateur de fonctionnalités.
+bundle_buttons = re.findall(r'class="v3-bundle-button"', html)
+if len(bundle_buttons) != 17:
+    raise RuntimeError(f"Nombre de bundles incorrect : {len(bundle_buttons)} au lieu de 17")
+
+# Un seul identifiant par cible, sinon navigation et accessibilité deviennent imprévisibles.
+ids = re.findall(r'\sid="([^"]+)"', html)
+duplicates = sorted({item for item in ids if ids.count(item) > 1})
+if duplicates:
+    raise RuntimeError("IDs dupliqués dans le HTML public : " + " | ".join(duplicates))
+
+# Toutes les ancres internes doivent pointer vers une cible existante.
+id_set = set(ids)
+anchors = re.findall(r'href="#([^"]+)"', html)
+missing_targets = sorted({anchor for anchor in anchors if anchor and anchor not in id_set})
+if missing_targets:
+    raise RuntimeError("Ancres internes sans cible : " + " | ".join(missing_targets))
 
 if f"<!-- build:{version} -->" not in html:
     raise RuntimeError("Marqueur de build absent")
@@ -90,4 +115,7 @@ if f"<!-- build:{version} -->" not in html:
 print(f"Public copy verified for build {version}")
 print(f"  HTML checks: {len(expected_html)}")
 print(f"  Runtime checks: {len(expected_runtime)}")
-print("  Legacy copy: clean")
+print(f"  Bundles: {len(bundle_buttons)}")
+print(f"  Unique IDs: {len(id_set)}")
+print("  Internal anchors: valid")
+print("  Legacy layouts: absent")
