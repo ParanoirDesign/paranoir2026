@@ -1,17 +1,17 @@
 from pathlib import Path
 
-# Le diagnostic public est désormais porté par assets/js/home-v3.js.
-# Cette étape ne réécrit plus l'ancien quiz. Elle sert uniquement de dernier
-# nettoyage du HTML généré par prepare_deploy.py avant le contrôle public.
-site = Path("assets/js/site.js")
 index = Path("index.html")
+site = Path("assets/js/site.js")
 
-if not site.exists() or not index.exists():
+if not index.exists() or not site.exists():
     raise SystemExit("Fichiers publics introuvables pendant le build")
 
 html = index.read_text(encoding="utf-8")
-html = html.replace("Clarté Déployée", "Stratégie + déploiement")
-html = html.replace("Rapport de Clarté", "diagnostic gratuit")
-index.write_text(html, encoding="utf-8")
+html = html.replace('href="#prediagnostic"', 'href="#test"')
+html = html.replace('href="#diagnostic"', 'href="#test"')
 
-print("Legacy quiz runtime left untouched; final public copy cleaned")
+if 'class="site-home home-v3-ready"' not in html:
+    raise RuntimeError("La home v3 n'est pas marquée comme prête dans le HTML public")
+
+index.write_text(html, encoding="utf-8")
+print("Public runtime anchors normalized; home v3 marker present")
