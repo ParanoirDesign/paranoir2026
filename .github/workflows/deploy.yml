@@ -31,6 +31,7 @@ jobs:
           node --check assets/js/navigation-v2.js
           node --check assets/js/hero-deployment-v2.js
           node --check assets/js/home-v3.js
+          node --check assets/js/home-v3-nav.js
           node --check assets/js/home-v3-qc.js
 
       - name: Deploy to FTP
