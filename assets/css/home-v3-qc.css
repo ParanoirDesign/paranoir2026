@@ -1,0 +1,10 @@
+/* Correctifs QC home v3 */
+.home-v3 .diagnostic-step{margin:0;padding:0;min-inline-size:0;border:0}.home-v3 .diagnostic-step legend{display:block;width:100%;margin:0;padding:0}.home-v3 .diagnostic-question{display:block;max-width:760px;margin:0 0 24px;color:var(--ink);font:700 clamp(23px,2.8vw,35px)/1.16 var(--title);letter-spacing:-.025em}.home-v3 .diagnostic-priority b{color:var(--carmine);font:700 12px/1 var(--body)}
+.home-v3 .cycle-visual[role="img"]:focus-visible{outline:3px solid rgba(177,18,53,.18);outline-offset:6px;border-radius:28px}
+.home-v3 .site-header__link[aria-current="location"]{color:var(--carmine)}
+.home-v3 .home-proof__item:nth-child(3) strong{font-size:clamp(19px,2.15vw,28px);line-height:1.08}
+.home-v3 .real-offer{border-top:0!important;padding-top:0!important}
+.home-v3 .real-offer span{white-space:nowrap}
+.home-v3 .studio-photo{isolation:isolate}.home-v3 .studio-photo img{transform:scale(1.001)}
+.home-v3 .brand-word{user-select:none}
+@media(max-width:760px){.home-v3 .diagnostic-question{font-size:clamp(21px,7vw,28px)}.home-v3 .diagnostic-progress{align-items:flex-start;flex-direction:column;gap:10px}.home-v3 .diagnostic-progress__track{width:100%;flex:none}.home-v3 .diagnostic-priority b{transform:rotate(90deg);margin:0 1px}.home-v3 .home-proof__item:nth-child(3) strong{font-size:20px}}
