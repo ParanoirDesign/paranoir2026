@@ -8,63 +8,8 @@
     document.head.appendChild(link);
   };
 
-  ensureStylesheet('/assets/css/navigation-v2.css?v=2', 'navigation-v2-css');
-  ensureStylesheet('/assets/css/hero-v2.css?v=9', 'hero-v2-css');
-
-  const currentNav = document.querySelector('.nav');
-  if (currentNav && !document.getElementById('site-header')) {
-    currentNav.outerHTML = `
-      <header class="site-header" id="site-header">
-        <a class="site-header__brand" href="#main" aria-label="Paranoir Studio, retour en haut">Paranoir Studio</a>
-        <nav class="site-header__nav" aria-label="Navigation principale">
-          <div class="site-header__links">
-            <a class="site-header__link" href="#approche">Approche</a>
-            <a class="site-header__link" href="#strategie">Stratégie</a>
-            <a class="site-header__link" href="#deploiement">Déploiement</a>
-            <a class="site-header__link" href="#projets">Projets</a>
-            <a class="site-header__link" href="#realisations">Réalisations</a>
-            <a class="site-header__link" href="#studio">Studio</a>
-          </div>
-        </nav>
-        <div class="site-header__actions">
-          <button class="site-header__intent" type="button" data-open-intent aria-controls="intent-modal" aria-expanded="false">Vous voulez ?</button>
-          <a class="site-header__cta" href="#test">Faire le test gratuit</a>
-          <button class="site-header__menu-toggle" id="menuToggle" type="button" aria-controls="mobileMenu" aria-expanded="false" aria-label="Ouvrir le menu"><span></span><span></span><span></span></button>
-        </div>
-      </header>
-      <div class="site-mobile-menu__backdrop" id="mobileMenuBackdrop"></div>
-      <aside class="site-mobile-menu" id="mobileMenu" aria-label="Menu mobile">
-        <nav class="site-mobile-menu__links">
-          <a href="#approche">Approche</a>
-          <a href="#strategie">Stratégie</a>
-          <a href="#deploiement">Déploiement</a>
-          <a href="#projets">Projets</a>
-          <a href="#realisations">Réalisations</a>
-          <a href="#studio">Studio</a>
-        </nav>
-        <div class="site-mobile-menu__actions">
-          <button class="site-header__intent" type="button" data-open-intent aria-controls="intent-modal" aria-expanded="false">Vous voulez ?</button>
-          <a class="site-header__cta" href="#test">Faire le test gratuit</a>
-        </div>
-      </aside>
-      <dialog class="intent-modal" id="intent-modal" aria-labelledby="intent-modal-title">
-        <div class="intent-modal__inner">
-          <div class="intent-modal__top">
-            <div>
-              <p class="intent-modal__eyebrow">Choisissez votre point d’entrée</p>
-              <h2 id="intent-modal-title">Vous voulez quoi, exactement ?</h2>
-              <p class="intent-modal__intro">Trois façons de travailler avec Paranoir, selon que vous voulez clarifier et déployer, transmettre la méthode, ou débloquer un sujet précis.</p>
-            </div>
-            <button class="intent-modal__close" id="intentModalClose" type="button" aria-label="Fermer">×</button>
-          </div>
-          <div class="intent-modal__options">
-            <a class="intent-option" href="#strategie"><span class="intent-option__num">01</span><h3>Stratégie + déploiement</h3><p>Clarifier votre offre, votre positionnement et votre message, puis les déployer sur vos supports prioritaires.</p><span class="intent-option__arrow">→</span></a>
-            <a class="intent-option" href="/formation"><span class="intent-option__num">02</span><h3>Formation</h3><p>Apprendre la méthode et rendre votre équipe autonome sur les décisions de clarté.</p><span class="intent-option__arrow">→</span></a>
-            <a class="intent-option" href="/consulting"><span class="intent-option__num">03</span><h3>Consulting</h3><p>Débloquer un sujet précis avec une intervention stratégique ciblée.</p><span class="intent-option__arrow">→</span></a>
-          </div>
-        </div>
-      </dialog>`;
-  }
+  ensureStylesheet('/assets/css/navigation-v2.css?v=3', 'navigation-v2-css');
+  ensureStylesheet('/assets/css/hero-v2.css?v=11', 'hero-v2-css');
 
   const hero = document.querySelector('.hero');
   if (hero) {
@@ -80,20 +25,23 @@
     if (sub) sub.innerHTML = 'Nous clarifions <strong>ce que vous vendez</strong>, <strong>à qui vous le vendez</strong> et <strong>pourquoi vous êtes différent</strong>. Puis nous déployons cette clarté sur votre site, votre réseau social principal et votre fiche Google Business Profile.';
 
     const actions = hero.querySelector('.hero-actions');
-    if (actions) actions.innerHTML = '<a class="cta" href="#test">Faire le test gratuit <span>→</span></a><p class="micro">3 minutes · Sans engagement · Un premier niveau de clarté immédiatement</p><div class="hero-proof-line"><span class="hero-proof-line__stars" aria-label="5 étoiles">★★★★★</span><span>23 avis Google</span><span class="hero-proof-line__separator" aria-hidden="true"></span><span>Plus de 60 entreprises accompagnées</span></div>';
+    if (actions) {
+      actions.innerHTML = '<a class="cta" href="#diagnostic">Commencer mon diagnostic gratuit <span>→</span></a><p class="micro">3 minutes · Sans engagement · Un premier niveau de clarté immédiatement</p><div class="hero-proof-line"><span class="hero-proof-line__stars" aria-label="5 étoiles">★★★★★</span><span>5/5 sur Google</span><span class="hero-proof-line__separator" aria-hidden="true"></span><span>Plus de 60 entreprises accompagnées</span></div>';
+    }
 
     const boardTop = hero.querySelector('.board-top');
     if (boardTop) boardTop.innerHTML = '<span>Système de clarté</span><span>Stratégie → déploiement</span>';
 
     const evidence = hero.querySelectorAll('.evidence');
     const evidenceContent = [
-      ['Offre claire','ce que vous vendez'],
-      ['Cible précise','à qui vous le vendez'],
-      ['Différence forte','pourquoi vous choisir'],
-      ['Message cohérent','ce que les gens retiennent'],
-      ['Parcours lisible','ce qu’ils doivent faire'],
-      ['Déploiement','site · social · Google']
+      ['Offre claire', 'ce que vous vendez'],
+      ['Cible précise', 'à qui vous le vendez'],
+      ['Différence forte', 'pourquoi vous choisir'],
+      ['Message cohérent', 'ce que les gens retiennent'],
+      ['Parcours lisible', 'ce qu’ils doivent faire'],
+      ['Déploiement', 'site · social · fiche Google']
     ];
+
     evidence.forEach((item, index) => {
       const data = evidenceContent[index];
       if (!data) return;
@@ -108,27 +56,12 @@
     if (oldOffer) {
       oldOffer.outerHTML = `
         <div class="hero-system-panel" aria-label="Les trois points de contact déployés">
-          <div class="hero-system-panel__item"><small>01 · Site</small><strong>Votre socle</strong><span>Une offre et un parcours compréhensibles immédiatement.</span></div>
-          <div class="hero-system-panel__item"><small>02 · Réseau social</small><strong>Votre voix</strong><span>Un message cohérent sur votre canal principal.</span></div>
-          <div class="hero-system-panel__item"><small>03 · Google</small><strong>Votre présence locale</strong><span>Une fiche alignée avec votre positionnement réel.</span></div>
+          <div class="hero-system-panel__item"><small>01 · Site</small><strong>Le socle</strong><span>Une offre et un parcours compréhensibles immédiatement.</span></div>
+          <div class="hero-system-panel__item"><small>02 · Réseau social</small><strong>La voix</strong><span>Un message cohérent sur votre canal principal.</span></div>
+          <div class="hero-system-panel__item"><small>03 · Fiche Google</small><strong>La confiance</strong><span>Une présence locale alignée avec votre positionnement.</span></div>
         </div>`;
     }
   }
-
-  const testSection = document.getElementById('prediagnostic');
-  if (testSection) testSection.id = 'test';
-
-  const anchorMap = [
-    ['.statement','approche'],
-    ['.method','strategie'],
-    ['.offer','deploiement'],
-    ['.realisations','projets'],
-    ['.about','studio']
-  ];
-  anchorMap.forEach(([selector,id]) => {
-    const section = document.querySelector(selector);
-    if (section && !document.getElementById(id)) section.id = id;
-  });
 
   const header = document.getElementById('site-header');
   const menuToggle = document.getElementById('menuToggle');
@@ -220,7 +153,7 @@
         if (active) link.setAttribute('aria-current', 'location');
         else link.removeAttribute('aria-current');
       });
-    }, { rootMargin: '-25% 0px -60% 0px', threshold: [0.01, 0.25, 0.6] });
+    }, { rootMargin: '-24% 0px -60% 0px', threshold: [0.01, 0.25, 0.6] });
     observed.forEach(section => observer.observe(section));
   }
 
