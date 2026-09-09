@@ -5,7 +5,9 @@ import re
 from urllib.parse import quote
 
 version = os.environ.get("BUILD_VERSION", "dev")[:8]
-whatsapp = "https://wa.me/33637432180?text=" + quote("Bonjour Paranoir, je souhaite échanger sur mon projet.")
+whatsapp = "https://wa.me/33637432180?text=" + quote(
+    "Bonjour Paranoir, je souhaite échanger sur mon projet et mon diagnostic."
+)
 linkedin = "https://www.linkedin.com/in/victoria-dury-paranoir/"
 instagram = "https://www.instagram.com/paranoir_studio/"
 
@@ -21,25 +23,20 @@ def extract(pattern: str, source: str, label: str) -> str:
 
 
 def ensure_stylesheet(source: str, href: str, element_id: str | None = None) -> str:
-    base = href.split("?", 1)[0]
-    if base in source:
-        source = re.sub(
-            rf'<link([^>]*?)href="{re.escape(base)}(?:\?v=[^"]*)?"([^>]*)/?>',
-            lambda m: f'<link{m.group(1)}href="{base}?v={version}"{m.group(2)}/>',
-            source,
-            count=1,
-        )
+    if href in source:
         return source
     id_attr = f' id="{element_id}"' if element_id else ""
-    tag = f'<link{id_attr} rel="stylesheet" href="{base}?v={version}"/>'
+    tag = f'<link{id_attr} rel="stylesheet" href="{href}?v={version}"/>'
     return source.replace("</head>", tag + "\n</head>", 1)
 
 
+# -----------------------------------------------------------------------------
 # Métadonnées et données structurées
+# -----------------------------------------------------------------------------
 meta_description = (
     "Paranoir Studio clarifie votre offre, votre message et votre positionnement, "
     "puis déploie cette stratégie sur votre site internet, votre réseau social principal "
-    "et votre fiche Google. Commencez par le test gratuit."
+    "et votre fiche Google Business Profile. Commencez par un diagnostic gratuit en 7 questions."
 )
 
 html = re.sub(
@@ -59,17 +56,46 @@ schema = [
         "@type": "Organization",
         "@id": "https://paranoir.fr/#organization",
         "name": "Paranoir Studio",
+        "legalName": "Paranoir Studio",
         "url": "https://paranoir.fr/",
         "slogan": "Du flou à l'évidence",
-        "logo": {"@type": "ImageObject", "url": "https://paranoir.fr/assets/images/logo-paranoir-studio-noir-illu-hd.png"},
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://paranoir.fr/assets/images/logo-paranoir-studio-noir-illu-hd.png",
+        },
         "image": "https://paranoir.fr/assets/images/alexandre-victoria-paranoir-opti.webp",
         "email": "victoria@paranoir.me",
         "telephone": "+33637432180",
-        "description": "Studio de stratégie et de déploiement digital. Paranoir clarifie l'offre, le positionnement et le message, puis les déploie sur le site internet, le réseau social principal et la fiche Google.",
+        "description": "Studio de stratégie et de déploiement digital. Paranoir clarifie l'offre, le positionnement et le message, puis les déploie sur le site internet, le réseau social principal et la fiche Google Business Profile.",
         "foundingDate": "2018",
         "areaServed": "FR",
         "inLanguage": "fr",
-        "knowsAbout": ["Stratégie d'offre", "Positionnement de marque", "Message marketing", "Site internet", "UX", "Accessibilité numérique", "Réseaux sociaux", "Google Business Profile"],
+        "knowsAbout": [
+            "Stratégie d'offre",
+            "Positionnement de marque",
+            "Message marketing",
+            "Site internet",
+            "UX et accessibilité numérique",
+            "Réseaux sociaux",
+            "Google Business Profile",
+            "Diagnostic stratégique",
+        ],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "victoria@paranoir.me",
+            "telephone": "+33637432180",
+            "contactType": "customer service",
+            "availableLanguage": "fr",
+        },
+        "founder": {
+            "@type": "Person",
+            "@id": "https://paranoir.fr/#victoria",
+            "name": "Victoria Dury",
+            "jobTitle": "Fondatrice & Directrice conseil",
+            "email": "victoria@paranoir.me",
+            "worksFor": {"@id": "https://paranoir.fr/#organization"},
+            "sameAs": linkedin,
+        },
         "sameAs": [linkedin, instagram],
     },
     {
@@ -85,21 +111,102 @@ schema = [
     {
         "@context": "https://schema.org",
         "@type": "ItemList",
-        "name": "Projets Paranoir Studio",
+        "name": "Accompagnements Paranoir Studio",
         "itemListElement": [
-            {"@type": "ListItem", "position": 1, "item": {"@type": "Service", "name": "Test gratuit", "provider": {"@id": "https://paranoir.fr/#organization"}, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}}},
-            {"@type": "ListItem", "position": 2, "item": {"@type": "Service", "name": "Page unique stratégique", "provider": {"@id": "https://paranoir.fr/#organization"}, "offers": {"@type": "Offer", "price": "990", "priceCurrency": "EUR"}}},
-            {"@type": "ListItem", "position": 3, "item": {"@type": "Service", "name": "Site multipage", "provider": {"@id": "https://paranoir.fr/#organization"}, "offers": {"@type": "Offer", "price": "1990", "priceCurrency": "EUR"}}},
-            {"@type": "ListItem", "position": 4, "item": {"@type": "Service", "name": "Projet sur mesure", "provider": {"@id": "https://paranoir.fr/#organization"}, "offers": {"@type": "Offer", "price": "2990", "priceCurrency": "EUR"}}},
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "item": {
+                    "@type": "Service",
+                    "name": "Diagnostic gratuit",
+                    "description": "Sept questions donnent une première orientation claire sur le principal point à traiter. Le prospect peut ensuite transmettre ses réponses à Paranoir ou poursuivre sur WhatsApp, sans engagement.",
+                    "provider": {"@id": "https://paranoir.fr/#organization"},
+                    "offers": {
+                        "@type": "Offer",
+                        "price": "0",
+                        "priceCurrency": "EUR",
+                        "availability": "https://schema.org/InStock",
+                    },
+                },
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "item": {
+                    "@type": "Service",
+                    "name": "Stratégie complète + site en une page",
+                    "description": "Pour une activité structurée autour d'une offre principale : dossier stratégique complet, site internet en une page, réseau social principal optimisé et fiche Google Business Profile optimisée.",
+                    "provider": {"@id": "https://paranoir.fr/#organization"},
+                    "offers": {
+                        "@type": "Offer",
+                        "price": "990",
+                        "priceCurrency": "EUR",
+                        "availability": "https://schema.org/InStock",
+                    },
+                },
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "item": {
+                    "@type": "Service",
+                    "name": "Stratégie complète + site de 5 à 15 pages",
+                    "description": "Pour une activité avec plusieurs offres, publics ou enjeux de visibilité : dossier stratégique complet, site de 5 à 15 pages, organisation des contenus, réseau social principal optimisé et fiche Google Business Profile optimisée.",
+                    "provider": {"@id": "https://paranoir.fr/#organization"},
+                    "offers": {
+                        "@type": "Offer",
+                        "price": "3290",
+                        "priceCurrency": "EUR",
+                        "availability": "https://schema.org/InStock",
+                    },
+                },
+            },
         ],
     },
     {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         "mainEntity": [
-            {"@type": "Question", "name": "Le résultat du test est-il immédiat ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui. Une première analyse s'affiche directement après vos réponses."}},
-            {"@type": "Question", "name": "La stratégie est-elle réellement incluse ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui. Elle est intégrée à chaque projet payant et formalisée dans votre document stratégique."}},
-            {"@type": "Question", "name": "Combien coûte un projet ?", "acceptedAnswer": {"@type": "Answer", "text": "990 € HT pour une page unique stratégique, 1 990 € HT pour un multipage et à partir de 2 990 € HT pour un projet sur mesure."}},
+            {
+                "@type": "Question",
+                "name": "Pourquoi commencer par le diagnostic gratuit ?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Parce qu'avant de parler de pages, de fonctionnalités ou de budget, il faut comprendre ce qui bloque réellement. En 7 questions, vous obtenez une première direction et évitez de choisir seul une solution qui n'est peut-être pas adaptée.",
+                },
+            },
+            {
+                "@type": "Question",
+                "name": "Que se passe-t-il après le diagnostic ?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Vous obtenez une première lecture de votre situation. Paranoir peut ensuite reprendre vos réponses avec vous, approfondir les points importants et confirmer le format adapté. Vous n'avez pas besoin de tout réexpliquer.",
+                },
+            },
+            {
+                "@type": "Question",
+                "name": "Quelle différence entre le projet à 990 € HT et celui à partir de 3 290 € HT ?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Le premier correspond aux activités qui peuvent concentrer leur offre et leur message sur une seule page. Le second convient aux entreprises qui doivent présenter plusieurs offres, plusieurs publics, davantage de contenus ou travailler leur visibilité sur plusieurs pages. Le diagnostic permet de confirmer le bon format.",
+                },
+            },
+            {
+                "@type": "Question",
+                "name": "Pourquoi travailler avec Paranoir plutôt qu'avec une agence classique ?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Paranoir est un studio implanté sur son territoire. Vous travaillez directement avec un binôme stratégie et technique expérimenté. Plus de 60 entreprises ont été accompagnées. Une demande de site devient une stratégie claire, un plan d'action et des supports alignés pour continuer à communiquer.",
+                },
+            },
+            {
+                "@type": "Question",
+                "name": "Peut-on tout faire à distance ?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Oui. Paranoir accompagne aussi bien des entreprises du territoire que des clients ailleurs en France. Les échanges peuvent se faire en visioconférence et sur WhatsApp.",
+                },
+            },
         ],
     },
 ]
@@ -108,129 +215,191 @@ schema_html = '<script type="application/ld+json">\n' + json.dumps(schema, ensur
 html = re.sub(r'<script type="application/ld\+json">.*?</script>', schema_html, html, count=1, flags=re.S)
 
 
-# Hero : on conserve le dossier existant et on aligne la copie avant le JavaScript.
+# -----------------------------------------------------------------------------
+# Hero statique : même promesse que la version interactive
+# -----------------------------------------------------------------------------
 hero = extract(r'<section class="hero">.*?</section>', html, "hero")
-hero = re.sub(r'<div class="eyebrow">.*?</div>', '<div class="eyebrow"><span class="dot"></span>Site internet · Réseau social · Fiche Google</div>', hero, count=1, flags=re.S)
-hero = re.sub(r'<h1>.*?</h1>', '<h1>Votre valeur reste floue.<span class="hero-line-two">Nous la rendons évidente.</span></h1>', hero, count=1, flags=re.S)
-hero = re.sub(r'<p class="sub">.*?</p>', '<p class="sub">Nous clarifions <strong>ce que vous vendez</strong>, <strong>à qui vous le vendez</strong> et <strong>pourquoi vous êtes différent</strong>. Puis nous déployons cette clarté sur votre site, votre réseau social principal et votre fiche Google Business Profile.</p>', hero, count=1, flags=re.S)
-hero = re.sub(r'<div class="hero-actions">.*?</div>', '<div class="hero-actions"><a class="cta" href="#test">Faire le test gratuit <span>→</span></a><p class="micro">3 minutes · Sans engagement · Un premier niveau de clarté immédiatement</p><div class="hero-proof-line"><span class="hero-proof-line__stars" aria-label="5 étoiles">★★★★★</span><span>5/5 sur Google</span><span class="hero-proof-line__separator" aria-hidden="true"></span><span>Plus de 60 entreprises accompagnées</span></div></div>', hero, count=1, flags=re.S)
+hero = re.sub(
+    r'<div class="eyebrow">.*?</div>',
+    '<div class="eyebrow"><span class="dot"></span>Site internet · Réseau social · Fiche Google</div>',
+    hero,
+    count=1,
+    flags=re.S,
+)
+hero = re.sub(
+    r'<h1>.*?</h1>',
+    '<h1>Votre valeur reste floue.<span class="hero-line-two">Nous la rendons évidente.</span></h1>',
+    hero,
+    count=1,
+    flags=re.S,
+)
+hero = re.sub(
+    r'<p class="sub">.*?</p>',
+    '<p class="sub">Nous clarifions <strong>ce que vous vendez</strong>, <strong>à qui vous le vendez</strong> et <strong>pourquoi vous êtes différent</strong>. Puis nous déployons cette clarté sur votre site, votre réseau social principal et votre fiche Google Business Profile.</p>',
+    hero,
+    count=1,
+    flags=re.S,
+)
+hero = re.sub(
+    r'<div class="hero-actions">.*?</div>',
+    '<div class="hero-actions"><a class="cta" href="#diagnostic">Commencer mon diagnostic gratuit <span>→</span></a><p class="micro">3 minutes · Sans engagement · Un premier niveau de clarté immédiatement</p><div class="hero-proof-line"><span class="hero-proof-line__stars" aria-label="5 étoiles">★★★★★</span><span>5/5 sur Google</span><span class="hero-proof-line__separator" aria-hidden="true"></span><span>Plus de 60 entreprises accompagnées</span></div></div>',
+    hero,
+    count=1,
+    flags=re.S,
+)
 hero = hero.replace('<span>Dossier ouvert</span>\n<span>Enquête stratégique</span>', '<span>Système de clarté</span>\n<span>Stratégie → déploiement</span>')
 hero = hero.replace('<div class="stamp">Cause trouvée</div>', '<div class="stamp">Message aligné</div>')
 
-# Le quiz actuel reste la mécanique publique pendant cette phase de refonte.
-quiz = extract(r'<section class="prequiz" id="prediagnostic">.*?</section>', html, "test gratuit")
-quiz = quiz.replace('<section class="prequiz" id="prediagnostic">', '<section class="prequiz v3-diagnostic" id="test">', 1)
-quiz = re.sub(
-    r'<div class="prequiz-head reveal">.*?</div>\s*<form',
-    '<div class="prequiz-head reveal"><p class="kicker">Test gratuit</p><h2>Une question à la fois.</h2><p class="lede">En 3 minutes, vous obtenez un premier diagnostic sur ce qui brouille votre offre, votre message ou votre parcours.</p></div>\n<form',
-    quiz,
-    count=1,
-    flags=re.S,
-)
-quiz = re.sub(
-    r'<p class="quiz-privacy">.*?</p>',
-    '<p class="quiz-privacy">Vos réponses servent uniquement à établir votre diagnostic et à vous recontacter à son sujet. <a href="/politique-confidentialite.html">En savoir plus sur vos données.</a></p>',
-    quiz,
-    count=1,
-    flags=re.S,
-)
 
-# Réalisations et avis réels.
+# -----------------------------------------------------------------------------
+# Réalisations et avis existants : on conserve les vrais médias et témoignages
+# -----------------------------------------------------------------------------
 realisations = extract(r'<section class="realisations">.*?</section>', html, "réalisations")
 realisations = realisations.replace('<section class="realisations">', '<section class="realisations" id="realisations">', 1)
-notes = iter([
-    '<div class="v3-decision"><strong>Décision stratégique</strong>Repositionner l’association comme experte du vivant et acteur territorial, pas comme simple association de niche.</div>',
-    '<div class="v3-decision"><strong>Décision stratégique</strong>Faire de la périnatalité et de la sexothérapie une différence lisible au lieu d’un message générique.</div>',
-    '<div class="v3-decision"><strong>Décision stratégique</strong>Recentrer l’expérience sur la mobilité, moderniser la réassurance et clarifier le parcours.</div>',
-])
-realisations = re.sub(r'(<p class="real-offer">)', lambda m: next(notes) + m.group(1), realisations, count=3)
+realisations = re.sub(r'<p class="kicker">Réalisations</p>\s*<h2>.*?</h2>', '<p class="kicker">Réalisations</p>\n<h2>Des problèmes différents. <span class="highlight">Des réponses visibles.</span></h2>', realisations, count=1, flags=re.S)
+realisation_tags = [
+    '<p class="real-offer"><span>Positionnement</span><span>Message</span><span>Site</span></p>',
+    '<p class="real-offer"><span>Positionnement</span><span>Site</span><span>Référencement</span></p>',
+    '<p class="real-offer"><span>Identité</span><span>Message</span><span>Site</span></p>',
+]
+iterator = iter(realisation_tags)
+realisations = re.sub(r'<p class="real-offer">.*?</p>', lambda _: next(iterator), realisations, count=3, flags=re.S)
 
 reviews = extract(r'<section class="google-reviews">.*?</section>', html, "avis")
 reviews = reviews.replace('<section class="google-reviews">', '<section class="google-reviews" id="avis">', 1)
+reviews = re.sub(r'<p class="kicker">.*?</p>\s*<h2>.*?</h2>', '<p class="kicker">Ils ont travaillé avec nous</p>\n<h2>Le résultat compte. La façon d’y arriver aussi.</h2>', reviews, count=1, flags=re.S)
 
-proof = '''
-<section class="proof" aria-label="Preuves rapides">
-<article class="v3-proof v3-glass"><strong>+60</strong><span>entreprises accompagnées</span></article>
-<article class="v3-proof v3-proof--stars v3-glass"><strong>★★★★★</strong><span>5/5 sur Google</span></article>
-<article class="v3-proof v3-glass"><strong>Conseils en continu</strong><span>Site, réseau social et fiche Google pensés comme un seul système</span></article>
-</section>'''
 
-manifesto = '''
-<section class="statement v3-manifesto" id="approche">
-<div class="v3-manifesto-copy"><p class="v3-kicker">Le problème n’est pas toujours là où il se voit</p><h2 class="v3-title">Un site peut être parfaitement construit et envoyer <span class="editorial">les mauvais signaux.</span></h2><p class="v3-lede">Un prospect peut vous découvrir sur Google, vérifier votre site, regarder votre réseau social puis lire vos avis. S’il rencontre quatre versions différentes de votre activité, il ne fait pas la synthèse à votre place.</p><p class="v3-manifesto-note">Plus vous ajoutez de communication sur une base floue, plus le parcours devient difficile à suivre.</p></div>
-<div class="v3-tangle" aria-label="Parcours d'un prospect entre Google, le site, le réseau social et les avis"><svg viewBox="0 0 620 540" preserveAspectRatio="none" aria-hidden="true"><path class="soft" d="M130 120 L485 215 L195 390 L468 455"/><path d="M130 120 L330 285 L485 215"/><path d="M195 390 L330 285 L468 455"/><path d="M468 455 L525 95 L130 120"/></svg><div class="v3-clue v3-clue--google">Fiche Google<small>premier signal de confiance</small></div><div class="v3-clue v3-clue--site">Site<small>point de référence</small></div><div class="v3-clue v3-clue--social">Réseau social<small>présence et relation</small></div><div class="v3-clue v3-clue--reviews">Avis<small>preuve extérieure</small></div><div class="v3-clue v3-clue--hesitation">Hésitation<small>les messages ne s’alignent pas</small></div></div>
-</section>'''
+# -----------------------------------------------------------------------------
+# Fallback HTML : lisible, indexable et cohérent avant le JavaScript enrichi
+# -----------------------------------------------------------------------------
+static_home = '''
+<section class="home-section home-proof" id="preuve">
+<div class="home-section__inner"><div class="home-proof__grid">
+<div class="home-proof__item"><strong>+60</strong><span>entreprises accompagnées</span></div>
+<div class="home-proof__item"><strong>★★★★★ 5/5</strong><span>sur Google</span></div>
+<div class="home-proof__item"><strong>Des conseils en continu</strong><div class="home-proof__links"><a href="''' + linkedin + '''" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="''' + instagram + '''" target="_blank" rel="noopener noreferrer">Instagram ↗</a></div></div>
+</div></div></section>
 
-strategy = '''
-<section class="v3-section v3-strategy" id="strategie"><div><p class="v3-kicker">La stratégie est incluse</p><h2 class="v3-title">Nous ne produisons pas d’abord pour <span class="editorial">réfléchir ensuite.</span></h2><p class="v3-lede">Chaque projet payant commence par la même question : qu’est-ce que vos clients doivent comprendre, retenir et faire ensuite ?</p><p class="v3-strategy-quote">La stratégie n’est pas une option ajoutée au devis. C’est la base du déploiement.</p></div><div class="v3-strategy-cloud v3-glass" aria-label="Éléments étudiés dans la stratégie">''' + ''.join(f'<span class="v3-pill">{item}</span>' for item in ['activité','dirigeant','clients','marché','concurrence','offre','différence','message','positionnement','parcours','priorités']) + '''</div></section>'''
+<section class="home-section cycle-section cycle-section--problem" id="approche">
+<div class="home-section__inner"><div class="cycle-wrap">
+<div class="cycle-copy"><p class="home-kicker">Quand le message se dérègle</p><h2>Le client ne devrait pas avoir à deviner ce que vous faites.</h2><p class="home-lede">Votre activité peut évoluer plus vite que votre communication. Le problème commence souvent là.</p><div class="cycle-copy__note">La solution n’est pas d’en dire davantage. C’est de repartir d’une base commune.</div></div>
+<div class="cycle-visual" role="img" aria-label="Cercle vicieux de la perte de clarté"><div class="cycle-ring"><div class="cycle-arrow" aria-hidden="true"></div><div class="cycle-center"><strong>Plus de communication.<br>Pas forcément plus de clarté.</strong></div><div class="cycle-node cycle-node--1">Votre activité évolue</div><div class="cycle-node cycle-node--2">Votre offre devient plus difficile à résumer</div><div class="cycle-node cycle-node--3">Site, réseaux et Google ne racontent plus la même chose</div><div class="cycle-node cycle-node--4">Le client hésite ou comprend mal votre différence</div><div class="cycle-node cycle-node--5">Vous ajoutez du contenu pour mieux expliquer</div><div class="cycle-node cycle-node--6">Votre message devient encore plus difficile à suivre</div></div></div>
+</div></div></section>
 
-document = '''
-<section class="v3-section v3-document" id="document-strategique"><p class="v3-kicker">Un document de référence</p><h2 class="v3-title">La stratégie devient <span class="editorial">utilisable.</span></h2><p class="v3-lede">Vous repartez avec un document qui rassemble les décisions prises et sert de référence au site, aux contenus et aux prochaines actions.</p><div class="v3-document-sheet"><div class="v3-document-brand"><span>PARANOIR STUDIO</span><span>Document de référence</span></div><div class="v3-document-grid"><div class="v3-document-block"><small>01 · Identité</small><strong>Ce que vous défendez</strong><p>Mission, vision, promesse, personnalité et principes qui doivent rester cohérents.</p></div><div class="v3-document-block"><small>02 · Offre</small><strong>Ce que vous vendez</strong><p>Hiérarchie, bénéfices, objections, formulation et priorités commerciales.</p></div><div class="v3-document-block"><small>03 · Clients</small><strong>À qui vous parlez</strong><p>Cibles, attentes, freins, critères de décision et niveau de compréhension attendu.</p></div><div class="v3-document-block"><small>04 · Communication</small><strong>Ce qu’ils doivent retenir</strong><p>Messages clés, ton, preuves, appels à l’action et cohérence entre les points de contact.</p></div></div><div class="v3-document-foot">Un socle réutilisable pour arbitrer les décisions pendant au moins un an.</div></div></section>'''
+<section class="home-section process-section" id="methode"><div class="home-section__inner">
+<div class="home-section__head"><p class="home-kicker">Du diagnostic à la mise en ligne</p><h2>Vous savez ce qu’on fait, ce que vous recevez et ce qui vient ensuite.</h2></div>
+<div class="process-grid">
+<article class="home-card process-step"><span class="process-step__num">01</span><h3>Vous nous donnez le contexte</h3><p>Votre activité, vos offres, vos clients, ce qui existe déjà et ce qui vous pose problème.</p><p class="process-step__accent">Pas besoin de préparer un dossier. Nous allons chercher l’information avec vous.</p></article>
+<article class="home-card process-step"><span class="process-step__num">02</span><h3>Nous mettons tout à plat ensemble</h3><p>Nous confrontons ce que vous voulez transmettre à ce que vos clients doivent réellement comprendre.</p><p class="process-step__accent">Nous décidons ensemble ce qui doit rester, ce qui doit évoluer et ce qui doit passer en premier.</p></article>
+<article class="home-card process-step"><span class="process-step__num">03</span><h3>Vous recevez votre dossier stratégique complet</h3><div class="deliverables"><div class="deliverable"><strong>Fondations</strong><span>Analyse de l’existant · Mission & vision · Positionnement</span></div><div class="deliverable"><strong>Offres & message</strong><span>Offres · Messages clés · Réponses aux objections clients</span></div><div class="deliverable"><strong>Identité & site</strong><span>Charte graphique · Arborescence · Organisation des contenus</span></div><div class="deliverable"><strong>Déploiement</strong><span>Guide réseau social · Guide fiche Google · Plan d’action 30 jours</span></div></div><p class="process-step__accent">Vous savez quoi dire, comment le montrer et dans quel ordre avancer.</p></article>
+<article class="home-card process-step"><span class="process-step__num">04</span><h3>Nous le déployons avec vous</h3><p>Nous construisons et mettons votre site en ligne, optimisons votre réseau social principal et votre fiche Google Business Profile, puis nous vous accompagnons dans leur mise en œuvre.</p><p>La restitution validée ensemble devient le document de référence de tout le déploiement.</p><p class="process-step__accent">Vous ne repartez pas avec un rapport à appliquer seul. Vous repartez avec une stratégie déjà mise en mouvement.</p></article>
+</div></div></section>
 
-deployment = '''
-<section class="v3-section v3-deployment" id="deploiement"><div><p class="v3-kicker">Trois points de contact, un seul message</p><h2 class="v3-title">Le fil se dénoue quand chaque support joue <span class="editorial">son vrai rôle.</span></h2><p class="v3-lede">Le site devient le socle. Le réseau social porte votre voix. La fiche Google apporte la confiance locale. Ils ne doivent pas répéter mot pour mot la même chose, ils doivent raconter la même entreprise.</p></div><div class="v3-untangle v3-glass" aria-label="Déploiement cohérent sur le site, le réseau social et la fiche Google"><div class="v3-untangle-line" aria-hidden="true"></div><div class="v3-channel v3-channel--site"><small>01 · Site</small><strong>Le socle</strong></div><div class="v3-channel v3-channel--social"><small>02 · Réseau social</small><strong>La voix</strong></div><div class="v3-channel v3-channel--google"><small>03 · Fiche Google</small><strong>La confiance</strong></div><div class="v3-message-core">Message aligné</div><div class="v3-confidence">Compréhension → confiance → action</div></div></section>'''
+<section class="home-section diagnostic-section" id="diagnostic"><div class="home-section__inner"><div class="home-card diagnostic-shell"><div class="diagnostic-intro"><h2>Faites votre diagnostic gratuit</h2><p class="diagnostic-promise">7 questions. 3 minutes max. Une première réponse claire, sans engagement.</p></div><div class="diagnostic-form"><ol class="offer-situations"><li>Où en est votre activité aujourd’hui ?</li><li>Combien d’offres vos clients doivent-ils comprendre ?</li><li>Quelqu’un qui vous découvre comprend-il rapidement ce que vous vendez ?</li><li>Votre site, votre réseau social et votre fiche Google racontent-ils la même chose ?</li><li>Qu’avez-vous déjà aujourd’hui ?</li><li>Qu’est-ce qui vous freine le plus aujourd’hui ?</li><li>Quelle est votre priorité maintenant ?</li></ol><p class="process-step__accent">Le formulaire interactif affiche une question à la fois et vous donne une première orientation immédiatement.</p></div></div></div></section>
 
-projects = '''
-<section class="v3-section v3-projects" id="projets"><p class="v3-kicker">Le format suit la complexité</p><h2 class="v3-title">Quel projet correspond à <span class="editorial">votre situation ?</span></h2><p class="v3-lede">On ne choisit pas un nombre de pages au hasard. On regarde d’abord ce que vos clients doivent comprendre et combien de parcours doivent coexister.</p><div class="v3-project-switch" role="tablist" aria-label="Choisir une situation de projet"><button class="v3-project-choice" role="tab" type="button" data-project="one" aria-selected="true"><small>Une offre principale</small><strong>Un parcours simple</strong><span>990 € HT</span></button><button class="v3-project-choice" role="tab" type="button" data-project="multi" aria-selected="false"><small>Plusieurs offres</small><strong>Plusieurs parcours</strong><span>1 990 € HT</span></button><button class="v3-project-choice" role="tab" type="button" data-project="custom" aria-selected="false"><small>Besoins complexes</small><strong>Fonctions sur mesure</strong><span>2 990 € HT+</span></button></div><div class="v3-project-detail v3-glass" aria-live="polite"><div><h3>Page unique stratégique</h3><p>Pour une activité avec une offre principale et un parcours simple. L’objectif est de faire comprendre rapidement ce que vous proposez, à qui et pourquoi vous choisir.</p><p><strong>990 € HT</strong></p></div><a class="cta" href="#test">Faire le test gratuit <span>→</span></a></div><p class="v3-project-included"><strong>Dans chaque projet payant :</strong> stratégie + document stratégique + site + réseau social principal + fiche Google.</p></section>'''
+<section class="home-section offers-section" id="projets"><div class="home-section__inner"><div class="home-section__head"><p class="home-kicker">Deux situations, deux formats</p><h2>Le bon format dépend surtout de ce que vos clients doivent comprendre.</h2><p class="home-lede">Le diagnostic nous permet de confirmer le format adapté avant de commencer.</p></div><div class="offers-grid">
+<article class="home-card offer-card-v3"><p class="offer-card-v3__kicker">Vous avez une offre principale</p><h3>Une page claire peut suffire.</h3><p class="offer-card-v3__price">990 € HT</p><p class="offer-card-v3__intro">Ce format correspond notamment à une entreprise qui :</p><ul class="offer-situations"><li>se lance ou relance son activité ;</li><li>vend principalement une offre ou un service ;</li><li>possède un ancien site qui ne correspond plus à ce qu’elle fait aujourd’hui ;</li><li>a besoin d’expliquer clairement son activité, rassurer et permettre une prise de contact ;</li><li>n’a pas besoin de multiplier les pages pour être comprise.</li></ul><div class="offer-delivery"><span>Site en une page</span><span>Réseau social principal optimisé</span><span>Fiche Google Business Profile optimisée</span></div><p class="offer-card-v3__intro">Avec le travail stratégique nécessaire pour que les trois racontent la même chose.</p><a class="cta" href="#diagnostic">Commencer mon diagnostic gratuit <span>→</span></a></article>
+<article class="home-card offer-card-v3"><p class="offer-card-v3__kicker">Vous avez plusieurs offres, publics ou sujets à expliquer</p><h3>Il faut organiser avant d’ajouter des pages.</h3><p class="offer-card-v3__price">À partir de 3 290 € HT</p><p class="offer-card-v3__intro">Ce format correspond notamment à une entreprise qui :</p><ul class="offer-situations"><li>propose plusieurs services ou plusieurs offres ;</li><li>s’adresse à plusieurs types de clients ;</li><li>possède un site devenu difficile à suivre au fil des années ;</li><li>a fait évoluer son activité sans faire évoluer toute sa communication ;</li><li>doit créer des pages spécifiques pour être trouvée sur Google ;</li><li>doit aider différents visiteurs à trouver rapidement ce qui les concerne.</li></ul><div class="offer-delivery"><span>Site de 5 à 15 pages</span><span>Organisation du site et de la navigation</span><span>Réseau social principal optimisé</span><span>Fiche Google Business Profile optimisée</span></div><p class="offer-card-v3__intro">Avec un travail plus approfondi sur vos offres, vos messages et l’organisation des contenus.</p><a class="cta" href="#diagnostic">Commencer mon diagnostic gratuit <span>→</span></a></article>
+</div></div></section>
 
-bundle_groups = [
-    ('Commerce', [('shop','Boutique en ligne'),('booking','Réservation'),('ticket','Billetterie'),('membership','Adhésion'),('quote','Demande de devis avancée'),('payment','Paiement en ligne')]),
-    ('Contenu', [('multilingual','Multilingue'),('lms','Espace formation / LMS'),('catalog','Catalogue'),('directory','Annuaire'),('members','Espace membre'),('resources','Blog / ressources')]),
-    ('Connexions', [('crm','CRM'),('api','API / outil métier'),('automation','Automatisations'),('migration','Migration'),('emailing','Emailing / nurturing')]),
-]
-bundle_buttons = ''
-for group_name, items in bundle_groups:
-    bundle_buttons += f'<div class="v3-bundle-group-title">{group_name}</div>'
-    for key, label in items:
-        selected = 'true' if key == 'shop' else 'false'
-        bundle_buttons += f'<button class="v3-bundle-button" type="button" data-bundle="{key}" aria-selected="{selected}"><span>{label}</span><span>→</span></button>'
+<section class="home-section ai-section" id="ia"><div class="home-section__inner"><div class="home-card ai-section__panel"><div class="ai-grid"><div class="ai-manifesto"><p class="home-kicker">L’IA accélère. Elle ne décide pas.</p><h2>L’IA peut construire un site. Elle ne sait pas décider à votre place.</h2><p>Chez Paranoir, nous utilisons l’intelligence artificielle pour rechercher, analyser, prototyper, automatiser et produire plus efficacement.</p><p>Mais nous ne lui confions pas les décisions qui devront encore être bonnes demain : votre message, l’organisation de vos contenus, les choix techniques et la manière dont votre site devra évoluer.</p><div class="ai-callout">L’IA est un outil.<br>Pas un technicien.</div></div><div class="ai-points"><div class="ai-point"><strong>Un site généré peut sembler terminé très vite.</strong><span>La vraie difficulté apparaît quand il faut ajouter une offre, une page, une fonctionnalité ou faire évoluer le référencement.</span></div><div class="ai-point"><strong>Une architecture non pensée vieillit mal.</strong><span>Chaque évolution peut devenir plus fragile, plus compliquée ou plus coûteuse si personne n’a prévu comment le site devait être repris et maintenu.</span></div><div class="ai-point"><strong>Nous utilisons l’IA pour aller plus vite.</strong><span>Nous gardons les décisions humaines qui rendent votre site maintenable, évolutif et pérenne.</span></div><div class="ai-point"><strong>Votre activité va évoluer.</strong><span>Votre site doit pouvoir suivre sans devoir être entièrement reconstruit à chaque changement.</span></div></div></div></div></div></section>
 
-bundles = f'''
-<section class="v3-section v3-bundles" id="fonctionnalites"><div><p class="v3-kicker">17 bundles disponibles</p><h2 class="v3-title">On ajoute des fonctions quand elles servent <span class="editorial">le parcours.</span></h2><p class="v3-lede">Une fonctionnalité n’est jamais intéressante parce qu’elle existe. Elle l’est lorsqu’elle retire une friction ou automatise quelque chose d’utile.</p></div><div class="v3-bundle-browser"><div class="v3-bundle-list v3-glass">{bundle_buttons}</div><div class="v3-bundle-detail v3-glass" aria-live="polite"><small>Commerce</small><h3>Boutique en ligne</h3><p>Pour vendre des produits ou services avec un parcours d’achat cohérent avec le reste du site.</p><ul><li>Catalogue et fiches produit</li><li>Paiement</li><li>Emails transactionnels</li></ul></div></div></section>'''
-
-technical = '''
-<section class="v3-section v3-tech" id="technique"><div class="v3-tech-inner"><p class="v3-kicker">Construction technique & IA</p><h2 class="v3-title">L’IA va vite. <span class="editorial">Les mauvais choix aussi.</span></h2><p class="v3-lede">Nous utilisons l’IA pour accélérer la recherche, le prototypage et certaines tâches de production. Elle ne décide ni de votre positionnement, ni de votre architecture, ni de la façon dont le site devra évoluer.</p><div class="v3-tech-compare"><div class="v3-tech-row v3-tech-row--head"><div>Critère</div><div>100 % généré</div><div>Paranoir</div></div><div class="v3-tech-row"><div>Production</div><div class="muted">Rapide</div><div class="yes">Rapide</div></div><div class="v3-tech-row"><div>Structure</div><div class="muted">Souvent générique</div><div class="yes">Pensée pour votre activité</div></div><div class="v3-tech-row"><div>Message</div><div class="muted">Produit à partir d’un prompt</div><div class="yes">Décidé à partir de la stratégie</div></div><div class="v3-tech-row"><div>Évolutivité</div><div class="muted">Variable</div><div class="yes">Prévue dès l’architecture</div></div><div class="v3-tech-row"><div>Maintenance</div><div class="muted">Dépend de ce qui a été généré</div><div class="yes">Dépendances maîtrisées</div></div><div class="v3-tech-row"><div>Autonomie</div><div class="muted">Pas toujours anticipée</div><div class="yes">Choisie selon vos besoins</div></div></div><p class="v3-tech-note"><strong>Notre règle :</strong> l’IA accélère. Les décisions restent humaines, documentées et maintenables.</p></div></section>'''
-
-process = '''
-<section class="v3-process" id="methode" data-process-step="0"><div class="v3-process-track"><div class="v3-process-stage"><div class="v3-process-copy"><div class="v3-process-counter"><strong>01 / 04</strong><span class="v3-process-progress"><i></i></span></div><article class="v3-process-step is-active"><small>01 · Comprendre</small><h3>Comprendre.</h3><p>On rassemble le contexte, l’existant, les offres, les clients et les symptômes. On distingue les faits des hypothèses.</p></article><article class="v3-process-step"><small>02 · Décider</small><h3>Décider.</h3><p>On organise les informations, formule le positionnement et arbitre ce qui doit être compris en premier. Le document stratégique prend forme.</p></article><article class="v3-process-step"><small>03 · Déployer</small><h3>Déployer.</h3><p>La stratégie devient un site, un réseau social principal et une fiche Google cohérents. Chaque support prend son rôle.</p></article><article class="v3-process-step"><small>04 · Transmettre</small><h3>Transmettre.</h3><p>Vous récupérez les accès, les règles, le document stratégique et les repères nécessaires pour garder la main sur la suite.</p></article></div><div class="v3-process-scene" aria-hidden="true"><div class="v3-scene-layer" data-scene="0"><span class="v3-note n1">Offres</span><span class="v3-note n2">Clients</span><span class="v3-note n3">Concurrence</span><span class="v3-note n4">Messages</span><div class="v3-scene-thread"></div></div><div class="v3-scene-layer" data-scene="1"><div class="v3-scene-doc"><strong>Document stratégique</strong><div class="bars"><i></i><i></i><i></i><i></i></div></div></div><div class="v3-scene-layer" data-scene="2"><div class="v3-device-row"><div class="v3-device"><strong>Site</strong><i></i><i></i><i></i></div><div class="v3-device"><strong>Réseau</strong><i></i><i></i></div><div class="v3-device"><strong>Fiche Google</strong><i></i><i></i></div></div></div><div class="v3-scene-layer" data-scene="3"><div class="v3-handoff"><div class="v3-handoff-card"><small>Transmission</small><strong>Vous gardez la main.</strong><p>Document, accès, règles et plan d’action restent avec vous.</p></div></div></div></div></div></div></section>'''
+<section class="home-section cycle-section cycle-section--positive" id="experience"><div class="home-section__inner"><div class="cycle-wrap"><div class="cycle-copy"><p class="home-kicker">Ce que vous vivez avec nous</p><h2>Pas de boîte noire entre le premier échange et la mise en ligne.</h2><span class="editorial-accent">Vous comprenez les choix. Vous savez où on va. Vous gardez la main.</span></div><div class="cycle-visual" role="img" aria-label="Cercle vertueux de l’accompagnement Paranoir"><div class="cycle-ring"><div class="cycle-arrow" aria-hidden="true"></div><div class="cycle-center"><strong>Un projet compris est plus facile à faire vivre.</strong></div><div class="cycle-node cycle-node--1">Vous nous expliquez votre activité avec vos mots</div><div class="cycle-node cycle-node--2">Nous remettons les informations dans le bon ordre</div><div class="cycle-node cycle-node--3">Nous expliquons chaque recommandation simplement</div><div class="cycle-node cycle-node--4">Vous validez les décisions importantes</div><div class="cycle-node cycle-node--5">Vous les voyez prendre forme sur vos supports</div><div class="cycle-node cycle-node--6">Vous gardez les repères pour continuer et évoluer</div></div></div></div></div></section>
+'''
 
 studio = '''
-<section class="about v3-studio" id="studio"><div class="photo liquid"><picture><source srcset="/assets/images/alexandre-victoria-paranoir-opti.webp" type="image/webp"/><img src="/assets/images/alexandre-victoria-paranoir-opti.png" alt="Victoria et Alexandre — Paranoir Studio" width="800" height="1202" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"/></picture></div><div class="about-copy liquid"><p class="kicker">Le studio</p><h2>Deux expertises associées. Les personnes qui pensent le projet sont aussi celles qui le livrent.</h2><p>Paranoir réunit la stratégie, l’UX, les contenus et la construction technique dans la même équipe. Moins de passages de relais, moins de déperdition entre ce qui a été décidé et ce qui finit réellement en ligne.</p><div class="v3-studio-members"><div class="v3-studio-member"><strong>Victoria</strong><span>Stratégie, UX, positionnement, contenus et accompagnement.</span></div><div class="v3-studio-member"><strong>Alexandre</strong><span>Architecture technique, intégrations, performance et livraison.</span></div></div><div class="v3-credentials"><span class="v3-pill">UX & stratégie</span><span class="v3-pill">Développement</span><span class="v3-pill">Formation</span><span class="v3-pill">Performance</span><span class="v3-pill">Accessibilité</span></div></div></section>'''
+<section class="home-section studio-v3" id="studio"><div class="home-section__inner"><div class="studio-grid"><div class="home-card studio-photo"><picture><source srcset="/assets/images/alexandre-victoria-paranoir-opti.webp" type="image/webp"><img src="/assets/images/alexandre-victoria-paranoir-opti.png" alt="Victoria et Alexandre, Paranoir Studio" width="800" height="1202" loading="lazy"></picture></div><div class="home-card studio-copy"><p class="home-kicker">Victoria + Alexandre</p><h2>Deux expertises. Un seul projet.</h2><div class="studio-copy__roles"><div class="studio-role"><strong>Victoria</strong><span>Clarifie l’offre, le message, l’expérience et la direction visuelle.</span></div><div class="studio-role"><strong>Alexandre</strong><span>Transforme ces choix en un site fiable, rapide et capable d’évoluer avec votre activité.</span></div></div><p class="home-lede">Vous travaillez directement avec nous, du premier échange à la mise en ligne.</p><p class="studio-signature">La stratégie sait où aller. La technique sait comment y arriver.</p><div class="credentials"><h3>Diplômes & certifications</h3><div class="credentials-grid"><div class="credential-person"><strong>Victoria Dury</strong><ul><li><b>Accessibilité numérique RGAA</b> · UX Vision</li><li><b>Marketing Digital</b> · Learning Shelter</li><li><b>Directrice artistique UX-UI</b> · Fonderie de l’image</li><li><b>UI Designer / Intégration web</b> · Fonderie de l’image</li></ul></div><div class="credential-person"><strong>Alexandre Dury</strong><ul><li><b>Développeur WordPress</b> · CFM</li><li><b>Direction artistique</b> · Fonderie de l’image</li><li><b>Chef de projet</b> · Fonderie de l’image</li></ul></div></div></div></div></div></div></section>
+'''
+
+experience_rail = '''
+<section class="home-section experience-rail" id="experiences"><div class="home-section__inner"><div class="experience-rail__head"><div><p class="home-kicker">Au fil de nos parcours</p><h2>Nous avons travaillé avec des entreprises de toutes tailles.</h2></div></div><div class="brand-marquee" aria-label="Entreprises rencontrées au fil de nos parcours professionnels"><div class="brand-marquee__track"><span class="brand-word">Aéroport de Paris</span><span class="brand-word">Michelin</span><span class="brand-word">Alfa Romeo</span><span class="brand-word">AG2R</span><span class="brand-word">MMA</span><span class="brand-word">MSA</span><span class="brand-word" aria-hidden="true">Aéroport de Paris</span><span class="brand-word" aria-hidden="true">Michelin</span><span class="brand-word" aria-hidden="true">Alfa Romeo</span><span class="brand-word" aria-hidden="true">AG2R</span><span class="brand-word" aria-hidden="true">MMA</span><span class="brand-word" aria-hidden="true">MSA</span></div></div></div></section>
+'''
 
 faq = '''
-<section class="faq v3-faq" id="faq"><div class="v3-faq-head"><p class="v3-kicker">Questions fréquentes</p><h2 class="v3-title">Les réponses utiles, <span class="editorial">sans roman.</span></h2></div><div class="v3-faq-priority"><article class="v3-glass"><h3>Le résultat du test est-il immédiat ?</h3><p>Oui. Votre première analyse s’affiche directement après vos réponses.</p></article><article class="v3-glass"><h3>La stratégie est-elle réellement incluse ?</h3><p>Oui. Elle est intégrée à chaque projet payant et formalisée dans votre document stratégique.</p></article><article class="v3-glass"><h3>Combien coûte un projet ?</h3><p>990 € HT, 1 990 € HT ou à partir de 2 990 € HT selon la complexité.</p></article></div><div class="v3-faq-list"><details><summary>Pourquoi commencer par le test gratuit ?</summary><p>Pour vérifier ce qui mérite réellement d’être clarifié avant de choisir un format de site ou d’ajouter des actions.</p></details><details><summary>Faut-il déjà avoir un site ?</summary><p>Non. Le point de départ peut être une offre, une activité en lancement, un site ancien ou une communication devenue incohérente.</p></details><details><summary>La fiche Google est-elle incluse ?</summary><p>Oui. Son optimisation fait partie du déploiement prévu dans les projets payants.</p></details><details><summary>Travaillez-vous uniquement avec WordPress ?</summary><p>Non. La solution technique dépend du projet, de son autonomie future et des dépendances réellement utiles.</p></details><details><summary>Puis-je modifier mon site ensuite ?</summary><p>Oui. L’objectif est de vous laisser une structure que vous pouvez faire vivre sans dépendance inutile.</p></details></div></section>'''
+<section class="home-section faq-v3" id="faq"><div class="home-section__inner"><div class="home-section__head"><h2>FAQ</h2></div><div class="faq-v3__list">
+<details><summary>Pourquoi commencer par le diagnostic gratuit ?</summary><p>Parce qu’avant de parler de pages, de fonctionnalités ou de budget, il faut comprendre ce qui bloque réellement. En 7 questions, vous obtenez une première direction et évitez de choisir seul une solution qui n’est peut-être pas adaptée.</p></details>
+<details><summary>Que se passe-t-il après le diagnostic ?</summary><p>Vous obtenez une première lecture de votre situation. Nous pouvons ensuite reprendre vos réponses avec vous, approfondir les points importants et confirmer le format adapté. Vous n’avez pas besoin de tout réexpliquer.</p></details>
+<details><summary>Quelle différence entre le projet à 990 € HT et celui à partir de 3 290 € HT ?</summary><p>Le premier correspond aux activités qui peuvent concentrer leur offre et leur message sur une seule page. Le second convient aux entreprises qui doivent présenter plusieurs offres, plusieurs publics, davantage de contenus ou travailler leur visibilité sur plusieurs pages. Le diagnostic permet de confirmer le bon format.</p></details>
+<details><summary>Pourquoi travailler avec Paranoir plutôt qu’avec une agence classique ?</summary><p>Parce que vous ne venez pas simplement acheter un site. Paranoir est un studio implanté sur son territoire, avec une volonté de travailler durablement avec les entreprises qui l’entourent et de faire circuler les compétences localement. Nous avons plusieurs années d’expérience et plus de 60 entreprises accompagnées. Vous pouvez venir nous voir pour un site. Vous repartez avec une stratégie claire, un plan d’action, un site construit autour de cette stratégie et des supports alignés pour continuer à communiquer. Et vous travaillez directement avec un binôme stratégie + technique qui a déjà fait ses preuves.</p></details>
+<details><summary>Peut-on tout faire à distance ?</summary><p>Oui. Nous travaillons aussi bien avec des entreprises du territoire qu’avec des clients ailleurs en France. Les échanges peuvent se faire en visioconférence et sur WhatsApp.</p></details>
+</div></div></section>
+'''
 
-final = '''
-<section class="final v3-final" id="cta-final"><div class="final-inner"><p class="v3-kicker" style="color:rgba(255,255,255,.72)">Votre prochain projet</p><h2>Commence par une question : <span class="highlight" style="color:#fff">qu’est-ce qui doit devenir évident ?</span></h2><p>Avant de choisir un nombre de pages, un outil ou une nouvelle campagne, vérifiez ce que votre activité a réellement besoin de clarifier.</p><a class="cta" href="#test">Faire le test gratuit <span>→</span></a><div class="v3-final-reassurance"><span>3 minutes</span><span>Gratuit</span><span>Résultat immédiat</span><span>Recommandation personnalisée</span></div></div></section>'''
+final_cta = '''
+<section class="home-section final-v3" id="cta-final"><div class="home-section__inner"><div class="final-v3__panel"><h2>Vous ne savez pas encore ce qu’il faut refaire ? C’est justement par là qu’on commence.</h2><p><strong>7 questions. 3 minutes max.</strong><br>Identifiez ce qui brouille votre communication avant d’engager du temps ou du budget au mauvais endroit.</p><div class="final-v3__actions"><a class="cta" href="#diagnostic">Commencer mon diagnostic gratuit <span>→</span></a><a class="diagnostic-btn" href="''' + whatsapp + '''" target="_blank" rel="noopener noreferrer">Échanger sur WhatsApp</a></div><p class="final-v3__micro">Gratuit · Sans engagement</p></div></div></section>
+'''
 
-new_main = '<main id="main">\n' + '\n'.join([hero, proof, manifesto, quiz, strategy, document, deployment, projects, bundles, technical, process, realisations, reviews, studio, faq, final]) + '\n</main>'
+new_main = '<main id="main">\n' + hero + static_home + realisations + '\n' + reviews + studio + experience_rail + faq + final_cta + '\n</main>'
 html = re.sub(r'<main id="main">.*?</main>', new_main, html, count=1, flags=re.S)
 
-# Navigation statique de secours, remplacée ensuite par le header enrichi.
-static_nav = '''<nav class="nav"><a class="brand" href="/">Paranoir Studio</a><div class="nav-mid">Stratégie &amp; déploiement</div><div class="nav-right"><a class="nav-link" href="#approche">Approche</a><a class="nav-link" href="#strategie">Stratégie</a><a class="nav-link" href="#projets">Projets</a><a class="nav-link" href="#realisations">Réalisations</a><a class="nav-cta" href="#test">Faire le test gratuit</a></div></nav>'''
+
+# -----------------------------------------------------------------------------
+# Navigation statique cohérente avant le bootstrap JS
+# -----------------------------------------------------------------------------
+static_nav = '''<nav class="nav">
+<a class="brand" href="/">Paranoir Studio</a>
+<div class="nav-mid">Stratégie &amp; déploiement</div>
+<div class="nav-right">
+<a class="nav-link" href="#approche">Approche</a>
+<a class="nav-link" href="#diagnostic">Diagnostic</a>
+<a class="nav-link" href="#projets">Offres</a>
+<a class="nav-link" href="#realisations">Réalisations</a>
+<a class="nav-cta" href="#diagnostic">Commencer mon diagnostic gratuit</a>
+</div>
+</nav>'''
 html = re.sub(r'<nav class="nav">.*?</nav>', static_nav, html, count=1, flags=re.S)
 
-# Footer final : aucun faux lien vers une page qui n'existe pas encore.
-new_footer = f'''<footer class="site-footer"><div class="footer-inner"><div class="footer-brand"><span class="footer-logo">Paranoir Studio</span><p class="footer-tagline">Du flou à l'évidence.</p></div><nav class="footer-nav" aria-label="Navigation footer"><a href="#approche">Approche</a><a href="#strategie">Stratégie</a><a href="#projets">Projets</a><a href="#realisations">Réalisations</a><span class="footer-upcoming">Formation <em>À venir</em></span><span class="footer-upcoming">Consulting <em>À venir</em></span><span class="footer-upcoming">Blog <em>À venir</em></span></nav><div class="footer-contact"><a href="mailto:victoria@paranoir.me">victoria@paranoir.me</a><a href="{whatsapp}" target="_blank" rel="noopener noreferrer">WhatsApp →</a><a href="{linkedin}" target="_blank" rel="noopener noreferrer">LinkedIn →</a><a href="{instagram}" target="_blank" rel="noopener noreferrer">Instagram →</a></div><div class="footer-legal-col"><span class="footer-copy">Paranoir Studio © | Tous droits réservés | 2026–2027</span><nav aria-label="Liens légaux" class="site-footer-links"><a href="/mentions-legales.html">Mentions légales</a><a href="/politique-confidentialite.html">Confidentialité</a><a href="/politique-cookies.html">Cookies</a><button class="footer-cookie-btn" id="manageCookies" type="button">Gérer les cookies</button></nav></div></div></footer>'''
+
+# -----------------------------------------------------------------------------
+# Footer : navigation principale, accompagnements spécifiques et contacts
+# -----------------------------------------------------------------------------
+new_footer = '''<footer class="site-footer">
+<div class="footer-inner footer-inner-v2">
+<div class="footer-brand"><span class="footer-logo">Paranoir Studio</span><p class="footer-tagline">Du flou à l'évidence.</p></div>
+<nav class="footer-v2-col footer-nav" aria-label="Navigation footer"><strong>Parcours</strong><a href="#approche">Approche</a><a href="#diagnostic">Diagnostic gratuit</a><a href="#projets">Offres</a><a href="#realisations">Réalisations</a><a href="#avis">Avis</a><a href="#studio">Studio</a><a href="#faq">FAQ</a></nav>
+<div class="footer-v2-col" aria-label="Accompagnements spécifiques"><strong>Accompagnements spécifiques</strong><span class="footer-v2-future">Sites pour gîtes et hébergements touristiques <small>à venir</small></span><a href="#ia">IA pour les entreprises</a><span class="footer-v2-future">Atelier Fiche Google <small>à venir</small></span><span class="footer-v2-future">Formation communication <small>à venir</small></span></div>
+<div class="footer-v2-col footer-contact"><strong>Contact</strong><a href="mailto:victoria@paranoir.me">victoria@paranoir.me</a><a href="''' + whatsapp + '''" target="_blank" rel="noopener noreferrer">WhatsApp →</a><a href="''' + linkedin + '''" target="_blank" rel="noopener noreferrer">LinkedIn →</a><a href="''' + instagram + '''" target="_blank" rel="noopener noreferrer">Instagram →</a></div>
+<div class="footer-v2-legal"><span>Paranoir Studio © | Tous droits réservés | 2026–2027</span><nav aria-label="Liens légaux" class="site-footer-links"><a href="/mentions-legales.html">Mentions légales</a><a href="/politique-confidentialite.html">Confidentialité</a><a href="/politique-cookies.html">Cookies</a><button class="footer-cookie-btn" id="manageCookies" type="button">Gérer les cookies</button></nav></div>
+</div>
+</footer>'''
 html = re.sub(r'<footer class="site-footer">.*?</footer>', new_footer, html, count=1, flags=re.S)
 
-# Les styles v3 sont présents dès le HTML, donc pas de flash de l'ancienne home.
+
+# -----------------------------------------------------------------------------
+# CSS critique des couches modernes chargé aussi sans JavaScript
+# -----------------------------------------------------------------------------
 html = ensure_stylesheet(html, "/assets/css/navigation-v2.css", "navigation-v2-css")
 html = ensure_stylesheet(html, "/assets/css/hero-v2.css", "hero-v2-css")
-html = ensure_stylesheet(html, "/assets/css/home-v3.css", "home-v3-css")
+html = ensure_stylesheet(html, "/assets/css/home-v3.css")
+html = ensure_stylesheet(html, "/assets/css/home-v3-qc.css")
 
-# Marqueur de build et cache-busting.
+# Marqueur de build et cache-busting des scripts publics.
 html = re.sub(r'<!-- build:[^>]* -->\s*', '', html, count=1)
-html = html.replace('<body class="site-home">', f'<!-- build:{version} -->\n<body class="site-home home-v3-ready">', 1)
-html = html.replace('<body class="site-home home-v3-ready">', f'<body class="site-home home-v3-ready">', 1)
-html = re.sub(r'(/assets/js/site\.min\.js)\?v=[^"\']+', lambda m: f"{m.group(1)}?v={version}", html)
-html = re.sub(r'(/assets/js/cookies\.min\.js)\?v=[^"\']+', lambda m: f"{m.group(1)}?v={version}", html)
+html = html.replace('<body class="site-home">', f'<!-- build:{version} -->\n<body class="site-home">', 1)
+html = re.sub(
+    r'(/assets/js/site\.min\.js)\?v=[^"\']+',
+    lambda match: f"{match.group(1)}?v={version}",
+    html,
+)
+html = re.sub(
+    r'(/assets/js/cookies\.min\.js)\?v=[^"\']+',
+    lambda match: f"{match.group(1)}?v={version}",
+    html,
+)
+
 index.write_text(html, encoding="utf-8")
 
-# Tous les assets chargés par le bootstrap portent aussi le SHA du build.
+# Le bootstrap reste le point d’entrée JS. On aligne son CTA et versionne ses assets.
 bootstrap = Path("assets/js/site.min.js")
 script = bootstrap.read_text(encoding="utf-8")
-script = re.sub(r'(/assets/(?:js|css)/[^?"\']+)\?v=[^"\']+', lambda m: f"{m.group(1)}?v={version}", script)
+script = script.replace("Faire le test gratuit", "Diagnostic gratuit")
+script = script.replace("Test de clarté", "Diagnostic gratuit")
+script = re.sub(
+    r'(/assets/(?:js|css)/[^?"\']+)\?v=[^"\']+',
+    lambda match: f"{match.group(1)}?v={version}",
+    script,
+)
 bootstrap.write_text(script, encoding="utf-8")
 
 print(f"Prepared deploy {version}")

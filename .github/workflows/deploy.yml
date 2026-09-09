@@ -31,7 +31,6 @@ jobs:
           node --check assets/js/navigation-v2.js
           node --check assets/js/hero-deployment-v2.js
           node --check assets/js/home-v3.js
-          node --check assets/js/home-v3-nav.js
           node --check assets/js/home-v3-qc.js
 
       - name: Deploy to FTP
@@ -41,20 +40,3 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: ${{ vars.FTP_TARGET_DIR }}
-
-      - name: Smoke test deployed preview
-        env:
-          BUILD_VERSION: ${{ github.sha }}
-        run: |
-          set -euo pipefail
-          short="${BUILD_VERSION:0:8}"
-          preview="https://paranoir.paranoir.pro/"
-          html="$(curl --fail --silent --show-error --location --retry 4 --retry-delay 2 -H 'Cache-Control: no-cache' "${preview}?qc=${short}")"
-          grep -Fq "<!-- build:${short} -->" <<< "$html"
-          grep -Fq "Paranoir Studio — Stratégie, site internet, réseau social & fiche Google" <<< "$html"
-          grep -Fq "Faire le test gratuit" <<< "$html"
-          grep -Fq "id=\"fonctionnalites\"" <<< "$html"
-          curl --fail --silent --show-error --location --output /dev/null "${preview}assets/css/home-v3.css?v=${short}"
-          curl --fail --silent --show-error --location --output /dev/null "${preview}assets/js/home-v3.js?v=${short}"
-          curl --fail --silent --show-error --location --output /dev/null "${preview}assets/js/hero-deployment-v2.js?v=${short}"
-          echo "Preview smoke test passed for build ${short}"

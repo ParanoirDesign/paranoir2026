@@ -24,6 +24,7 @@
     if (!points.length) return '';
 
     let d = `M ${points[0].x.toFixed(2)} ${points[0].y.toFixed(2)}`;
+
     for (let index = 0; index < points.length - 1; index += 1) {
       const start = points[index];
       const end = points[index + 1];
@@ -35,8 +36,10 @@
       const sag = Math.min(13, Math.max(5, length * 0.035)) * (index % 2 === 0 ? 1 : -1);
       const controlX = start.x + dx * 0.5 + perpendicularX * sag;
       const controlY = start.y + dy * 0.5 + perpendicularY * sag;
+
       d += ` Q ${controlX.toFixed(2)} ${controlY.toFixed(2)} ${end.x.toFixed(2)} ${end.y.toFixed(2)}`;
     }
+
     return d;
   };
 
@@ -53,7 +56,9 @@
     const twist = createSvgElement('path', 'detective-thread__twist');
     threadSvg.append(shadow, fiber, twist);
 
-    board.querySelector('.detective-pin-svg')?.remove();
+    const previousPins = board.querySelector('.detective-pin-svg');
+    previousPins?.remove();
+
     const pinSvg = createSvgElement('svg', 'detective-pin-svg');
     pinSvg.setAttribute('aria-hidden', 'true');
     pinSvg.setAttribute('preserveAspectRatio', 'none');
@@ -122,6 +127,38 @@
     });
   };
 
+  const loadHomeV3 = () => {
+    const version = encodeURIComponent(buildVersion);
+
+    if (!document.querySelector('link[href*="home-v3.css"]')) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = `/assets/css/home-v3.css?v=${version}`;
+      document.head.appendChild(link);
+    }
+
+    if (!document.querySelector('link[href*="home-v3-qc.css"]')) {
+      const qcLink = document.createElement('link');
+      qcLink.rel = 'stylesheet';
+      qcLink.href = `/assets/css/home-v3-qc.css?v=${version}`;
+      document.head.appendChild(qcLink);
+    }
+
+    if (!document.querySelector('script[src*="home-v3.js"]')) {
+      const script = document.createElement('script');
+      script.src = `/assets/js/home-v3.js?v=${version}`;
+      script.defer = true;
+      script.onload = () => {
+        if (document.querySelector('script[src*="home-v3-qc.js"]')) return;
+        const qcScript = document.createElement('script');
+        qcScript.src = `/assets/js/home-v3-qc.js?v=${version}`;
+        qcScript.defer = true;
+        document.head.appendChild(qcScript);
+      };
+      document.head.appendChild(script);
+    }
+  };
+
   const mountDeployment = () => {
     const hero = document.querySelector('.hero-v2');
     if (!hero) return;
@@ -149,12 +186,22 @@
     if (stamp) stamp.textContent = 'Message aligné';
 
     const evidence = Array.from(board.querySelectorAll('.evidence'));
-    evidence[evidence.length - 1]?.classList.add('evidence--hidden');
+    const deploymentCard = evidence[evidence.length - 1];
+    deploymentCard?.classList.add('evidence--hidden');
+
     mountDetectiveThread(board, evidence, panel);
   };
 
-  const boot = () => requestAnimationFrame(mountDeployment);
+  const boot = () => {
+    requestAnimationFrame(() => {
+      mountDeployment();
+      loadHomeV3();
+    });
+  };
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true });
-  else boot();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot, { once: true });
+  } else {
+    boot();
+  }
 })();
