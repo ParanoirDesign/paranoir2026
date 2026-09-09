@@ -25,6 +25,14 @@ jobs:
           python3 scripts/patch_site_runtime.py
           python3 scripts/verify_public_copy.py
 
+      - name: Check JavaScript syntax
+        run: |
+          node --check assets/js/site.min.js
+          node --check assets/js/navigation-v2.js
+          node --check assets/js/hero-deployment-v2.js
+          node --check assets/js/home-v3.js
+          node --check assets/js/home-v3-qc.js
+
       - name: Deploy to FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
