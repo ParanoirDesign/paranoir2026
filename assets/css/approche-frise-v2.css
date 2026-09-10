@@ -1,4 +1,5 @@
 /* Approche v2 — frise horizontale pleine largeur */
+.home-proof{display:none!important}
 .approach-frieze-v2{overflow:hidden;padding:clamp(78px,8vw,124px) 0!important}
 .approach-frieze-v2 .home-section__inner{width:min(1480px,calc(100% - 56px));margin:0 auto}
 .approach-frieze-v2__head{max-width:980px;margin:0 auto clamp(52px,6vw,82px);text-align:center}
