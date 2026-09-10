@@ -11,9 +11,10 @@
     const section = document.querySelector('.statement');
     if (!section || section.classList.contains('clarity-timeline-v1')) return;
 
+    section.id = 'approche';
     section.classList.add('clarity-timeline-v1');
     section.innerHTML = `
-      <div class="clarity-timeline__head reveal">
+      <div class="clarity-timeline__head">
         <p class="clarity-timeline__kicker">Le flou s’installe progressivement</p>
         <h2>Quand votre clarté se dégrade, <span class="highlight">les décisions se compliquent.</span></h2>
         <p class="clarity-timeline__lede">Tout ne se casse pas d’un coup. Votre activité évolue, vos messages s’écartent, puis comprendre votre offre demande de plus en plus d’effort.</p>
