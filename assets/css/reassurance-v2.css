@@ -60,20 +60,9 @@
   flex-wrap:wrap;
   align-items:baseline;
   gap:8px;
-  color:var(--ink);
+  color:var(--carmine);
   font-size:clamp(27px,2.55vw,37px);
   letter-spacing:-.04em;
-}
-
-.home-proof__item:nth-child(2) strong::first-letter{
-  color:var(--carmine);
-}
-
-.home-proof__item:nth-child(2) strong{
-  background:linear-gradient(90deg,var(--carmine) 0,var(--carmine) 54%,var(--ink) 54%,var(--ink) 100%);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
 }
 
 .home-proof__item:nth-child(3) strong{
