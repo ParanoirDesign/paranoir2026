@@ -81,7 +81,7 @@
   position:relative;
   z-index:2;
   width:100%;
-  overflow:hidden;
+  overflow:visible;
   border:0;
   background:transparent;
 }
@@ -150,13 +150,15 @@
   backdrop-filter:blur(16px) saturate(1.08);
   -webkit-backdrop-filter:blur(16px) saturate(1.08);
   box-shadow:0 15px 34px rgba(65,39,31,.085),inset 0 1px 0 rgba(255,255,255,.94);
-  transform:translateY(calc(var(--float-y,0px) + var(--active-lift,0px))) rotate(var(--tilt,0deg));
-  transition:border-color .28s ease,box-shadow .28s ease,background .28s ease;
-  will-change:transform,left;
+  transform:translateY(var(--float-y,0px)) rotate(var(--tilt,0deg));
+  transform-origin:center;
+  scale:1;
+  transition:scale .58s cubic-bezier(.22,.61,.36,1),border-color .42s ease,box-shadow .42s ease,background .42s ease;
+  will-change:transform,left,scale;
 }
 .clarity-timeline__card::after{display:none!important}
 .clarity-timeline__card.is-active{
-  --active-lift:-4px;
+  scale:1.035;
   border-color:rgba(177,18,53,.32);
   background:rgba(255,255,255,.82);
   box-shadow:0 20px 44px rgba(177,18,53,.11),inset 0 1px 0 rgba(255,255,255,.96);
@@ -260,8 +262,8 @@
   #approche.clarity-timeline-v1 .clarity-timeline__shell{padding:28px 24px 24px}
   #approche.clarity-timeline-v1 .clarity-timeline__head{grid-template-columns:1fr;gap:12px;margin-bottom:20px}
   #approche.clarity-timeline-v1 .clarity-timeline__lede{max-width:720px}
-  .clarity-timeline__viewport{overflow-x:auto;overflow-y:hidden;scrollbar-width:thin}
-  .clarity-timeline__stage{width:1080px;min-height:336px}
+  .clarity-timeline__viewport{overflow-x:auto;overflow-y:hidden;padding-block:22px;margin-block:-22px;scrollbar-width:thin}
+  .clarity-timeline__stage{width:1080px;min-height:336px;margin-inline:18px}
   .clarity-timeline__card{width:184px}
 }
 @media(max-width:620px){
@@ -275,6 +277,6 @@
 }
 @media(prefers-reduced-motion:reduce){
   .clarity-timeline__thread-strand{animation:none}
-  .clarity-timeline__card{transition:none;will-change:auto}
+  .clarity-timeline__card{transition:none;will-change:auto;scale:1}
   .clarity-timeline__traveller{will-change:auto}
 }
